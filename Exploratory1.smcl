@@ -1,0 +1,1072 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/Chings/Dropbox/Mike/CHIS/Exploratory1.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}20 Feb 2013, 20:08:18
+
+{com}. svyset [pw = rakedw0], jkrw(rakedw1 - rakedw80, multiplier(1)) vce(jack) mse
+{err}no variables defined
+{txt}{search r(111):r(111);}
+
+{com}. use "/Users/Chings/Dropbox/Mike/CHIS/chis09_child_stata/CHILD.dta"
+
+. svyset [pw = rakedw0], jkrw(rakedw1 - rakedw80, multiplier(1)) vce(jack) mse
+
+      {txt}pweight:{col 16}{res}rakedw0
+          {txt}VCE:{col 16}{res}jackknife
+          {txt}MSE:{col 16}{res}on
+{p2colset 1 16 16 2}{...}
+{txt}{p2col:{space 4}jkrweight:}{res}rakedw1 rakedw2 rakedw3 rakedw4 rakedw5 rakedw6 rakedw7 rakedw8 rakedw9 rakedw10 rakedw11 rakedw12 rakedw13 rakedw14 rakedw15 rakedw16 rakedw17 rakedw18 rakedw19 rakedw20 rakedw21 rakedw22 rakedw23 rakedw24 rakedw25 rakedw26 rakedw27 rakedw28 rakedw29 rakedw30 rakedw31 rakedw32 rakedw33 rakedw34 rakedw35 rakedw36 rakedw37 rakedw38 rakedw39 rakedw40 rakedw41 rakedw42 rakedw43 rakedw44 rakedw45 rakedw46 rakedw47 rakedw48 rakedw49 rakedw50 rakedw51 rakedw52 rakedw53 rakedw54 rakedw55 rakedw56 rakedw57 rakedw58 rakedw59 rakedw60 rakedw61 rakedw62 rakedw63 rakedw64 rakedw65 rakedw66 rakedw67 rakedw68 rakedw69 rakedw70 rakedw71 rakedw72 rakedw73 rakedw74 rakedw75 rakedw76 rakedw77 rakedw78 rakedw79 rakedw80{p_end}
+{p2colreset}{...}
+  {txt}Single unit:{col 16}{res}missing
+     {txt}Strata 1:{col 16}<one>
+         SU 1:{col 16}<observations>
+        FPC 1:{col 16}<zero>
+{p2colreset}{...}
+
+{com}. codebook peds
+
+{txt}{hline}
+{res}peds{right:RISK OF DEVELOPMENTAL DELAY}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:peds}
+
+{col 18}range:  [{res}-1{txt},{res}4{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}5{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   4843{col 33}      -1{col 43}{txt}INAPPLICABLE
+{col 24}{res}   1754{col 33}       1{col 43}{txt}NO RISK
+{col 24}{res}    800{col 33}       2{col 43}{txt}LOW RISK
+{col 24}{res}    756{col 33}       3{col 43}{txt}MODERATE RISK
+{col 24}{res}    792{col 33}       4{col 43}{txt}HIGH RISK
+
+{com}. codebook srage_p
+
+{txt}{hline}
+{res}srage_p{right:AGE (PUF RECODE)}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:sragef}, but label does not exist
+
+{col 18}range:  [{res}0{txt},{res}11{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}12{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 19}mean:{res}{col 26} 5.81699
+{txt}{col 15}std. dev:{res}{col 26} 3.50015
+
+{txt}{col 12}percentiles:{col 32}10%{col 42}25%{col 52}50%{col 62}75%{col 72}90%
+{res}{col 27}       1{col 37}       3{col 47}       6{col 57}       9{col 67}      11
+
+{com}. by peds, sort : summarize srage_p
+
+{txt}{hline}
+-> peds = INAPPLICABLE
+
+    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 5}srage_p {c |}{res}      4843    8.453644    2.284149          0         11
+
+{txt}{hline}
+-> peds = NO RISK
+
+    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 5}srage_p {c |}{res}      1754    2.355758    1.726939          0          5
+
+{txt}{hline}
+-> peds = LOW RISK
+
+    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 5}srage_p {c |}{res}       800     3.12125    1.434092          0          5
+
+{txt}{hline}
+-> peds = MODERATE RISK
+
+    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 5}srage_p {c |}{res}       756    2.818783    1.540694          0          5
+
+{txt}{hline}
+-> peds = HIGH RISK
+
+    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 5}srage_p {c |}{res}       792    2.944444    1.517515          0          5
+
+
+{com}. histogram srage_p, by(peds)
+{res}
+{com}. graph save Graph "/Users/Chings/Dropbox/Mike/CHIS/Figures/age by PEDS status.gph"
+{res}{txt}(file /Users/Chings/Dropbox/Mike/CHIS/Figures/age by PEDS status.gph saved)
+
+{com}. codebook cf46
+
+{txt}{hline}
+{res}cf46{right:PROF REFER TO DEVELOPMENT SPECIALIST}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:yesno}
+
+{col 18}range:  [{res}-1{txt},{res}2{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}3{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}    492{col 33}      -1{col 43}{txt}INAPPLICABLE
+{col 24}{res}    964{col 33}       1{col 43}{txt}YES
+{col 24}{res}   7489{col 33}       2{col 43}{txt}NO
+
+{com}. histogram srage_p, by(cf46)
+{res}
+{com}. graph save Graph "/Users/Chings/Dropbox/Mike/CHIS/Figures/age by refer to devo.gph"
+{res}{txt}(file /Users/Chings/Dropbox/Mike/CHIS/Figures/age by refer to devo.gph saved)
+
+{com}. codebook cf47
+
+{txt}{hline}
+{res}cf47{right:PROF REFER FOR SPEECH, LANGUAGE, HEARING}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:yesno}
+
+{col 18}range:  [{res}-1{txt},{res}2{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}3{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}    492{col 33}      -1{col 43}{txt}INAPPLICABLE
+{col 24}{res}   1496{col 33}       1{col 43}{txt}YES
+{col 24}{res}   6957{col 33}       2{col 43}{txt}NO
+
+{com}. tabulate cf46 cf47 if cf46 > 0 & cf47 > 0
+
+                      {txt}{c |}    PROF REFER FOR
+        PROF REFER TO {c |}   SPEECH, LANGUAGE,
+          DEVELOPMENT {c |}        HEARING
+           SPECIALIST {c |}       YES         NO {c |}     Total
+{hline 22}{c +}{hline 22}{c +}{hline 10}
+                  YES {c |}{res}       568        396 {txt}{c |}{res}       964 
+{txt}                   NO {c |}{res}       928      6,561 {txt}{c |}{res}     7,489 
+{txt}{hline 22}{c +}{hline 22}{c +}{hline 10}
+                Total {c |}{res}     1,496      6,957 {txt}{c |}{res}     8,453 
+
+
+{com}. tab cf46 peds if cf46 > 0 & peds > 0
+
+        {txt}PROF REFER TO {c |}
+          DEVELOPMENT {c |}         RISK OF DEVELOPMENTAL DELAY
+           SPECIALIST {c |}   NO RISK   LOW RISK  MODERATE   HIGH RISK {c |}     Total
+{hline 22}{c +}{hline 44}{c +}{hline 10}
+                  YES {c |}{res}        76         59        103        203 {txt}{c |}{res}       441 
+{txt}                   NO {c |}{res}     1,420        728        623        564 {txt}{c |}{res}     3,335 
+{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
+                Total {c |}{res}     1,496        787        726        767 {txt}{c |}{res}     3,776 
+
+
+{com}. tab cf47 peds if cf47 > 0 & peds > 0
+
+       {txt}PROF REFER FOR {c |}
+    SPEECH, LANGUAGE, {c |}         RISK OF DEVELOPMENTAL DELAY
+              HEARING {c |}   NO RISK   LOW RISK  MODERATE   HIGH RISK {c |}     Total
+{hline 22}{c +}{hline 44}{c +}{hline 10}
+                  YES {c |}{res}        88         73        155        239 {txt}{c |}{res}       555 
+{txt}                   NO {c |}{res}     1,408        714        571        528 {txt}{c |}{res}     3,221 
+{txt}{hline 22}{c +}{hline 44}{c +}{hline 10}
+                Total {c |}{res}     1,496        787        726        767 {txt}{c |}{res}     3,776 
+
+
+{com}. tab peds cf46 if cf46 > 0 & peds > 0
+
+              {txt}{c |}     PROF REFER TO
+      RISK OF {c |}      DEVELOPMENT
+DEVELOPMENTAL {c |}      SPECIALIST
+        DELAY {c |}       YES         NO {c |}     Total
+{hline 14}{c +}{hline 22}{c +}{hline 10}
+      NO RISK {c |}{res}        76      1,420 {txt}{c |}{res}     1,496 
+{txt}     LOW RISK {c |}{res}        59        728 {txt}{c |}{res}       787 
+{txt}MODERATE RISK {c |}{res}       103        623 {txt}{c |}{res}       726 
+{txt}    HIGH RISK {c |}{res}       203        564 {txt}{c |}{res}       767 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+        Total {c |}{res}       441      3,335 {txt}{c |}{res}     3,776 
+
+
+{com}. tab peds cf47 if cf47 > 0 & peds > 0
+
+              {txt}{c |}    PROF REFER FOR
+      RISK OF {c |}   SPEECH, LANGUAGE,
+DEVELOPMENTAL {c |}        HEARING
+        DELAY {c |}       YES         NO {c |}     Total
+{hline 14}{c +}{hline 22}{c +}{hline 10}
+      NO RISK {c |}{res}        88      1,408 {txt}{c |}{res}     1,496 
+{txt}     LOW RISK {c |}{res}        73        714 {txt}{c |}{res}       787 
+{txt}MODERATE RISK {c |}{res}       155        571 {txt}{c |}{res}       726 
+{txt}    HIGH RISK {c |}{res}       239        528 {txt}{c |}{res}       767 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+        Total {c |}{res}       555      3,221 {txt}{c |}{res}     3,776 
+
+
+{com}. tabulate cf46 cf47 if cf46 > 0 & cf47 > 0, row
+{txt}
+{c TLC}{hline 16}{c TRC}
+{c |} Key{col 18}{c |}
+{c LT}{hline 16}{c RT}
+{c |}{space 3}{it:frequency}{col 18}{c |}
+{c |}{space 1}{it:row percentage}{col 18}{c |}
+{c BLC}{hline 16}{c BRC}
+
+                      {c |}    PROF REFER FOR
+        PROF REFER TO {c |}   SPEECH, LANGUAGE,
+          DEVELOPMENT {c |}        HEARING
+           SPECIALIST {c |}       YES         NO {c |}     Total
+{hline 22}{c +}{hline 22}{c +}{hline 10}
+                  YES {c |}{res}       568        396 {txt}{c |}{res}       964 
+                      {txt}{c |}{res}     58.92      41.08 {txt}{c |}{res}    100.00 
+{txt}{hline 22}{c +}{hline 22}{c +}{hline 10}
+                   NO {c |}{res}       928      6,561 {txt}{c |}{res}     7,489 
+                      {txt}{c |}{res}     12.39      87.61 {txt}{c |}{res}    100.00 
+{txt}{hline 22}{c +}{hline 22}{c +}{hline 10}
+                Total {c |}{res}     1,496      6,957 {txt}{c |}{res}     8,453 
+                      {txt}{c |}{res}     17.70      82.30 {txt}{c |}{res}    100.00 
+
+
+{com}. tab peds cf46 if cf46 > 0 & peds > 0, row
+{txt}
+{c TLC}{hline 16}{c TRC}
+{c |} Key{col 18}{c |}
+{c LT}{hline 16}{c RT}
+{c |}{space 3}{it:frequency}{col 18}{c |}
+{c |}{space 1}{it:row percentage}{col 18}{c |}
+{c BLC}{hline 16}{c BRC}
+
+              {c |}     PROF REFER TO
+      RISK OF {c |}      DEVELOPMENT
+DEVELOPMENTAL {c |}      SPECIALIST
+        DELAY {c |}       YES         NO {c |}     Total
+{hline 14}{c +}{hline 22}{c +}{hline 10}
+      NO RISK {c |}{res}        76      1,420 {txt}{c |}{res}     1,496 
+              {txt}{c |}{res}      5.08      94.92 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+     LOW RISK {c |}{res}        59        728 {txt}{c |}{res}       787 
+              {txt}{c |}{res}      7.50      92.50 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+MODERATE RISK {c |}{res}       103        623 {txt}{c |}{res}       726 
+              {txt}{c |}{res}     14.19      85.81 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+    HIGH RISK {c |}{res}       203        564 {txt}{c |}{res}       767 
+              {txt}{c |}{res}     26.47      73.53 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+        Total {c |}{res}       441      3,335 {txt}{c |}{res}     3,776 
+              {txt}{c |}{res}     11.68      88.32 {txt}{c |}{res}    100.00 
+
+
+{com}. tab peds cf47 if cf47 > 0 & peds > 0, row
+{txt}
+{c TLC}{hline 16}{c TRC}
+{c |} Key{col 18}{c |}
+{c LT}{hline 16}{c RT}
+{c |}{space 3}{it:frequency}{col 18}{c |}
+{c |}{space 1}{it:row percentage}{col 18}{c |}
+{c BLC}{hline 16}{c BRC}
+
+              {c |}    PROF REFER FOR
+      RISK OF {c |}   SPEECH, LANGUAGE,
+DEVELOPMENTAL {c |}        HEARING
+        DELAY {c |}       YES         NO {c |}     Total
+{hline 14}{c +}{hline 22}{c +}{hline 10}
+      NO RISK {c |}{res}        88      1,408 {txt}{c |}{res}     1,496 
+              {txt}{c |}{res}      5.88      94.12 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+     LOW RISK {c |}{res}        73        714 {txt}{c |}{res}       787 
+              {txt}{c |}{res}      9.28      90.72 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+MODERATE RISK {c |}{res}       155        571 {txt}{c |}{res}       726 
+              {txt}{c |}{res}     21.35      78.65 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+    HIGH RISK {c |}{res}       239        528 {txt}{c |}{res}       767 
+              {txt}{c |}{res}     31.16      68.84 {txt}{c |}{res}    100.00 
+{txt}{hline 14}{c +}{hline 22}{c +}{hline 10}
+        Total {c |}{res}       555      3,221 {txt}{c |}{res}     3,776 
+              {txt}{c |}{res}     14.70      85.30 {txt}{c |}{res}    100.00 
+
+
+{com}. gen pedsHiRisk = .
+{txt}(8945 missing values generated)
+
+{com}. replace pedsHiRisk = 1 if peds = 4
+{err}invalid syntax
+{txt}{search r(198):r(198);}
+
+{com}. replace pedsHiRisk = 1 if peds == 4
+{txt}(792 real changes made)
+
+{com}. replace pedsHiRisk = 0 if peds > 0 & peds < 4
+{txt}(3310 real changes made)
+
+{com}. tab pedsHiRisk
+
+ {txt}pedsHiRisk {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      3,310       80.69       80.69
+{txt}          1 {c |}{res}        792       19.31      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      4,102      100.00
+
+{com}. logit cf46 pedsHiRisk srage_p srsex if cf46 > 0
+
+{txt}outcome does not vary; remember:
+                                  0 = negative outcome,
+        all other nonmissing values = positive outcome
+{search r(2000):r(2000);}
+
+{com}. generate cf46_2 = 2 - cf46
+
+. tab cf46_2
+
+     {txt}cf46_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      7,489       83.72       83.72
+{txt}          1 {c |}{res}        964       10.78       94.50
+{txt}          3 {c |}{res}        492        5.50      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,945      100.00
+
+{com}. replace cf46_2 = . if cf46_2 == 3
+{txt}(492 real changes made, 492 to missing)
+
+{com}. tab cf46_2
+
+     {txt}cf46_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      7,489       88.60       88.60
+{txt}          1 {c |}{res}        964       11.40      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,453      100.00
+
+{com}. logit cf46_2 pedsHiRisk srage_p srsex
+
+{res}{txt}Iteration 0:{space 3}log likelihood = {res:-1361.1749}  
+Iteration 1:{space 3}log likelihood = {res:-1284.9844}  
+Iteration 2:{space 3}log likelihood = {res:-1269.0292}  
+Iteration 3:{space 3}log likelihood = {res: -1268.995}  
+Iteration 4:{space 3}log likelihood = {res: -1268.995}  
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}      3776
+{txt}{col 51}LR chi2({res}3{txt}){col 67}= {res}    184.36
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}Log likelihood = {res} -1268.995{txt}{col 51}Pseudo R2{col 67}= {res}    0.0677
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}pedsHiRisk {c |}{col 14}{res}{space 2} 1.407775{col 26}{space 2} .1065278{col 37}{space 1}   13.22{col 46}{space 3}0.000{col 54}{space 4} 1.198984{col 67}{space 3} 1.616565
+{txt}{space 5}srage_p {c |}{col 14}{res}{space 2} .0783216{col 26}{space 2} .0357388{col 37}{space 1}    2.19{col 46}{space 3}0.028{col 54}{space 4} .0082748{col 67}{space 3} .1483683
+{txt}{space 7}srsex {c |}{col 14}{res}{space 2}-.2952518{col 26}{space 2} .1061354{col 37}{space 1}   -2.78{col 46}{space 3}0.005{col 54}{space 4}-.5032733{col 67}{space 3}-.0872303
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-2.256557{col 26}{space 2} .1996063{col 37}{space 1}  -11.31{col 46}{space 3}0.000{col 54}{space 4}-2.647778{col 67}{space 3}-1.865336
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. codebook srsex
+
+{txt}{hline}
+{res}srsex{right:GENDER}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:srsex}
+
+{col 18}range:  [{res}1{txt},{res}2{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}2{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   4637{col 33}       1{col 43}{txt}MALE
+{col 24}{res}   4308{col 33}       2{col 43}{txt}FEMALE
+
+{com}. generate male = 2 - srsex
+
+. logit cf46_2 pedsHiRisk srage_p male
+
+{res}{txt}Iteration 0:{space 3}log likelihood = {res:-1361.1749}  
+Iteration 1:{space 3}log likelihood = {res:-1284.9844}  
+Iteration 2:{space 3}log likelihood = {res:-1269.0292}  
+Iteration 3:{space 3}log likelihood = {res: -1268.995}  
+Iteration 4:{space 3}log likelihood = {res: -1268.995}  
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}      3776
+{txt}{col 51}LR chi2({res}3{txt}){col 67}= {res}    184.36
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}Log likelihood = {res} -1268.995{txt}{col 51}Pseudo R2{col 67}= {res}    0.0677
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}pedsHiRisk {c |}{col 14}{res}{space 2} 1.407775{col 26}{space 2} .1065278{col 37}{space 1}   13.22{col 46}{space 3}0.000{col 54}{space 4} 1.198984{col 67}{space 3} 1.616565
+{txt}{space 5}srage_p {c |}{col 14}{res}{space 2} .0783216{col 26}{space 2} .0357388{col 37}{space 1}    2.19{col 46}{space 3}0.028{col 54}{space 4} .0082748{col 67}{space 3} .1483683
+{txt}{space 8}male {c |}{col 14}{res}{space 2} .2952518{col 26}{space 2} .1061354{col 37}{space 1}    2.78{col 46}{space 3}0.005{col 54}{space 4} .0872303{col 67}{space 3} .5032733
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} -2.84706{col 26}{space 2} .1415221{col 37}{space 1}  -20.12{col 46}{space 3}0.000{col 54}{space 4}-3.124438{col 67}{space 3}-2.569682
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. logistic cf46_2 pedsHiRisk srage_p male
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}      3776
+{txt}{col 51}LR chi2({res}3{txt}){col 67}= {res}    184.36
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.0000
+{txt}Log likelihood = {res} -1268.995{txt}{col 51}Pseudo R2{col 67}= {res}    0.0677
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}pedsHiRisk {c |}{col 14}{res}{space 2} 4.086851{col 26}{space 2} .4353632{col 37}{space 1}   13.22{col 46}{space 3}0.000{col 54}{space 4} 3.316745{col 67}{space 3} 5.035764
+{txt}{space 5}srage_p {c |}{col 14}{res}{space 2}  1.08147{col 26}{space 2} .0386504{col 37}{space 1}    2.19{col 46}{space 3}0.028{col 54}{space 4} 1.008309{col 67}{space 3}  1.15994
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.343465{col 26}{space 2} .1425891{col 37}{space 1}    2.78{col 46}{space 3}0.005{col 54}{space 4} 1.091148{col 67}{space 3} 1.654127
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .0580146{col 26}{space 2} .0082104{col 37}{space 1}  -20.12{col 46}{space 3}0.000{col 54}{space 4} .0439616{col 67}{space 3} .0765599
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. codebook brthwk_p
+
+{txt}{hline}
+{res}brthwk_p{right:WEIGHT AT BIRTH - KILOGRAMS (PUF)}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}double{txt})
+{ralign 22:label}:  {res:wghtf}, but {res:173} nonmissing values are not labeled
+
+{col 18}range:  [{res}-9{txt},{res}4.99{txt}]{col 55}units:  {res}.01
+{col 10}{txt}unique values:  {res}174{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{ralign 23: examples:}{col 26}{res}2.81{col 32}{txt}
+{ralign 23: }{col 26}{res}3.18{col 32}{txt}
+{ralign 23: }{col 26}{res}3.46{col 32}{txt}
+{ralign 23: }{col 26}{res}3.8{col 32}{txt}
+
+{com}. summary brthwk_p
+{err}unrecognized command:  summary
+{txt}{search r(199):r(199);}
+
+{com}. sum?
+{err}variable ? not found
+{txt}{search r(111):r(111);}
+
+{com}. ?sum
+{err}unrecognized command:  ? invalid command name
+{txt}{search r(199):r(199);}
+
+{com}. db summary
+{err}{p 0 4 2}
+summary is not a command name
+or an abbreviation of a command name
+{p_end}
+{txt}{search r(199):r(199);}
+
+{com}. summarize brthwk_p
+
+{txt}    Variable {c |}       Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 56}
+{space 4}brthwk_p {c |}{res}      8945    2.667337    2.875762         -9       4.99
+
+{com}. hist brthwk_p
+{txt}(bin={res}39{txt}, start={res}-9{txt}, width={res}.35871795{txt})
+{res}
+{com}. replace brthwk_p = . if brthwk_p <0
+{txt}(491 real changes made, 491 to missing)
+
+{com}. hist brthwk_p
+{txt}(bin={res}39{txt}, start={res}.91{txt}, width={res}.10461538{txt})
+{res}
+{com}. codebook cd33
+
+{txt}{hline}
+{res}cd33{right:CHILD HAS PERSONAL DR AS MAIN PROVIDER}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:yesno}
+
+{col 18}range:  [{res}-1{txt},{res}2{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}3{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   7933{col 33}      -1{col 43}{txt}INAPPLICABLE
+{col 24}{res}    964{col 33}       1{col 43}{txt}YES
+{col 24}{res}     48{col 33}       2{col 43}{txt}NO
+
+{com}. codebook cd3
+
+{txt}{hline}
+{res}cd3{right:KIND OF PLACE MOST OFTEN TAKE CHILD FOR HEALTH CARE}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:cd3x}
+
+{col 18}range:  [{res}-1{txt},{res}94{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}7{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}    222{col 33}      -1{col 43}{txt}INAPPLICABLE
+{col 24}{res}   6366{col 33}       1{col 43}{txt}DOCTORS OFFICE/KAISER/OTHER HMO
+{col 24}{res}   2294{col 33}       2{col 43}{txt}CLINIC/HEALTH CENTER/HOSPITAL
+{col 43}CLINIC
+{col 24}{res}     27{col 33}       3{col 43}{txt}EMERGENCY ROOM
+{col 24}{res}     26{col 33}       4{col 43}{txt}OTHER HEALTH PROF (NO MD)/ALTERN
+{col 43}MED
+{col 24}{res}      4{col 33}      91{col 43}{txt}SOME OTHER PLACE
+{col 24}{res}      6{col 33}      94{col 43}{txt}NO ONE PLACE
+
+{com}. codebook cd1
+
+{txt}{hline}
+{res}cd1{right:HAS USUAL PLACE FOR CHILD'S HEALTH CARE}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:cd1x}
+
+{col 18}range:  [{res}1{txt},{res}5{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}5{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   7284{col 33}       1{col 43}{txt}YES
+{col 24}{res}    222{col 33}       2{col 43}{txt}NO
+{col 24}{res}   1139{col 33}       3{col 43}{txt}DOCTOR/HIS/HER DOCTOR
+{col 24}{res}    293{col 33}       4{col 43}{txt}KAISER
+{col 24}{res}      7{col 33}       5{col 43}{txt}MORE THAN ONE USUAL PLACE
+
+{com}. codebook povll
+
+{txt}{hline}
+{res}povll{right:POVERTY LEVEL}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:povllf}
+
+{col 18}range:  [{res}1{txt},{res}4{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}4{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   1653{col 33}       1{col 43}{txt}0-99% FPL
+{col 24}{res}   1634{col 33}       2{col 43}{txt}100-199% FPL
+{col 24}{res}   1186{col 33}       3{col 43}{txt}200-299% FPL
+{col 24}{res}   4472{col 33}       4{col 43}{txt}300% FPL AND ABOVE
+
+{com}. codebook insany
+
+{txt}{hline}
+{res}insany{right:ANY INS IN LAST 12 MOS}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:insanyf}
+
+{col 18}range:  [{res}1{txt},{res}3{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}3{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}    368{col 33}       1{col 43}{txt}CURRENTLY UNINSURED
+{col 24}{res}    246{col 33}       2{col 43}{txt}UNINS. ANY PAST 12 MO
+{col 24}{res}   8331{col 33}       3{col 43}{txt}INSURED ALL PAST 12 MO
+
+{com}. codebook ins
+
+{txt}{hline}
+{res}ins{right:CURRENTLY INSURED}
+{txt}{hline}
+
+{col 19}type:  numeric ({res}byte{txt})
+{ralign 22:label}:  {res:yesno_i}
+
+{col 18}range:  [{res}1{txt},{res}2{txt}]{col 55}units:  {res}1
+{col 10}{txt}unique values:  {res}2{col 51}{txt}missing .:  {res}0{txt}/{res}8945
+
+{txt}{col 13}tabulation:  Freq.   Numeric  Label
+{col 24}{res}   8577{col 33}       1{col 43}{txt}YES
+{col 24}{res}    368{col 33}       2{col 43}{txt}NO
+
+{com}. logit cf46 srage_p male if pedsHiRisk == 1
+
+{txt}outcome does not vary; remember:
+                                  0 = negative outcome,
+        all other nonmissing values = positive outcome
+{search r(2000):r(2000);}
+
+{com}. logit cf46_2 srage_p male if pedsHiRisk == 1
+
+{res}{txt}Iteration 0:{space 3}log likelihood = {res:-443.23597}  
+Iteration 1:{space 3}log likelihood = {res:-441.00462}  
+Iteration 2:{space 3}log likelihood = {res:-441.00063}  
+Iteration 3:{space 3}log likelihood = {res:-441.00063}  
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}       767
+{txt}{col 51}LR chi2({res}2{txt}){col 67}= {res}      4.47
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.1070
+{txt}Log likelihood = {res}-441.00063{txt}{col 51}Pseudo R2{col 67}= {res}    0.0050
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} .0899512{col 26}{space 2}  .057332{col 37}{space 1}    1.57{col 46}{space 3}0.117{col 54}{space 4}-.0224175{col 67}{space 3} .2023199
+{txt}{space 8}male {c |}{col 14}{res}{space 2} .2242378{col 26}{space 2} .1681318{col 37}{space 1}    1.33{col 46}{space 3}0.182{col 54}{space 4}-.1052945{col 67}{space 3} .5537701
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.432321{col 26}{space 2} .2188728{col 37}{space 1}   -6.54{col 46}{space 3}0.000{col 54}{space 4}-1.861304{col 67}{space 3}-1.003338
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. logistic cf46_2 srage_p male if pedsHiRisk == 1
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}       767
+{txt}{col 51}LR chi2({res}2{txt}){col 67}= {res}      4.47
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.1070
+{txt}Log likelihood = {res}-441.00063{txt}{col 51}Pseudo R2{col 67}= {res}    0.0050
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.094121{col 26}{space 2} .0627282{col 37}{space 1}    1.57{col 46}{space 3}0.117{col 54}{space 4} .9778319{col 67}{space 3}  1.22424
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.251369{col 26}{space 2} .2103949{col 37}{space 1}    1.33{col 46}{space 3}0.182{col 54}{space 4} .9000594{col 67}{space 3}   1.7398
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2387542{col 26}{space 2} .0522568{col 37}{space 1}   -6.54{col 46}{space 3}0.000{col 54}{space 4} .1554698{col 67}{space 3} .3666535
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. gen cd1_2 = .
+{txt}(8945 missing values generated)
+
+{com}. replace cd1_2 = 1 if cd1 == 1 | cd1 == 3 | cd1 == 4
+{txt}(8716 real changes made)
+
+{com}. replace cd1_2 = 0 if cd1 == 2 | cd1 ==5
+{txt}(229 real changes made)
+
+{com}. tab cd1_2
+
+      {txt}cd1_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}        229        2.56        2.56
+{txt}          1 {c |}{res}      8,716       97.44      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,945      100.00
+
+{com}. logistic cf46_2 srage_p male cd1_2 if pedsHiRisk == 1
+{res}
+{txt}Logistic regression{col 51}Number of obs{col 67}= {res}       767
+{txt}{col 51}LR chi2({res}3{txt}){col 67}= {res}      5.59
+{txt}{col 51}Prob > chi2{col 67}= {res}    0.1333
+{txt}Log likelihood = {res}-440.44049{txt}{col 51}Pseudo R2{col 67}= {res}    0.0063
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}      cf46_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      z{col 46}   P>|z|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.095707{col 26}{space 2} .0628135{col 37}{space 1}    1.59{col 46}{space 3}0.111{col 54}{space 4} .9792588{col 67}{space 3} 1.226002
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.248166{col 26}{space 2} .2099984{col 37}{space 1}    1.32{col 46}{space 3}0.188{col 54}{space 4} .8975557{col 67}{space 3} 1.735734
+{txt}{space 7}cd1_2 {c |}{col 14}{res}{space 2}  1.74903{col 26}{space 2} .9758748{col 37}{space 1}    1.00{col 46}{space 3}0.316{col 54}{space 4} .5859596{col 67}{space 3} 5.220677
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1381018{col 26}{space 2}   .08159{col 37}{space 1}   -3.35{col 46}{space 3}0.001{col 54}{space 4} .0433823{col 67}{space 3} .4396286
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cd46 srage_p male
+{txt}(running logistic on estimation sample)
+{err}variable cd46 not found
+an error occurred when svy executed logistic
+{txt}{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+{err}an error occurred when jackknife executed logistic
+{txt}{search r(111):r(111);}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cd46_2 srage_p male
+{txt}(running logistic on estimation sample)
+{err}variable cd46_2 not found
+an error occurred when svy executed logistic
+{txt}{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+{err}an error occurred when jackknife executed logistic
+{txt}{search r(111):r(111);}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cf46_2 srage_p male
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   2{txt},{res}     78{txt}){col 68}= {res}     4.28
+{txt}{col 49}Prob > F{col 68}= {res}   0.0172
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}      cf46_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.320413{col 26}{space 2} .1305421{col 37}{space 1}    2.81{col 46}{space 3}0.006{col 54}{space 4} 1.084544{col 67}{space 3}  1.60758
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.365011{col 26}{space 2}  .382062{col 37}{space 1}    1.11{col 46}{space 3}0.270{col 54}{space 4} .7819549{col 67}{space 3} 2.382815
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1230306{col 26}{space 2} .0455773{col 37}{space 1}   -5.66{col 46}{space 3}0.000{col 54}{space 4} .0588541{col 67}{space 3} .2571874
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cf46_2 srage_p male cd1_2
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   3{txt},{res}     77{txt}){col 68}= {res}     2.85
+{txt}{col 49}Prob > F{col 68}= {res}   0.0428
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}      cf46_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.319082{col 26}{space 2} .1324206{col 37}{space 1}    2.76{col 46}{space 3}0.007{col 54}{space 4} 1.080169{col 67}{space 3} 1.610837
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.363202{col 26}{space 2}  .382277{col 37}{space 1}    1.10{col 46}{space 3}0.273{col 54}{space 4} .7800966{col 67}{space 3} 2.382165
+{txt}{space 7}cd1_2 {c |}{col 14}{res}{space 2} .8258019{col 26}{space 2} .9973136{col 37}{space 1}   -0.16{col 46}{space 3}0.874{col 54}{space 4} .0746273{col 67}{space 3} 9.138066
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1484569{col 26}{space 2} .1885793{col 37}{space 1}   -1.50{col 46}{space 3}0.137{col 54}{space 4} .0118449{col 67}{space 3} 1.860666
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. tabulate cf46 cf47 if cf46 > 0 & cf47 > 0, row col
+{txt}
+{c TLC}{hline 19}{c TRC}
+{c |} Key{col 21}{c |}
+{c LT}{hline 19}{c RT}
+{c |}{space 5}{it:frequency}{col 21}{c |}
+{c |}{space 2}{it:row percentage}{col 21}{c |}
+{c |}{space 1}{it:column percentage}{col 21}{c |}
+{c BLC}{hline 19}{c BRC}
+
+                      {c |}    PROF REFER FOR
+        PROF REFER TO {c |}   SPEECH, LANGUAGE,
+          DEVELOPMENT {c |}        HEARING
+           SPECIALIST {c |}       YES         NO {c |}     Total
+{hline 22}{c +}{hline 22}{c +}{hline 10}
+                  YES {c |}{res}       568        396 {txt}{c |}{res}       964 
+                      {txt}{c |}{res}     58.92      41.08 {txt}{c |}{res}    100.00 
+                      {txt}{c |}{res}     37.97       5.69 {txt}{c |}{res}     11.40 
+{txt}{hline 22}{c +}{hline 22}{c +}{hline 10}
+                   NO {c |}{res}       928      6,561 {txt}{c |}{res}     7,489 
+                      {txt}{c |}{res}     12.39      87.61 {txt}{c |}{res}    100.00 
+                      {txt}{c |}{res}     62.03      94.31 {txt}{c |}{res}     88.60 
+{txt}{hline 22}{c +}{hline 22}{c +}{hline 10}
+                Total {c |}{res}     1,496      6,957 {txt}{c |}{res}     8,453 
+                      {txt}{c |}{res}     17.70      82.30 {txt}{c |}{res}    100.00 
+                      {txt}{c |}{res}    100.00     100.00 {txt}{c |}{res}    100.00 
+
+
+{com}. gen cf47_2 = 2 - cf47
+
+. replace cf47_2 = . if cf47_2 = 3
+{err}invalid syntax
+{txt}{search r(198):r(198);}
+
+{com}. replace cf47_2 = . if cf47_2 == 3
+{txt}(492 real changes made, 492 to missing)
+
+{com}. tab cf47_2
+
+     {txt}cf47_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      6,957       82.30       82.30
+{txt}          1 {c |}{res}      1,496       17.70      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,453      100.00
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cf47_2 srage_p male
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   2{txt},{res}     78{txt}){col 68}= {res}     5.58
+{txt}{col 49}Prob > F{col 68}= {res}   0.0054
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}      cf47_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.366531{col 26}{space 2} .1276946{col 37}{space 1}    3.34{col 46}{space 3}0.001{col 54}{space 4} 1.134598{col 67}{space 3} 1.645874
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.184568{col 26}{space 2} .2680332{col 37}{space 1}    0.75{col 46}{space 3}0.456{col 54}{space 4} .7550267{col 67}{space 3} 1.858481
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  .156837{col 26}{space 2}  .053026{col 37}{space 1}   -5.48{col 46}{space 3}0.000{col 54}{space 4} .0800173{col 67}{space 3} .3074063
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cf47_2 srage_p male cd1_2
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   3{txt},{res}     77{txt}){col 68}= {res}     4.49
+{txt}{col 49}Prob > F{col 68}= {res}   0.0059
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}      cf47_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.375382{col 26}{space 2} .1275735{col 37}{space 1}    3.44{col 46}{space 3}0.001{col 54}{space 4} 1.143515{col 67}{space 3} 1.654263
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.196154{col 26}{space 2} .2737937{col 37}{space 1}    0.78{col 46}{space 3}0.436{col 54}{space 4} .7584392{col 67}{space 3} 1.886486
+{txt}{space 7}cd1_2 {c |}{col 14}{res}{space 2} 3.107496{col 26}{space 2} 2.683274{col 37}{space 1}    1.31{col 46}{space 3}0.193{col 54}{space 4} .5571588{col 67}{space 3} 17.33174
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .0508858{col 26}{space 2}  .046315{col 37}{space 1}   -3.27{col 46}{space 3}0.002{col 54}{space 4} .0083139{col 67}{space 3} .3114506
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. gen referred = .
+{txt}(8945 missing values generated)
+
+{com}. replace referred = 1 if cf46_2 == 1 | cf47_2 == 1
+{txt}(1892 real changes made)
+
+{com}. replace referred = 0 if cf46_2 == 0 & cf47_2 == 0
+{txt}(6561 real changes made)
+
+{com}. tab referred
+
+   {txt}referred {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      6,561       77.62       77.62
+{txt}          1 {c |}{res}      1,892       22.38      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,453      100.00
+
+{com}. tab cf46_2
+
+     {txt}cf46_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      7,489       88.60       88.60
+{txt}          1 {c |}{res}        964       11.40      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,453      100.00
+
+{com}. tab cf47_2
+
+     {txt}cf47_2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}      6,957       82.30       82.30
+{txt}          1 {c |}{res}      1,496       17.70      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}      8,453      100.00
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic referred srage_p male
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   2{txt},{res}     78{txt}){col 68}= {res}     5.64
+{txt}{col 49}Prob > F{col 68}= {res}   0.0052
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}    referred{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.337752{col 26}{space 2} .1155892{col 37}{space 1}    3.37{col 46}{space 3}0.001{col 54}{space 4} 1.126376{col 67}{space 3} 1.588796
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.073406{col 26}{space 2} .2632735{col 37}{space 1}    0.29{col 46}{space 3}0.773{col 54}{space 4} .6587844{col 67}{space 3} 1.748981
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2458854{col 26}{space 2} .0754325{col 37}{space 1}   -4.57{col 46}{space 3}0.000{col 54}{space 4} .1335181{col 67}{space 3} .4528196
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic referred srage_p male cd1_2
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8920
+{txt}{col 49}Population size{col 68}={res}   6373681
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       767
+{txt}{col 49}Subpop. size{col 68}={res}    597053
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   3{txt},{res}     77{txt}){col 68}= {res}     3.78
+{txt}{col 49}Prob > F{col 68}= {res}   0.0139
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}    referred{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2}  1.33662{col 26}{space 2} .1162616{col 37}{space 1}    3.34{col 46}{space 3}0.001{col 54}{space 4} 1.124132{col 67}{space 3} 1.589273
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.072739{col 26}{space 2} .2638413{col 37}{space 1}    0.29{col 46}{space 3}0.776{col 54}{space 4} .6574819{col 67}{space 3} 1.750268
+{txt}{space 7}cd1_2 {c |}{col 14}{res}{space 2} .8386387{col 26}{space 2} .7434553{col 37}{space 1}   -0.20{col 46}{space 3}0.843{col 54}{space 4}   .14363{col 67}{space 3} 4.896711
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2920919{col 26}{space 2} .2671195{col 37}{space 1}   -1.35{col 46}{space 3}0.182{col 54}{space 4} .0473133{col 67}{space 3} 1.803248
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife, subpop(if pedsHiRisk == 1) : logistic cf47_2 srage_p male brthwk_p
+{txt}(running logistic on estimation sample)
+{p 0 6 0}
+Note: Some subpopulation observations were dropped during estimation.{txt} This is most likely because of missing values in the model variables.{txt} If there are insufficient observations to compute jackknife{txt} standard errors, consider changing the subpopulation to exclude{txt} these observations.
+{p_end}
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     8864
+{txt}{col 49}Population size{col 68}={res}   6334315
+{txt}{col 49}Subpop. no. of obs{col 68}={res}       711
+{txt}{col 49}Subpop. size{col 68}={res}    557687
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   3{txt},{res}     77{txt}){col 68}= {res}     5.11
+{txt}{col 49}Prob > F{col 68}= {res}   0.0028
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}      cf47_2{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.405036{col 26}{space 2} .1269468{col 37}{space 1}    3.76{col 46}{space 3}0.000{col 54}{space 4} 1.173773{col 67}{space 3} 1.681864
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.317078{col 26}{space 2} .3054078{col 37}{space 1}    1.19{col 46}{space 3}0.238{col 54}{space 4} .8301614{col 67}{space 3} 2.089588
+{txt}{space 4}brthwk_p {c |}{col 14}{res}{space 2}  .994632{col 26}{space 2} .1801772{col 37}{space 1}   -0.03{col 46}{space 3}0.976{col 54}{space 4} .6935362{col 67}{space 3} 1.426447
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1357108{col 26}{space 2} .1000077{col 37}{space 1}   -2.71{col 46}{space 3}0.008{col 54}{space 4} .0313034{col 67}{space 3} .5883514
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife : logistic referred srage_p male brthwk_p
+{txt}(running logistic on estimation sample)
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     7969
+{txt}{col 49}Population size{col 68}={res}   5608784
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   3{txt},{res}     77{txt}){col 68}= {res}    10.45
+{txt}{col 49}Prob > F{col 68}= {res}   0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}    referred{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.054031{col 26}{space 2} .0159699{col 37}{space 1}    3.47{col 46}{space 3}0.001{col 54}{space 4} 1.022718{col 67}{space 3} 1.086302
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.389816{col 26}{space 2} .1492497{col 37}{space 1}    3.07{col 46}{space 3}0.003{col 54}{space 4} 1.122346{col 67}{space 3} 1.721029
+{txt}{space 4}brthwk_p {c |}{col 14}{res}{space 2} .6642242{col 26}{space 2} .0572635{col 37}{space 1}   -4.75{col 46}{space 3}0.000{col 54}{space 4} .5594874{col 67}{space 3} .7885679
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .6324395{col 26}{space 2} .1679139{col 37}{space 1}   -1.73{col 46}{space 3}0.088{col 54}{space 4} .3728276{col 67}{space 3} 1.072828
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife : logistic referred srage_p male brthwk_p cd1_2
+{txt}(running logistic on estimation sample)
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     7969
+{txt}{col 49}Population size{col 68}={res}   5608784
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   4{txt},{res}     76{txt}){col 68}= {res}     8.44
+{txt}{col 49}Prob > F{col 68}= {res}   0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}    referred{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}srage_p {c |}{col 14}{res}{space 2} 1.054875{col 26}{space 2} .0160229{col 37}{space 1}    3.52{col 46}{space 3}0.001{col 54}{space 4}  1.02346{col 67}{space 3} 1.087255
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.392479{col 26}{space 2} .1492009{col 37}{space 1}    3.09{col 46}{space 3}0.003{col 54}{space 4} 1.125034{col 67}{space 3} 1.723501
+{txt}{space 4}brthwk_p {c |}{col 14}{res}{space 2} .6646916{col 26}{space 2} .0574357{col 37}{space 1}   -4.73{col 46}{space 3}0.000{col 54}{space 4}   .55966{col 67}{space 3} .7894347
+{txt}{space 7}cd1_2 {c |}{col 14}{res}{space 2} 1.405657{col 26}{space 2} .4714531{col 37}{space 1}    1.02{col 46}{space 3}0.313{col 54}{space 4} .7210215{col 67}{space 3} 2.740378
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .4501724{col 26}{space 2} .2021257{col 37}{space 1}   -1.78{col 46}{space 3}0.079{col 54}{space 4} .1841823{col 67}{space 3} 1.100297
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. svy jackknife : logistic referred pedsHiRisk srage_p male brthwk_p
+{txt}(running logistic on estimation sample)
+
+Jackknife replications ({res}80{txt})
+{hline 4}{c +}{hline 3} 1 {hline 3}{c +}{hline 3} 2 {hline 3}{c +}{hline 3} 3 {hline 3}{c +}{hline 3} 4 {hline 3}{c +}{hline 3} 5 
+..................................................    50
+..............................
+{res}
+{txt}Survey: Logistic regression
+
+{col 1}Number of strata{col 20}= {res}        1{txt}{col 49}Number of obs{col 68}= {res}     3594
+{txt}{col 49}Population size{col 68}={res}   2676949
+{txt}{col 49}Replications{col 68}= {res}       80
+{txt}{col 49}Design df{col 68}= {res}       79
+{txt}{col 49}F({res}   4{txt},{res}     76{txt}){col 68}= {res}    18.18
+{txt}{col 49}Prob > F{col 68}= {res}   0.0000
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 14}{c |}{col 26}   {help jackknife_mse##|_new:Jknife *}
+{col 1}    referred{col 14}{c |} Odds Ratio{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 2}pedsHiRisk {c |}{col 14}{res}{space 2} 3.756276{col 26}{space 2} .6749145{col 37}{space 1}    7.37{col 46}{space 3}0.000{col 54}{space 4} 2.626864{col 67}{space 3} 5.371274
+{txt}{space 5}srage_p {c |}{col 14}{res}{space 2}  1.15321{col 26}{space 2}  .057676{col 37}{space 1}    2.85{col 46}{space 3}0.006{col 54}{space 4} 1.043938{col 67}{space 3}  1.27392
+{txt}{space 8}male {c |}{col 14}{res}{space 2} 1.197956{col 26}{space 2} .2122405{col 37}{space 1}    1.02{col 46}{space 3}0.311{col 54}{space 4} .8419545{col 67}{space 3} 1.704484
+{txt}{space 4}brthwk_p {c |}{col 14}{res}{space 2} .6668977{col 26}{space 2} .0861205{col 37}{space 1}   -3.14{col 46}{space 3}0.002{col 54}{space 4} .5157375{col 67}{space 3} .8623622
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .3735278{col 26}{space 2} .1825781{col 37}{space 1}   -2.01{col 46}{space 3}0.047{col 54}{space 4} .1411852{col 67}{space 3} .9882271
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. exit, clear

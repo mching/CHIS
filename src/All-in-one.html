@@ -1,0 +1,3429 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>All-in-one.R</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<!-- Automatically generated by RStudio [12861c30b10411e1afa60800200c9a66] -->
+
+<h3>All-in-one.R</h3>
+
+<p>mching &mdash; <em>May 18, 2013, 7:20 AM</em></p>
+
+<pre><code class="r">#######################
+# CHIS All-in-one
+#######################
+
+
+# clear and load data
+rm(list=ls())
+library(ProjectTemplate)
+</code></pre>
+
+<pre><code>Loading required package: testthat
+</code></pre>
+
+<pre><code class="r">setwd(&quot;~/Dropbox/Mike/CHIS&quot;)
+load.project()
+</code></pre>
+
+<pre><code>Loading project configuration
+</code></pre>
+
+<pre><code>Autoloading helper functions
+</code></pre>
+
+<pre><code>Running helper script: helpers.R
+</code></pre>
+
+<pre><code>Autoloading data
+</code></pre>
+
+<pre><code>Loading data set: CHILD
+</code></pre>
+
+<pre><code>Munging data
+</code></pre>
+
+<pre><code>Running preprocessing script: 01-A.R
+</code></pre>
+
+<pre><code>Loading required package: survival
+</code></pre>
+
+<pre><code>Loading required package: splines
+</code></pre>
+
+<pre><code>Hmisc library by Frank E Harrell Jr
+
+Type library(help=&#39;Hmisc&#39;), ?Overview, or ?Hmisc.Overview&#39;) to see overall
+documentation.
+
+NOTE:Hmisc no longer redefines [.factor to drop unused levels when
+subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
+</code></pre>
+
+<pre><code>Attaching package: &#39;Hmisc&#39;
+</code></pre>
+
+<pre><code>The following object is masked from &#39;package:survival&#39;:
+
+untangle.specials
+</code></pre>
+
+<pre><code>The following object is masked from &#39;package:base&#39;:
+
+format.pval, round.POSIXt, trunc.POSIXt, units
+</code></pre>
+
+<pre><code>Attaching package: &#39;survey&#39;
+</code></pre>
+
+<pre><code>The following object is masked from &#39;package:Hmisc&#39;:
+
+deff
+</code></pre>
+
+<pre><code>The following object is masked from &#39;package:graphics&#39;:
+
+dotchart
+</code></pre>
+
+<pre><code>Warning: duplicated levels in factors are deprecated
+</code></pre>
+
+<pre><code class="r">
+################
+# Munge
+################
+
+# Munge for building variables
+
+library(Hmisc)
+library(survey)
+
+# Drop all kids older than 5 
+chis &lt;- chis[chis$srage.p &lt; 6, ]
+# chis &lt;- chis[chis$srage.p &gt; 0, ] ## Keep this line if you want to drop 0 yos
+samplesize &lt;- length(chis[,1])
+
+############
+# Generate a pedsHiRisk variable
+# No need to impute peds Inapplicables, this is done by Westat
+# Inapplicables
+############
+
+# table(chis$peds, useNA = &quot;ifany&quot;)
+chis$peds[chis$peds == &quot;INAPPLICABLE&quot;] &lt;- NA
+chis$peds &lt;- factor(chis$peds)  ## get rid of INAPPLICABLE category since there are 0 left
+peds.sample.size &lt;- sum(table(chis$peds))
+
+# Some commands commented out for testing out imputed data
+# table(chis$peds)
+# table(peds.i)
+# table(chis$peds, peds.i, useNA = &quot;ifany&quot;)
+# chis$peds.i &lt;- peds.i  ## attach peds.i to the chis dataset
+# rm(peds.i)
+
+# Generate pedsHiRisk variable that corresponds to high risk on the PEDS
+table(chis$peds, useNA = &quot;ifany&quot;)
+</code></pre>
+
+<pre><code>
+      NO RISK      LOW RISK MODERATE RISK     HIGH RISK          &lt;NA&gt; 
+         1754           800           756           792           161 
+</code></pre>
+
+<pre><code class="r">pedsHiRisk &lt;- rep(NA, samplesize)
+
+pedsHiRisk[chis$peds == &quot;HIGH RISK&quot;] &lt;- 1
+pedsHiRisk[chis$peds != &quot;HIGH RISK&quot;] &lt;- 0
+table(pedsHiRisk, useNA = &quot;ifany&quot;)
+</code></pre>
+
+<pre><code>pedsHiRisk
+   0    1 &lt;NA&gt; 
+3310  792  161 
+</code></pre>
+
+<pre><code class="r">
+pedsHiRisk &lt;- factor(pedsHiRisk, levels = c(0, 1), labels = c(&quot;No&quot;, &quot;Yes&quot;))
+chis$pedsHiRisk &lt;- pedsHiRisk  ## attach to the chis dataframe
+rm(pedsHiRisk)
+# svytotal(~pedsHiRisk, rchis, na.rm = T)
+# svytotal(~peds, design=rchis, na.rm=T)
+
+###############
+# cf46 Referral to developmental specialist
+###############
+
+# table(chis$cf46)
+
+devo.refer &lt;- chis$cf46
+table(devo.refer)
+</code></pre>
+
+<pre><code>devo.refer
+Not referred     Referred 
+        3335          441 
+</code></pre>
+
+<pre><code class="r">devo.refer[devo.refer == &quot;INAPPLICABLE&quot;] &lt;- NA
+devo.refer &lt;- factor(devo.refer)
+devo.refer &lt;- factor(as.numeric(devo.refer), levels = 2:1, labels = c(&quot;Not referred&quot;, &quot;Referred&quot;))
+chis$cf46 &lt;- devo.refer
+rm(devo.refer)
+
+table(chis$cf46, useNA = &quot;ifany&quot;)
+</code></pre>
+
+<pre><code>
+Not referred     Referred         &lt;NA&gt; 
+         441         3335          487 
+</code></pre>
+
+<pre><code class="r">devo.referred.sample.size &lt;- sum(table(chis$cf46))
+
+###############
+# Generate male variable
+###############
+
+# table(as.integer(chis$srsex))
+male &lt;- 2 - (as.integer(chis$srsex))
+# table(chis$male)
+male &lt;- factor(male, levels = c(0, 1), labels = c(&quot;Female&quot;, &quot;Male&quot;))
+chis$male &lt;- male
+rm(male)
+
+###############
+# Recode usual source of care variable
+###############
+table(chis$cd1)
+</code></pre>
+
+<pre><code>
+                      YES                        NO 
+                     3530                        80 
+    DOCTOR/HIS/HER DOCTOR                    KAISER 
+                      534                       116 
+MORE THAN ONE USUAL PLACE 
+                        3 
+</code></pre>
+
+<pre><code class="r">sum(table(chis$cd1))
+</code></pre>
+
+<pre><code>[1] 4263
+</code></pre>
+
+<pre><code class="r">chis$cd1 &lt;- factor(chis$cd1)
+cd1.2 &lt;- rep(NA, samplesize)
+cd1.2[chis$cd1 == &quot;NO&quot;] &lt;- 0
+cd1.2[chis$cd1 != &quot;NO&quot;] &lt;- 1
+table(cd1.2, useNA = &quot;ifany&quot;)
+</code></pre>
+
+<pre><code>cd1.2
+   0    1 
+  80 4183 
+</code></pre>
+
+<pre><code class="r">cd1.2 &lt;- factor(cd1.2, levels = c(0, 1), labels = c(&quot;No Usual Source&quot;, &quot;Has Usual Source&quot;))
+chis$cd1.2 &lt;- cd1.2
+table(chis$cd1.2)
+</code></pre>
+
+<pre><code>
+ No Usual Source Has Usual Source 
+              80             4183 
+</code></pre>
+
+<pre><code class="r">rm(cd1.2)
+# svyby(~pedsHiRisk, ~cd1.2, svymean, design = rchis)
+
+###############
+# Recode referral to speech, hearing, etc.
+###############
+
+# table(chis$cf47)
+speech.refer &lt;- chis$cf47
+speech.refer[speech.refer == &quot;INAPPLICABLE&quot;] &lt;- NA
+speech.refer &lt;- factor(speech.refer)
+table(speech.refer)
+</code></pre>
+
+<pre><code>speech.refer
+Not referred     Referred 
+        3221          555 
+</code></pre>
+
+<pre><code class="r">speech.refer &lt;- factor(as.numeric(speech.refer), levels = 2:1, labels = c(&quot;Not referred&quot;, &quot;Referred&quot;))
+chis$cf47 &lt;- speech.refer
+# chis$cf47 &lt;- factor(as.numeric(chis$cf47), levels = 2:1, labels = c(&quot;Not referred&quot;, &quot;Referred&quot;))
+# with(chis, table(cf46, cf47, useNA = &quot;ifany&quot;))
+rm(speech.refer)
+###############
+# Generate &quot;referred&quot; variable for any referral for development
+###############
+referred &lt;- rep(NA, samplesize)
+referred[chis$cf47 == &quot;Referred&quot; | chis$cf46 == &quot;Referred&quot;] &lt;- 1
+referred[chis$cf47 == &quot;Not referred&quot; &amp; chis$cf46 == &quot;Not referred&quot;] &lt;- 0
+referred &lt;- factor(referred, levels = c(0, 1), labels = c(&quot;No&quot;, &quot;Yes&quot;))
+chis$referred &lt;- referred 
+rm(referred)
+# table(chis$referred)
+# sum(table(chis$referred))
+
+###############
+# Generate maternal education variable
+# There is no maternal education available, only MKA (most knowledgeable
+# adult) or the Adult Respondent (aheduc)
+###############
+
+# cheduca vs. aheduc
+# with(chis, table(cheduca))
+# with(chis, table(aheduc))
+# with(chis, table(cheduca, cheduca, useNA = &quot;ifany&quot;))
+
+# sum(with(chis, table(cheduca, cheduca, useNA = &quot;ifany&quot;)))
+# sum(with(chis, table(aheduc)))
+# sum(with(chis, table(cheduca)))
+# It turns out that they are kind of the same but not quite overlapping
+# Need to look for how others handle maternal education
+
+###############
+# Generate race variable
+###############
+
+# Lots of choices
+
+# Census 2000 definition
+# table(chis$racecn.p)
+
+# UCLA CHPR definition
+chis$racehp2p &lt;- factor(chis$racehp2p)
+racehp2p &lt;- chis$racehp2p
+racehp2p[chis$racehp2p == &quot;AIAN&quot;] &lt;- &quot;PI/OTHER SINGLE/MULTIPLE RACE&quot;
+chis$racehp2p &lt;- racehp2p
+chis$racehp2p &lt;- factor(chis$racehp2p)
+levels(chis$racehp2p)
+</code></pre>
+
+<pre><code>[1] &quot;WHITE&quot;                         &quot;LATINO&quot;                       
+[3] &quot;ASIAN&quot;                         &quot;AFRICAN AMERICAN&quot;             
+[5] &quot;PI/OTHER SINGLE/MULTIPLE RACE&quot;
+</code></pre>
+
+<pre><code class="r">chis$racehp2p &lt;- relevel(chis$racehp2p, ref = 4)
+table(chis$racehp2p)
+</code></pre>
+
+<pre><code>
+             AFRICAN AMERICAN                         WHITE 
+                          140                          1948 
+                       LATINO                         ASIAN 
+                         1239                           617 
+PI/OTHER SINGLE/MULTIPLE RACE 
+                          319 
+</code></pre>
+
+<pre><code class="r">rm(racehp2p)
+
+# Also can make a white vs. non-white variable
+white &lt;- rep(NA, samplesize)
+white[chis$racehp2p == &quot;WHITE&quot;] &lt;- 1
+white[chis$racehp2p != &quot;WHITE&quot;] &lt;- 0
+table(white)
+</code></pre>
+
+<pre><code>white
+   0    1 
+2315 1948 
+</code></pre>
+
+<pre><code class="r">white &lt;- factor(white, levels = c(0, 1), labels = c(&quot;Not White&quot;, &quot;White&quot;))
+chis$white &lt;- white
+table(chis$white)
+</code></pre>
+
+<pre><code>
+Not White     White 
+     2315      1948 
+</code></pre>
+
+<pre><code class="r">rm(white)
+
+###############
+# Generate ethnicity (Hispanic) variable
+###############
+
+# FIX THIS NEXT
+
+# table(chis$srh.a)
+hispanic &lt;- chis$srh.a
+hispanic &lt;- factor(hispanic)
+table(hispanic, useNA = &quot;if&quot;)
+</code></pre>
+
+<pre><code>hispanic
+ADULT/HOUSEHOLD INFO NOT COLLECTED                                YES 
+                                11                               1556 
+                                NO 
+                              2696 
+</code></pre>
+
+<pre><code class="r">
+# Need to impute missing data here since 11 were not collected
+hispanic[hispanic == levels(hispanic)[1]] &lt;- NA
+hispanic &lt;- factor(hispanic)
+hispanic &lt;- impute(hispanic)
+
+table(hispanic, useNA = &quot;ifany&quot;)
+</code></pre>
+
+<pre><code>hispanic
+ YES   NO 
+1556 2707 
+</code></pre>
+
+<pre><code class="r">chis$srh.a.i &lt;- hispanic
+
+table(chis$srh.a.i)
+</code></pre>
+
+<pre><code>
+ YES   NO 
+1556 2707 
+</code></pre>
+
+<pre><code class="r">rm(hispanic)
+
+# with(chis, table(racehp2p, srh.a))
+
+###############
+# Generate poverty variable
+###############
+# table(chis$povll)
+chis$povll &lt;- factor(chis$povll)
+
+# levels(chis$povll)
+belowpovl &lt;- rep(NA, samplesize)
+belowpovl[as.numeric(chis$povll) == 1] &lt;- 1
+belowpovl[as.numeric(chis$povll) &gt; 1] &lt;- 0
+belowpovl &lt;- factor(belowpovl, levels = 0:1, labels = c(&quot;100% FPL or higher&quot;, &quot;Below 100% FPL&quot;))
+chis$belowpovl &lt;- belowpovl
+# table(chis$belowpovl)
+rm(belowpovl)
+
+###############
+# Clean birthweight variable
+###############
+# summary(chis$brthwk.p)
+# table(chis$brthwk.p == -9)
+# 179 individuals have -9 value
+chis$brthwk.p[chis$brthwk.p == -9] &lt;- NA
+# summary(chis$brthwk.p)
+# IMPUTE birthweight by median
+brthwk.p.impute &lt;- impute(chis$brthwk.p)
+# summary(brthwk.p.impute)
+chis$brthwk.p.i &lt;- brthwk.p.impute
+# par(mfrow = c(1,1))
+# hist(chis$brthwk.p.i)
+rm(brthwk.p.impute)
+
+###############
+# Clean insured variable
+# ins64 is type of current insurance coverage for &lt;65 yos
+###############
+# table(chis$ins64)
+chis$ins64 &lt;- factor(chis$ins64) # get rid of empty categories
+# table(chis$ins64)
+
+###############
+# Clean uninsured variable
+# uninsany
+###############
+# table(chis$uninsany)
+chis$uninsany &lt;- factor(chis$uninsany) # get rid of empty categories
+# table(chis$uninsany)
+# Collapse all and part into one category
+unins.ever &lt;- rep(NA, samplesize)
+unins.ever[chis$uninsany == levels(chis$uninsany)[1] | chis$uninsany == levels(chis$uninsany)[2]] &lt;- 1
+unins.ever[chis$uninsany == levels(chis$uninsany)[3]] &lt;- 0
+# table(unins.ever)
+unins.ever &lt;- factor(unins.ever, levels = c(0,1), labels = c(&quot;Never uninsured&quot;, &quot;Some or All Year uninsured&quot;))
+# table(unins.ever)
+chis$unins.ever &lt;- unins.ever
+table(chis$unins.ever, useNA = &quot;if&quot;)
+</code></pre>
+
+<pre><code>
+           Never uninsured Some or All Year uninsured 
+                      3994                        269 
+</code></pre>
+
+<pre><code class="r">rm(unins.ever)
+
+
+###############
+# survey specification of design
+###############
+rchis &lt;- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type=&quot;other&quot;)
+summary(rchis)
+</code></pre>
+
+<pre><code>Call: svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+with 80 replicates.
+Variables: 
+  [1] &quot;ca12&quot;       &quot;ca12a&quot;      &quot;ca12b&quot;      &quot;ca31&quot;       &quot;ca32&quot;      
+  [6] &quot;ca33&quot;       &quot;ca35&quot;       &quot;ca40&quot;       &quot;ca41&quot;       &quot;ca42&quot;      
+ [11] &quot;ca43&quot;       &quot;ca44&quot;       &quot;ca48&quot;       &quot;ca50&quot;       &quot;ca51&quot;      
+ [16] &quot;ca6&quot;        &quot;ca7&quot;        &quot;cc1&quot;        &quot;cc10&quot;       &quot;cc12&quot;      
+ [21] &quot;cc13&quot;       &quot;cc14&quot;       &quot;cc24&quot;       &quot;cc29&quot;       &quot;cc30&quot;      
+ [26] &quot;cc31&quot;       &quot;cc32&quot;       &quot;cc33&quot;       &quot;cc35&quot;       &quot;cc36&quot;      
+ [31] &quot;cc37&quot;       &quot;cc39&quot;       &quot;cc5&quot;        &quot;cd1&quot;        &quot;cd12&quot;      
+ [36] &quot;cd3&quot;        &quot;cd30&quot;       &quot;cd32&quot;       &quot;cd33&quot;       &quot;cd34&quot;      
+ [41] &quot;cd35&quot;       &quot;cd36&quot;       &quot;cd37&quot;       &quot;cd41&quot;       &quot;cd42&quot;      
+ [46] &quot;cd7&quot;        &quot;ce1&quot;        &quot;ce11&quot;       &quot;ce11a&quot;      &quot;ce11c&quot;     
+ [51] &quot;ce12&quot;       &quot;ce13&quot;       &quot;ce7&quot;        &quot;cf30&quot;       &quot;cf31&quot;      
+ [56] &quot;cf32&quot;       &quot;cf35&quot;       &quot;cf36&quot;       &quot;cf37&quot;       &quot;cf39&quot;      
+ [61] &quot;cf46&quot;       &quot;cf47&quot;       &quot;cf60&quot;       &quot;cf61&quot;       &quot;cf62&quot;      
+ [66] &quot;cf63&quot;       &quot;cg1&quot;        &quot;cg10&quot;       &quot;cg11&quot;       &quot;cg14&quot;      
+ [71] &quot;cg15&quot;       &quot;cg16&quot;       &quot;cg17&quot;       &quot;cg17a&quot;      &quot;cg18&quot;      
+ [76] &quot;cg19&quot;       &quot;cg2&quot;        &quot;cg20&quot;       &quot;cg21&quot;       &quot;cg22&quot;      
+ [81] &quot;cg23&quot;       &quot;cg24&quot;       &quot;cg25&quot;       &quot;cg26&quot;       &quot;cg28&quot;      
+ [86] &quot;cg29&quot;       &quot;cg30&quot;       &quot;cg31&quot;       &quot;cg32&quot;       &quot;cg34&quot;      
+ [91] &quot;cg37&quot;       &quot;cg39&quot;       &quot;cg3a&quot;       &quot;cg3b&quot;       &quot;cg3c&quot;      
+ [96] &quot;cg3d&quot;       &quot;cg3e&quot;       &quot;cg3f&quot;       &quot;cg3g&quot;       &quot;cg40&quot;      
+[101] &quot;cg41&quot;       &quot;cg42&quot;       &quot;cg43&quot;       &quot;cg5&quot;        &quot;cg6&quot;       
+[106] &quot;ch5&quot;        &quot;srsex&quot;      &quot;srtenr&quot;     &quot;srh&quot;        &quot;srw&quot;       
+[111] &quot;sraa&quot;       &quot;sras&quot;       &quot;srch&quot;       &quot;srkr&quot;       &quot;srph&quot;      
+[116] &quot;srvt&quot;       &quot;sraso&quot;      &quot;srai&quot;       &quot;srpi&quot;       &quot;sro&quot;       
+[121] &quot;srsex.a&quot;    &quot;ch18&quot;       &quot;sch.typ&quot;    &quot;insmd&quot;      &quot;inshf&quot;     
+[126] &quot;insem&quot;      &quot;inspr&quot;      &quot;insog&quot;      &quot;ihs&quot;        &quot;ins&quot;       
+[131] &quot;ins64&quot;      &quot;ins12m&quot;     &quot;uninsany&quot;   &quot;insany&quot;     &quot;eligprg3&quot;  
+[136] &quot;povll&quot;      &quot;aheduc&quot;     &quot;hhsmk&quot;      &quot;ur.bg&quot;      &quot;ur.tract&quot;  
+[141] &quot;agegrp.a&quot;   &quot;srh.a&quot;      &quot;racecn.a&quot;   &quot;racedo.a&quot;   &quot;racehp2a&quot;  
+[146] &quot;asian8&quot;     &quot;catribe&quot;    &quot;latin9tp&quot;   &quot;hghti.p&quot;    &quot;hghtm.p&quot;   
+[151] &quot;wghtp.p&quot;    &quot;wghtk.p&quot;    &quot;intvlang&quot;   &quot;langhome&quot;   &quot;astcur&quot;    
+[156] &quot;asts&quot;       &quot;astyr&quot;      &quot;brthwk.p&quot;   &quot;brthwp.p&quot;   &quot;yrus&quot;      
+[161] &quot;yrusf&quot;      &quot;yrusm&quot;      &quot;cntryf&quot;     &quot;cntrym&quot;     &quot;cntrys&quot;    
+[166] &quot;dnvst&quot;      &quot;doct.yr&quot;    &quot;usual&quot;      &quot;usual5tp&quot;   &quot;usoc&quot;      
+[171] &quot;cg3rc&quot;      &quot;citiz2.f&quot;   &quot;citiz2.m&quot;   &quot;citizen2&quot;   &quot;racecn.p&quot;  
+[176] &quot;cheduca&quot;    &quot;er&quot;         &quot;fv5day&quot;     &quot;acmdnum&quot;    &quot;racedo.p&quot;  
+[181] &quot;hhsize.p&quot;   &quot;peds&quot;       &quot;instype&quot;    &quot;famt4&quot;      &quot;povgwd.p&quot;  
+[186] &quot;povll2.p&quot;   &quot;rsn.unin&quot;   &quot;rsn.uni2&quot;   &quot;sdq&quot;        &quot;ur.clrt&quot;   
+[191] &quot;ur.clrt2&quot;   &quot;ur.omb&quot;     &quot;ur.ihs&quot;     &quot;ur.rhp&quot;     &quot;racehp2p&quot;  
+[196] &quot;asnhp2.p&quot;   &quot;srage.p&quot;    &quot;ca34.p&quot;     &quot;cb23.p&quot;     &quot;inst.12&quot;   
+[201] &quot;ai79&quot;       &quot;ai80&quot;       &quot;cf10a&quot;      &quot;cf14&quot;       &quot;cf1a&quot;      
+[206] &quot;cf2&quot;        &quot;cf21&quot;       &quot;ma1&quot;        &quot;ma3&quot;        &quot;puf.id&quot;    
+[211] &quot;ma2.p&quot;      &quot;rakedw0&quot;    &quot;pedsHiRisk&quot; &quot;male&quot;       &quot;cd1.2&quot;     
+[216] &quot;referred&quot;   &quot;white&quot;      &quot;srh.a.i&quot;    &quot;belowpovl&quot;  &quot;brthwk.p.i&quot;
+[221] &quot;unins.ever&quot;
+</code></pre>
+
+<pre><code class="r">
+#######################
+#######################
+# Univariate analyses
+# Outcome = cf46
+# Also check on associations with pedsHiRisk 
+# Can also rerun using outcome = cf46 and outcome = cf47
+#######################
+#######################
+
+#######################
+# Gender
+# variable = male
+#######################
+table(chis$male)
+</code></pre>
+
+<pre><code>
+Female   Male 
+  2035   2228 
+</code></pre>
+
+<pre><code class="r">svytotal(~male, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+maleFemale 1595089 16455
+maleMale   1660717 20365
+</code></pre>
+
+<pre><code class="r">svymean(~male, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+maleFemale 0.49 0.01
+maleMale   0.51 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~male + cf46, rchis)
+</code></pre>
+
+<pre><code>        cf46
+male     Not referred Referred
+  Female       158664  1455383
+  Male         215417  1426341
+</code></pre>
+
+<pre><code class="r">svyby(~male, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 maleFemale maleMale     se1     se2
+Not referred Not referred     0.4241   0.5759 0.03739 0.03739
+Referred         Referred     0.5050   0.4950 0.01102 0.01102
+</code></pre>
+
+<pre><code class="r">svychisq(~male + cf46, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + cf46, rchis, statistic = &quot;Chisq&quot;)
+X-squared = 11.35, df = 1, p-value = 0.05685
+</code></pre>
+
+<pre><code class="r">
+Table &lt;- svytable(~male + cf46, rchis)
+summary(Table)
+</code></pre>
+
+<pre><code>        cf46
+male     Not referred Referred
+  Female       158664  1455383
+  Male         215417  1426341
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + cf46, design = rchis, statistic = &quot;F&quot;)
+F = 3.627, ndf = 1, ddf = 79, p-value = 0.06049
+</code></pre>
+
+<pre><code class="r">prop.table(Table, 1)
+</code></pre>
+
+<pre><code>        cf46
+male     Not referred Referred
+  Female       0.0983   0.9017
+  Male         0.1312   0.8688
+</code></pre>
+
+<pre><code class="r">
+# Almost significant association found by gender
+# This differs from the referral to both devo and speech
+
+#######################
+# Birthweight
+# variable = brthwk.p.i
+#######################
+summary(chis$brthwk.p.i)
+</code></pre>
+
+<pre><code>
+ 187 values imputed to 3.35 
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.91    3.01    3.35    3.34    3.69    4.99 
+</code></pre>
+
+<pre><code class="r">svymean(~brthwk.p.i, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+brthwk.p.i 3.31 0.02
+</code></pre>
+
+<pre><code class="r">svyby(~brthwk.p.i, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 brthwk.p.i      se
+Not referred Not referred      3.201 0.08333
+Referred         Referred      3.331 0.01662
+</code></pre>
+
+<pre><code class="r">svyttest(brthwk.p.i ~ cf46, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  brthwk.p.i ~ cf46
+t = 1.526, df = 78, p-value = 0.1311
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+              0.13 
+</code></pre>
+
+<pre><code class="r">svyboxplot(brthwk.p.i ~ cf46, design = rchis, xlab = &quot;Referred to Dev&quot;, ylab = &quot;Birthweight (kg)&quot;, main = &quot;Birthweight by Referral Status&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r"># There is not a significant difference between the mean birthweights in development referred
+# This differs from the referred variable, possibly because of sample size
+
+#######################
+# Usual source of care
+# variable = cd1.2
+#######################
+table(chis$cd1.2)
+</code></pre>
+
+<pre><code>
+ No Usual Source Has Usual Source 
+              80             4183 
+</code></pre>
+
+<pre><code class="r">svytotal(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        total    SE
+cd1.2No Usual Source    58819 10377
+cd1.2Has Usual Source 3196987 19146
+</code></pre>
+
+<pre><code class="r">svymean(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        mean SE
+cd1.2No Usual Source  0.0181  0
+cd1.2Has Usual Source 0.9819  0
+</code></pre>
+
+<pre><code class="r">svytable(~cd1.2 + cf46, rchis)
+</code></pre>
+
+<pre><code>                  cf46
+cd1.2              Not referred Referred
+  No Usual Source          8458    53448
+  Has Usual Source       365624  2828277
+</code></pre>
+
+<pre><code class="r">svyby(~cd1.2, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 cd1.2No Usual Source cd1.2Has Usual Source
+Not referred Not referred              0.02261                0.9774
+Referred         Referred              0.01855                0.9815
+                  se1      se2
+Not referred 0.015789 0.015789
+Referred     0.003527 0.003527
+</code></pre>
+
+<pre><code class="r">svychisq(~cd1.2 + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~cd1.2 + cf46, rchis)
+F = 0.0757, ndf = 1, ddf = 79, p-value = 0.784
+</code></pre>
+
+<pre><code class="r"># No effect
+# Should we be looking at finer detail than has or doesn&#39;t have. Perhaps
+# having doctor or kaiser is better than ER
+
+#######################
+# Ethnicity
+# srh.a.i
+#######################
+table(chis$srh.a.i)
+</code></pre>
+
+<pre><code>
+ YES   NO 
+1556 2707 
+</code></pre>
+
+<pre><code class="r">svytotal(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+srh.a.iYES 1576142 38297
+srh.a.iNO  1679664 39011
+</code></pre>
+
+<pre><code class="r">svymean(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>            mean   SE
+srh.a.iYES 0.484 0.01
+srh.a.iNO  0.516 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~srh.a.i, rchis))
+</code></pre>
+
+<pre><code>            2.5 % 97.5 %
+srh.a.iYES 0.4613 0.5069
+srh.a.iNO  0.4931 0.5387
+</code></pre>
+
+<pre><code class="r">
+svytable(~srh.a.i + cf46, rchis)
+</code></pre>
+
+<pre><code>       cf46
+srh.a.i Not referred Referred
+    YES       158198  1379923
+    NO        215883  1501801
+</code></pre>
+
+<pre><code class="r">svyby(~srh.a.i, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 srh.a.iYES srh.a.iNO     se1     se2
+Not referred Not referred     0.4229    0.5771 0.04086 0.04086
+Referred         Referred     0.4789    0.5211 0.01377 0.01377
+</code></pre>
+
+<pre><code class="r">svychisq(~srh.a.i + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~srh.a.i + cf46, rchis)
+F = 1.573, ndf = 1, ddf = 79, p-value = 0.2134
+</code></pre>
+
+<pre><code class="r"># No univariate ethnicity effect
+
+#######################
+# Race
+# racehp2p
+#######################
+table(chis$racehp2p)
+</code></pre>
+
+<pre><code>
+             AFRICAN AMERICAN                         WHITE 
+                          140                          1948 
+                       LATINO                         ASIAN 
+                         1239                           617 
+PI/OTHER SINGLE/MULTIPLE RACE 
+                          319 
+</code></pre>
+
+<pre><code class="r">svytotal(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        total    SE
+racehp2pAFRICAN AMERICAN               153466 14233
+racehp2pWHITE                         1172443 35327
+racehp2pLATINO                        1281091 41261
+racehp2pASIAN                          322606 23191
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  326200 22629
+</code></pre>
+
+<pre><code class="r">svymean(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        mean   SE
+racehp2pAFRICAN AMERICAN              0.0471 0.00
+racehp2pWHITE                         0.3601 0.01
+racehp2pLATINO                        0.3935 0.01
+racehp2pASIAN                         0.0991 0.01
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE 0.1002 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~racehp2p + cf46, rchis)
+</code></pre>
+
+<pre><code>                               cf46
+racehp2p                        Not referred Referred
+  AFRICAN AMERICAN                     16096   146381
+  WHITE                               149288  1057735
+  LATINO                              129113  1123853
+  ASIAN                                39610   283007
+  PI/OTHER SINGLE/MULTIPLE RACE        39974   270749
+</code></pre>
+
+<pre><code class="r">summary(svytable(~racehp2p + cf46, rchis))
+</code></pre>
+
+<pre><code>                               cf46
+racehp2p                        Not referred Referred
+  AFRICAN AMERICAN                     16096   146381
+  WHITE                               149288  1057735
+  LATINO                              129113  1123853
+  ASIAN                                39610   283007
+  PI/OTHER SINGLE/MULTIPLE RACE        39974   270749
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + cf46, design = rchis, statistic = &quot;F&quot;)
+F = 0.4248, ndf = 3.254, ddf = 257.076, p-value = 0.7513
+</code></pre>
+
+<pre><code class="r">svyby(~racehp2p, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 racehp2pAFRICAN AMERICAN racehp2pWHITE
+Not referred Not referred                  0.04303        0.3991
+Referred         Referred                  0.05080        0.3670
+             racehp2pLATINO racehp2pASIAN
+Not referred         0.3451       0.10589
+Referred             0.3900       0.09821
+             racehp2pPI/OTHER SINGLE/MULTIPLE RACE      se1     se2
+Not referred                               0.10686 0.010583 0.04036
+Referred                                   0.09395 0.005373 0.01270
+                 se3      se4      se5
+Not referred 0.03900 0.021922 0.031622
+Referred     0.01399 0.007715 0.007869
+</code></pre>
+
+<pre><code class="r">svychisq(~racehp2p + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + cf46, rchis)
+F = 0.4248, ndf = 3.254, ddf = 257.076, p-value = 0.7513
+</code></pre>
+
+<pre><code class="r"># No significant univariate race association
+
+#######################
+# Just white race vs non-white
+# white
+#######################
+table(chis$white)
+</code></pre>
+
+<pre><code>
+Not White     White 
+     2315      1948 
+</code></pre>
+
+<pre><code class="r">svytotal(~white, rchis)
+</code></pre>
+
+<pre><code>                 total    SE
+whiteNot White 2083363 35711
+whiteWhite     1172443 35327
+</code></pre>
+
+<pre><code class="r">
+svymean(~white, rchis)
+</code></pre>
+
+<pre><code>               mean   SE
+whiteNot White 0.64 0.01
+whiteWhite     0.36 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~white + cf46, rchis)
+</code></pre>
+
+<pre><code>           cf46
+white       Not referred Referred
+  Not White       224793  1823989
+  White           149288  1057735
+</code></pre>
+
+<pre><code class="r">svyby(~white, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 whiteNot White whiteWhite     se1     se2
+Not referred Not referred         0.6009     0.3991 0.04036 0.04036
+Referred         Referred         0.6330     0.3670 0.01270 0.01270
+</code></pre>
+
+<pre><code class="r">svychisq(~white + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~white + cf46, rchis)
+F = 0.588, ndf = 1, ddf = 79, p-value = 0.4455
+</code></pre>
+
+<pre><code class="r"># No significant difference between referrals in white and nonwhite
+
+#######################
+# Type of insurance
+# ins64
+#######################
+table(chis$ins64)
+</code></pre>
+
+<pre><code>
+          UNINSURED MEDI-CAL (MEDICAID)                CHIP 
+                145                1331                 185 
+   EMPLOYMENT-BASED PRIVATELY PURCHASED        OTHER PUBLIC 
+               2245                 224                 133 
+</code></pre>
+
+<pre><code class="r">svytotal(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           total    SE
+ins64UNINSURED            132042 17756
+ins64MEDI-CAL (MEDICAID) 1214984 42332
+ins64CHIP                 171120 24405
+ins64EMPLOYMENT-BASED    1523739 40882
+ins64PRIVATELY PURCHASED  134021 12076
+ins64OTHER PUBLIC          79900 11056
+</code></pre>
+
+<pre><code class="r">svymean(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           mean   SE
+ins64UNINSURED           0.0406 0.01
+ins64MEDI-CAL (MEDICAID) 0.3732 0.01
+ins64CHIP                0.0526 0.01
+ins64EMPLOYMENT-BASED    0.4680 0.01
+ins64PRIVATELY PURCHASED 0.0412 0.00
+ins64OTHER PUBLIC        0.0245 0.00
+</code></pre>
+
+<pre><code class="r">svytable(~ins64 + cf46, rchis)
+</code></pre>
+
+<pre><code>                     cf46
+ins64                 Not referred Referred
+  UNINSURED                   9596   131968
+  MEDI-CAL (MEDICAID)       138282  1053209
+  CHIP                        6424   170228
+  EMPLOYMENT-BASED          193384  1343566
+  PRIVATELY PURCHASED         9765   117478
+  OTHER PUBLIC               16630    65275
+</code></pre>
+
+<pre><code class="r">svyby(~ins64, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 ins64UNINSURED ins64MEDI-CAL (MEDICAID)
+Not referred Not referred        0.02565                   0.3697
+Referred         Referred        0.04579                   0.3655
+             ins64CHIP ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED
+Not referred   0.01717                0.5170                  0.02610
+Referred       0.05907                0.4662                  0.04077
+             ins64OTHER PUBLIC      se1     se2      se3     se4      se5
+Not referred           0.04446 0.016947 0.03963 0.005833 0.03737 0.007804
+Referred               0.02265 0.006885 0.01527 0.008216 0.01353 0.004155
+                  se6
+Not referred 0.014074
+Referred     0.003892
+</code></pre>
+
+<pre><code class="r">svychisq(~ins64 + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~ins64 + cf46, rchis)
+F = 2.372, ndf = 3.461, ddf = 273.413, p-value = 0.06167
+</code></pre>
+
+<pre><code class="r"># Type of insurance is almost significantly associated by chisquare
+
+ref.ins64.univ &lt;- svyglm(referred ~ ins64, family = quasibinomial, rchis)
+summary(ref.ins64.univ)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ ins64, family = quasibinomial, rchis)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                2.8164     1.4533    1.94    0.056 .
+ins64MEDI-CAL (MEDICAID)  -0.2253     1.5031   -0.15    0.881  
+ins64CHIP                  1.0669     1.5282    0.70    0.487  
+ins64EMPLOYMENT-BASED     -0.3109     1.4334   -0.22    0.829  
+ins64PRIVATELY PURCHASED   0.0787     1.4648    0.05    0.957  
+ins64OTHER PUBLIC         -1.0932     1.5285   -0.72    0.477  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8668)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">exp(ref.ins64.univ$coef)
+</code></pre>
+
+<pre><code>             (Intercept) ins64MEDI-CAL (MEDICAID)                ins64CHIP 
+                 16.7169                   0.7983                   2.9064 
+   ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED        ins64OTHER PUBLIC 
+                  0.7328                   1.0818                   0.3351 
+</code></pre>
+
+<pre><code class="r"># Maybe too many categories
+# Might have to collapse some
+
+#######################
+# Lack of insurance
+# Look to see if current insurance vs this past year insurance has an effect
+# unins.ever
+#######################
+# unins.ever refers to whether a child has had insurance the whole year or not
+table(chis$unins.ever)
+</code></pre>
+
+<pre><code>
+           Never uninsured Some or All Year uninsured 
+                      3994                        269 
+</code></pre>
+
+<pre><code class="r">svytotal(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       total    SE
+unins.everNever uninsured            3004682 27163
+unins.everSome or All Year uninsured  251124 23755
+</code></pre>
+
+<pre><code class="r">svymean(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       mean   SE
+unins.everNever uninsured            0.9229 0.01
+unins.everSome or All Year uninsured 0.0771 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~unins.ever + cf46, rchis)
+</code></pre>
+
+<pre><code>                            cf46
+unins.ever                   Not referred Referred
+  Never uninsured                  355912  2627461
+  Some or All Year uninsured        18169   254264
+</code></pre>
+
+<pre><code class="r">svyby(~unins.ever, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 unins.everNever uninsured
+Not referred Not referred                    0.9514
+Referred         Referred                    0.9118
+             unins.everSome or All Year uninsured      se1      se2
+Not referred                              0.04857 0.019138 0.019138
+Referred                                  0.08823 0.009263 0.009263
+</code></pre>
+
+<pre><code class="r">svychisq(~unins.ever + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~unins.ever + cf46, rchis)
+F = 2.24, ndf = 1, ddf = 79, p-value = 0.1385
+</code></pre>
+
+<pre><code class="r"># Not significant at 0.05 level with uninsured kids being less likely
+# to have been referred
+
+# ref.unins.univ &lt;- svyglm(referred ~ unins.ever, family = quasibinomial, rchis)
+# summary(ref.unins.univ)
+# exp(ref.unins.univ$coef)
+# No longer significant although uninsured kids had half the odds of 
+# having been referred
+
+#######################
+# Poverty level
+# belowpovl
+#######################
+table(chis$belowpovl)
+</code></pre>
+
+<pre><code>
+100% FPL or higher     Below 100% FPL 
+              3349                914 
+</code></pre>
+
+<pre><code class="r">svytotal(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                              total    SE
+belowpovl100% FPL or higher 2367090 41594
+belowpovlBelow 100% FPL      888716 36737
+</code></pre>
+
+<pre><code class="r">svymean(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                             mean   SE
+belowpovl100% FPL or higher 0.727 0.01
+belowpovlBelow 100% FPL     0.273 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~belowpovl + cf46, rchis)
+</code></pre>
+
+<pre><code>                    cf46
+belowpovl            Not referred Referred
+  100% FPL or higher       290995  2066220
+  Below 100% FPL            83087   815504
+</code></pre>
+
+<pre><code class="r">svyby(~belowpovl, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 belowpovl100% FPL or higher
+Not referred Not referred                      0.7779
+Referred         Referred                      0.7170
+             belowpovlBelow 100% FPL     se1     se2
+Not referred                  0.2221 0.03371 0.03371
+Referred                      0.2830 0.01462 0.01462
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + cf46, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~belowpovl + cf46, rchis)
+F = 2.256, ndf = 1, ddf = 79, p-value = 0.137
+</code></pre>
+
+<pre><code class="r">
+#######################
+# Age
+# srage.p
+#######################
+summary(chis$srage.p)
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     1.0     3.0     2.6     4.0     5.0 
+</code></pre>
+
+<pre><code class="r">svymean(~srage.p, rchis)
+</code></pre>
+
+<pre><code>        mean   SE
+srage.p  2.5 0.03
+</code></pre>
+
+<pre><code class="r">svyby(~srage.p, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf46 srage.p      se
+Not referred Not referred   3.095 0.12037
+Referred         Referred   2.857 0.03012
+</code></pre>
+
+<pre><code class="r">svyttest(srage.p ~ cf46, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  srage.p ~ cf46
+t = -1.881, df = 78, p-value = 0.06364
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+           -0.2381 
+</code></pre>
+
+<pre><code class="r">model.age &lt;- svyglm(cf46 ~ srage.p, design = rchis, family = quasibinomial())
+summary(model.age)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf46 ~ srage.p, design = rchis, family = quasibinomial())
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   2.3686     0.1861   12.73   &lt;2e-16 ***
+srage.p      -0.1098     0.0586   -1.88    0.064 .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8658)
+
+Number of Fisher Scoring iterations: 5
+</code></pre>
+
+<pre><code class="r">
+#######################
+#######################
+# Univariate analyses
+# Outcome = cf47
+#######################
+#######################
+
+#######################
+# Gender
+# variable = male
+#######################
+table(chis$male)
+</code></pre>
+
+<pre><code>
+Female   Male 
+  2035   2228 
+</code></pre>
+
+<pre><code class="r">svytotal(~male, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+maleFemale 1595089 16455
+maleMale   1660717 20365
+</code></pre>
+
+<pre><code class="r">svymean(~male, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+maleFemale 0.49 0.01
+maleMale   0.51 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~male + cf47, rchis)
+</code></pre>
+
+<pre><code>        cf47
+male     Not referred Referred
+  Female       210673  1403374
+  Male         276310  1365449
+</code></pre>
+
+<pre><code class="r">svyby(~male, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 maleFemale maleMale     se1     se2
+Not referred Not referred     0.4326   0.5674 0.03756 0.03756
+Referred         Referred     0.5068   0.4932 0.01056 0.01056
+</code></pre>
+
+<pre><code class="r">svychisq(~male + cf47, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + cf47, rchis, statistic = &quot;Chisq&quot;)
+X-squared = 11.96, df = 1, p-value = 0.06888
+</code></pre>
+
+<pre><code class="r">
+Table &lt;- svytable(~male + cf47, rchis)
+summary(Table)
+</code></pre>
+
+<pre><code>        cf47
+male     Not referred Referred
+  Female       210673  1403374
+  Male         276310  1365449
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + cf47, design = rchis, statistic = &quot;F&quot;)
+F = 3.309, ndf = 1, ddf = 79, p-value = 0.07267
+</code></pre>
+
+<pre><code class="r">prop.table(Table, 1)
+</code></pre>
+
+<pre><code>        cf47
+male     Not referred Referred
+  Female       0.1305   0.8695
+  Male         0.1683   0.8317
+</code></pre>
+
+<pre><code class="r">
+# Almost significant association found by gender
+# This differs from the referral to both devo and speech
+
+#######################
+# Birthweight
+# variable = brthwk.p.i
+#######################
+summary(chis$brthwk.p.i)
+</code></pre>
+
+<pre><code>
+ 187 values imputed to 3.35 
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.91    3.01    3.35    3.34    3.69    4.99 
+</code></pre>
+
+<pre><code class="r">svymean(~brthwk.p.i, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+brthwk.p.i 3.31 0.02
+</code></pre>
+
+<pre><code class="r">svyby(~brthwk.p.i, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 brthwk.p.i      se
+Not referred Not referred      3.231 0.06483
+Referred         Referred      3.331 0.01615
+</code></pre>
+
+<pre><code class="r">svyttest(brthwk.p.i ~ cf47, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  brthwk.p.i ~ cf47
+t = 1.523, df = 78, p-value = 0.1317
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+           0.09995 
+</code></pre>
+
+<pre><code class="r">svyboxplot(brthwk.p.i ~ cf47, design = rchis, xlab = &quot;Referred to Dev&quot;, ylab = &quot;Birthweight (kg)&quot;, main = &quot;Birthweight by Referral Status&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r"># There is not a significant difference between the mean birthweights in development referred
+# This differs from the referred variable, possibly because of sample size
+
+#######################
+# Usual source of care
+# variable = cd1.2
+#######################
+table(chis$cd1.2)
+</code></pre>
+
+<pre><code>
+ No Usual Source Has Usual Source 
+              80             4183 
+</code></pre>
+
+<pre><code class="r">svytotal(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        total    SE
+cd1.2No Usual Source    58819 10377
+cd1.2Has Usual Source 3196987 19146
+</code></pre>
+
+<pre><code class="r">svymean(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        mean SE
+cd1.2No Usual Source  0.0181  0
+cd1.2Has Usual Source 0.9819  0
+</code></pre>
+
+<pre><code class="r">svytable(~cd1.2 + cf47, rchis)
+</code></pre>
+
+<pre><code>                  cf47
+cd1.2              Not referred Referred
+  No Usual Source          5833    56072
+  Has Usual Source       481150  2712751
+</code></pre>
+
+<pre><code class="r">svyby(~cd1.2, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 cd1.2No Usual Source cd1.2Has Usual Source
+Not referred Not referred              0.01198                0.9880
+Referred         Referred              0.02025                0.9797
+                  se1      se2
+Not referred 0.005872 0.005872
+Referred     0.004032 0.004032
+</code></pre>
+
+<pre><code class="r">svychisq(~cd1.2 + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~cd1.2 + cf47, rchis)
+F = 1.038, ndf = 1, ddf = 79, p-value = 0.3113
+</code></pre>
+
+<pre><code class="r"># No effect
+# Should we be looking at finer detail than has or doesn&#39;t have. Perhaps
+# having doctor or kaiser is better than ER
+
+#######################
+# Ethnicity
+# srh.a.i
+#######################
+table(chis$srh.a.i)
+</code></pre>
+
+<pre><code>
+ YES   NO 
+1556 2707 
+</code></pre>
+
+<pre><code class="r">svytotal(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+srh.a.iYES 1576142 38297
+srh.a.iNO  1679664 39011
+</code></pre>
+
+<pre><code class="r">svymean(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>            mean   SE
+srh.a.iYES 0.484 0.01
+srh.a.iNO  0.516 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~srh.a.i, rchis))
+</code></pre>
+
+<pre><code>            2.5 % 97.5 %
+srh.a.iYES 0.4613 0.5069
+srh.a.iNO  0.4931 0.5387
+</code></pre>
+
+<pre><code class="r">
+svytable(~srh.a.i + cf47, rchis)
+</code></pre>
+
+<pre><code>       cf47
+srh.a.i Not referred Referred
+    YES       226812  1311309
+    NO        260171  1457514
+</code></pre>
+
+<pre><code class="r">svyby(~srh.a.i, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 srh.a.iYES srh.a.iNO     se1     se2
+Not referred Not referred     0.4657    0.5343 0.04026 0.04026
+Referred         Referred     0.4736    0.5264 0.01404 0.01404
+</code></pre>
+
+<pre><code class="r">svychisq(~srh.a.i + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~srh.a.i + cf47, rchis)
+F = 0.0327, ndf = 1, ddf = 79, p-value = 0.857
+</code></pre>
+
+<pre><code class="r"># No univariate ethnicity effect
+
+#######################
+# Race
+# racehp2p
+#######################
+table(chis$racehp2p)
+</code></pre>
+
+<pre><code>
+             AFRICAN AMERICAN                         WHITE 
+                          140                          1948 
+                       LATINO                         ASIAN 
+                         1239                           617 
+PI/OTHER SINGLE/MULTIPLE RACE 
+                          319 
+</code></pre>
+
+<pre><code class="r">svytotal(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        total    SE
+racehp2pAFRICAN AMERICAN               153466 14233
+racehp2pWHITE                         1172443 35327
+racehp2pLATINO                        1281091 41261
+racehp2pASIAN                          322606 23191
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  326200 22629
+</code></pre>
+
+<pre><code class="r">svymean(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        mean   SE
+racehp2pAFRICAN AMERICAN              0.0471 0.00
+racehp2pWHITE                         0.3601 0.01
+racehp2pLATINO                        0.3935 0.01
+racehp2pASIAN                         0.0991 0.01
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE 0.1002 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~racehp2p + cf47, rchis)
+</code></pre>
+
+<pre><code>                               cf47
+racehp2p                        Not referred Referred
+  AFRICAN AMERICAN                     20404   142073
+  WHITE                               185407  1021617
+  LATINO                              187064  1065901
+  ASIAN                                43714   278903
+  PI/OTHER SINGLE/MULTIPLE RACE        50394   260329
+</code></pre>
+
+<pre><code class="r">summary(svytable(~racehp2p + cf47, rchis))
+</code></pre>
+
+<pre><code>                               cf47
+racehp2p                        Not referred Referred
+  AFRICAN AMERICAN                     20404   142073
+  WHITE                               185407  1021617
+  LATINO                              187064  1065901
+  ASIAN                                43714   278903
+  PI/OTHER SINGLE/MULTIPLE RACE        50394   260329
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + cf47, design = rchis, statistic = &quot;F&quot;)
+F = 0.1634, ndf = 3.534, ddf = 279.161, p-value = 0.9429
+</code></pre>
+
+<pre><code class="r">svyby(~racehp2p, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 racehp2pAFRICAN AMERICAN racehp2pWHITE
+Not referred Not referred                  0.04190        0.3807
+Referred         Referred                  0.05131        0.3690
+             racehp2pLATINO racehp2pASIAN
+Not referred         0.3841       0.08977
+Referred             0.3850       0.10073
+             racehp2pPI/OTHER SINGLE/MULTIPLE RACE      se1     se2
+Not referred                               0.10348 0.011840 0.03767
+Referred                                   0.09402 0.005705 0.01296
+                 se3      se4      se5
+Not referred 0.04168 0.017195 0.027294
+Referred     0.01543 0.008778 0.007768
+</code></pre>
+
+<pre><code class="r">svychisq(~racehp2p + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + cf47, rchis)
+F = 0.1634, ndf = 3.534, ddf = 279.161, p-value = 0.9429
+</code></pre>
+
+<pre><code class="r"># No significant univariate race association
+
+#######################
+# Just white race vs non-white
+# white
+#######################
+table(chis$white)
+</code></pre>
+
+<pre><code>
+Not White     White 
+     2315      1948 
+</code></pre>
+
+<pre><code class="r">svytotal(~white, rchis)
+</code></pre>
+
+<pre><code>                 total    SE
+whiteNot White 2083363 35711
+whiteWhite     1172443 35327
+</code></pre>
+
+<pre><code class="r">
+svymean(~white, rchis)
+</code></pre>
+
+<pre><code>               mean   SE
+whiteNot White 0.64 0.01
+whiteWhite     0.36 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~white + cf47, rchis)
+</code></pre>
+
+<pre><code>           cf47
+white       Not referred Referred
+  Not White       301576  1747206
+  White           185407  1021617
+</code></pre>
+
+<pre><code class="r">svyby(~white, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 whiteNot White whiteWhite     se1     se2
+Not referred Not referred         0.6193     0.3807 0.03767 0.03767
+Referred         Referred         0.6310     0.3690 0.01296 0.01296
+</code></pre>
+
+<pre><code class="r">svychisq(~white + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~white + cf47, rchis)
+F = 0.0881, ndf = 1, ddf = 79, p-value = 0.7674
+</code></pre>
+
+<pre><code class="r"># No significant difference between referrals in white and nonwhite
+
+#######################
+# Type of insurance
+# ins64
+#######################
+table(chis$ins64)
+</code></pre>
+
+<pre><code>
+          UNINSURED MEDI-CAL (MEDICAID)                CHIP 
+                145                1331                 185 
+   EMPLOYMENT-BASED PRIVATELY PURCHASED        OTHER PUBLIC 
+               2245                 224                 133 
+</code></pre>
+
+<pre><code class="r">svytotal(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           total    SE
+ins64UNINSURED            132042 17756
+ins64MEDI-CAL (MEDICAID) 1214984 42332
+ins64CHIP                 171120 24405
+ins64EMPLOYMENT-BASED    1523739 40882
+ins64PRIVATELY PURCHASED  134021 12076
+ins64OTHER PUBLIC          79900 11056
+</code></pre>
+
+<pre><code class="r">svymean(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           mean   SE
+ins64UNINSURED           0.0406 0.01
+ins64MEDI-CAL (MEDICAID) 0.3732 0.01
+ins64CHIP                0.0526 0.01
+ins64EMPLOYMENT-BASED    0.4680 0.01
+ins64PRIVATELY PURCHASED 0.0412 0.00
+ins64OTHER PUBLIC        0.0245 0.00
+</code></pre>
+
+<pre><code class="r">svytable(~ins64 + cf47, rchis)
+</code></pre>
+
+<pre><code>                     cf47
+ins64                 Not referred Referred
+  UNINSURED                  11536   130029
+  MEDI-CAL (MEDICAID)       204355   987137
+  CHIP                       13651   163000
+  EMPLOYMENT-BASED          228441  1308509
+  PRIVATELY PURCHASED        11278   115964
+  OTHER PUBLIC               17722    64184
+</code></pre>
+
+<pre><code class="r">svyby(~ins64, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 ins64UNINSURED ins64MEDI-CAL (MEDICAID)
+Not referred Not referred        0.02369                   0.4196
+Referred         Referred        0.04696                   0.3565
+             ins64CHIP ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED
+Not referred   0.02803                0.4691                  0.02316
+Referred       0.05887                0.4726                  0.04188
+             ins64OTHER PUBLIC      se1     se2      se3     se4      se5
+Not referred           0.03639 0.013542 0.04343 0.007714 0.03871 0.006741
+Referred               0.02318 0.007115 0.01460 0.008460 0.01465 0.004289
+                  se6
+Not referred 0.011368
+Referred     0.004054
+</code></pre>
+
+<pre><code class="r">svychisq(~ins64 + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~ins64 + cf47, rchis)
+F = 2.116, ndf = 3.812, ddf = 301.132, p-value = 0.08213
+</code></pre>
+
+<pre><code class="r"># Type of insurance is almost significantly associated by chisquare
+
+ref.ins64.univ &lt;- svyglm(referred ~ ins64, family = quasibinomial, rchis)
+summary(ref.ins64.univ)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ ins64, family = quasibinomial, rchis)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                2.8164     1.4533    1.94    0.056 .
+ins64MEDI-CAL (MEDICAID)  -0.2253     1.5031   -0.15    0.881  
+ins64CHIP                  1.0669     1.5282    0.70    0.487  
+ins64EMPLOYMENT-BASED     -0.3109     1.4334   -0.22    0.829  
+ins64PRIVATELY PURCHASED   0.0787     1.4648    0.05    0.957  
+ins64OTHER PUBLIC         -1.0932     1.5285   -0.72    0.477  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8668)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">exp(ref.ins64.univ$coef)
+</code></pre>
+
+<pre><code>             (Intercept) ins64MEDI-CAL (MEDICAID)                ins64CHIP 
+                 16.7169                   0.7983                   2.9064 
+   ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED        ins64OTHER PUBLIC 
+                  0.7328                   1.0818                   0.3351 
+</code></pre>
+
+<pre><code class="r"># Maybe too many categories
+# Might have to collapse some
+
+#######################
+# Lack of insurance
+# Look to see if current insurance vs this past year insurance has an effect
+# unins.ever
+#######################
+# unins.ever refers to whether a child has had insurance the whole year or not
+table(chis$unins.ever)
+</code></pre>
+
+<pre><code>
+           Never uninsured Some or All Year uninsured 
+                      3994                        269 
+</code></pre>
+
+<pre><code class="r">svytotal(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       total    SE
+unins.everNever uninsured            3004682 27163
+unins.everSome or All Year uninsured  251124 23755
+</code></pre>
+
+<pre><code class="r">svymean(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       mean   SE
+unins.everNever uninsured            0.9229 0.01
+unins.everSome or All Year uninsured 0.0771 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~unins.ever + cf47, rchis)
+</code></pre>
+
+<pre><code>                            cf47
+unins.ever                   Not referred Referred
+  Never uninsured                  460407  2522966
+  Some or All Year uninsured        26576   245857
+</code></pre>
+
+<pre><code class="r">svyby(~unins.ever, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 unins.everNever uninsured
+Not referred Not referred                    0.9454
+Referred         Referred                    0.9112
+             unins.everSome or All Year uninsured      se1      se2
+Not referred                              0.05457 0.016478 0.016478
+Referred                                  0.08879 0.009557 0.009557
+</code></pre>
+
+<pre><code class="r">svychisq(~unins.ever + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~unins.ever + cf47, rchis)
+F = 2.334, ndf = 1, ddf = 79, p-value = 0.1306
+</code></pre>
+
+<pre><code class="r"># Not significant at 0.05 level with uninsured kids being less likely
+# to have been referred
+
+# ref.unins.univ &lt;- svyglm(referred ~ unins.ever, family = quasibinomial, rchis)
+# summary(ref.unins.univ)
+# exp(ref.unins.univ$coef)
+# No longer significant although uninsured kids had half the odds of 
+# having been referred
+
+#######################
+# Poverty level
+# belowpovl
+#######################
+table(chis$belowpovl)
+</code></pre>
+
+<pre><code>
+100% FPL or higher     Below 100% FPL 
+              3349                914 
+</code></pre>
+
+<pre><code class="r">svytotal(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                              total    SE
+belowpovl100% FPL or higher 2367090 41594
+belowpovlBelow 100% FPL      888716 36737
+</code></pre>
+
+<pre><code class="r">svymean(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                             mean   SE
+belowpovl100% FPL or higher 0.727 0.01
+belowpovlBelow 100% FPL     0.273 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~belowpovl + cf47, rchis)
+</code></pre>
+
+<pre><code>                    cf47
+belowpovl            Not referred Referred
+  100% FPL or higher       342324  2014891
+  Below 100% FPL           144659   753933
+</code></pre>
+
+<pre><code class="r">svyby(~belowpovl, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 belowpovl100% FPL or higher
+Not referred Not referred                      0.7029
+Referred         Referred                      0.7277
+             belowpovlBelow 100% FPL     se1     se2
+Not referred                  0.2971 0.04353 0.04353
+Referred                      0.2723 0.01440 0.01440
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + cf47, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~belowpovl + cf47, rchis)
+F = 0.2938, ndf = 1, ddf = 79, p-value = 0.5893
+</code></pre>
+
+<pre><code class="r">
+#######################
+# Age
+# srage.p
+#######################
+summary(chis$srage.p)
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     1.0     3.0     2.6     4.0     5.0 
+</code></pre>
+
+<pre><code class="r">svymean(~srage.p, rchis)
+</code></pre>
+
+<pre><code>        mean   SE
+srage.p  2.5 0.03
+</code></pre>
+
+<pre><code class="r">svyby(~srage.p, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>                     cf47 srage.p      se
+Not referred Not referred   3.297 0.10165
+Referred         Referred   2.812 0.03388
+</code></pre>
+
+<pre><code class="r">svyttest(srage.p ~ cf47, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  srage.p ~ cf47
+t = -4.178, df = 78, p-value = 7.598e-05
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+           -0.4848 
+</code></pre>
+
+<pre><code class="r">model.age &lt;- svyglm(cf47 ~ srage.p, design = rchis, family = quasibinomial())
+summary(model.age)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf47 ~ srage.p, design = rchis, family = quasibinomial())
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   2.4332     0.2130   11.43  &lt; 2e-16 ***
+srage.p      -0.2274     0.0548   -4.15  8.5e-05 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8622)
+
+Number of Fisher Scoring iterations: 5
+</code></pre>
+
+<pre><code class="r">
+#######################
+#######################
+# Univariate analyses
+# Outcome = Referral
+# Also check on associations with pedsHiRisk 
+# Can also rerun using outcome = cd46 and outcome = cd 47
+#######################
+#######################
+
+#######################
+# Gender
+# variable = male
+#######################
+table(chis$male)
+</code></pre>
+
+<pre><code>
+Female   Male 
+  2035   2228 
+</code></pre>
+
+<pre><code class="r">svytotal(~male, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+maleFemale 1595089 16455
+maleMale   1660717 20365
+</code></pre>
+
+<pre><code class="r">svymean(~male, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+maleFemale 0.49 0.01
+maleMale   0.51 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~male + referred, rchis)
+</code></pre>
+
+<pre><code>        referred
+male          No     Yes
+  Female   80671 1533376
+  Male    149007 1492752
+</code></pre>
+
+<pre><code class="r">svyby(~male, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred maleFemale maleMale      se1      se2
+No        No     0.3512   0.6488 0.047576 0.047576
+Yes      Yes     0.5067   0.4933 0.009956 0.009956
+</code></pre>
+
+<pre><code class="r">svychisq(~male + referred, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + referred, rchis, statistic = &quot;Chisq&quot;)
+X-squared = 27.03, df = 1, p-value = 0.002756
+</code></pre>
+
+<pre><code class="r">
+Table &lt;- svytable(~male + referred, rchis)
+summary(Table)
+</code></pre>
+
+<pre><code>        referred
+male          No     Yes
+  Female   80671 1533376
+  Male    149007 1492752
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~male + referred, design = rchis, statistic = &quot;F&quot;)
+F = 8.963, ndf = 1, ddf = 79, p-value = 0.003677
+</code></pre>
+
+<pre><code class="r">
+# No association found by gender
+# Why is this? I think boys have higher risk than girls, but
+# maybe this is saying that boys are less likely to be referred?
+
+#######################
+# Birthweight
+# variable = brthwk.p.i
+#######################
+summary(chis$brthwk.p.i)
+</code></pre>
+
+<pre><code>
+ 187 values imputed to 3.35 
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.91    3.01    3.35    3.34    3.69    4.99 
+</code></pre>
+
+<pre><code class="r">svymean(~brthwk.p.i, rchis)
+</code></pre>
+
+<pre><code>           mean   SE
+brthwk.p.i 3.31 0.02
+</code></pre>
+
+<pre><code class="r">svyby(~brthwk.p.i, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred brthwk.p.i      se
+No        No      3.264 0.11967
+Yes      Yes      3.320 0.01594
+</code></pre>
+
+<pre><code class="r">svyttest(brthwk.p.i ~ referred, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  brthwk.p.i ~ referred
+t = 0.461, df = 78, p-value = 0.6461
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+            0.0555 
+</code></pre>
+
+<pre><code class="r">svyboxplot(brthwk.p.i ~ referred, design = rchis, xlab = &quot;Referred&quot;, ylab = &quot;Birthweight (kg)&quot;, main = &quot;Birthweight by Referral Status&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1"/> </p>
+
+<pre><code class="r"># There is a significant difference between the mean birthweights in referred
+# and non referred children
+
+#######################
+# Usual source of care
+# variable = cd1.2
+#######################
+table(chis$cd1.2)
+</code></pre>
+
+<pre><code>
+ No Usual Source Has Usual Source 
+              80             4183 
+</code></pre>
+
+<pre><code class="r">svytotal(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        total    SE
+cd1.2No Usual Source    58819 10377
+cd1.2Has Usual Source 3196987 19146
+</code></pre>
+
+<pre><code class="r">svymean(~cd1.2, rchis)
+</code></pre>
+
+<pre><code>                        mean SE
+cd1.2No Usual Source  0.0181  0
+cd1.2Has Usual Source 0.9819  0
+</code></pre>
+
+<pre><code class="r">svytable(~cd1.2 + referred, rchis)
+</code></pre>
+
+<pre><code>                  referred
+cd1.2                     No       Yes
+  No Usual Source      504.2   61401.1
+  Has Usual Source  229173.7 2964727.1
+</code></pre>
+
+<pre><code class="r">svyby(~cd1.2, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred cd1.2No Usual Source cd1.2Has Usual Source     se1     se2
+No        No             0.002195                0.9978 0.00310 0.00310
+Yes      Yes             0.020290                0.9797 0.00381 0.00381
+</code></pre>
+
+<pre><code class="r">svychisq(~cd1.2 + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~cd1.2 + referred, rchis)
+F = 3.796, ndf = 1, ddf = 79, p-value = 0.05491
+</code></pre>
+
+<pre><code class="r"># No effect
+# Should we be looking at finer detail than has or doesn&#39;t have. Perhaps
+# having doctor or kaiser is better than ER
+
+#######################
+# Ethnicity
+# srh.a.i
+#######################
+table(chis$srh.a.i)
+</code></pre>
+
+<pre><code>
+ YES   NO 
+1556 2707 
+</code></pre>
+
+<pre><code class="r">svytotal(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>             total    SE
+srh.a.iYES 1576142 38297
+srh.a.iNO  1679664 39011
+</code></pre>
+
+<pre><code class="r">svymean(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>            mean   SE
+srh.a.iYES 0.484 0.01
+srh.a.iNO  0.516 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~srh.a.i, rchis))
+</code></pre>
+
+<pre><code>            2.5 % 97.5 %
+srh.a.iYES 0.4613 0.5069
+srh.a.iNO  0.4931 0.5387
+</code></pre>
+
+<pre><code class="r">
+svytable(~srh.a.i + referred, rchis)
+</code></pre>
+
+<pre><code>       referred
+srh.a.i      No     Yes
+    YES   94422 1443700
+    NO   135256 1582428
+</code></pre>
+
+<pre><code class="r">svyby(~srh.a.i, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred srh.a.iYES srh.a.iNO     se1     se2
+No        No     0.4111    0.5889 0.05248 0.05248
+Yes      Yes     0.4771    0.5229 0.01338 0.01338
+</code></pre>
+
+<pre><code class="r">svychisq(~srh.a.i + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~srh.a.i + referred, rchis)
+F = 1.393, ndf = 1, ddf = 79, p-value = 0.2414
+</code></pre>
+
+<pre><code class="r"># No univariate ethnicity effect
+
+#######################
+# Race
+# racehp2p
+#######################
+table(chis$racehp2p)
+</code></pre>
+
+<pre><code>
+             AFRICAN AMERICAN                         WHITE 
+                          140                          1948 
+                       LATINO                         ASIAN 
+                         1239                           617 
+PI/OTHER SINGLE/MULTIPLE RACE 
+                          319 
+</code></pre>
+
+<pre><code class="r">svytotal(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        total    SE
+racehp2pAFRICAN AMERICAN               153466 14233
+racehp2pWHITE                         1172443 35327
+racehp2pLATINO                        1281091 41261
+racehp2pASIAN                          322606 23191
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  326200 22629
+</code></pre>
+
+<pre><code class="r">svymean(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>                                        mean   SE
+racehp2pAFRICAN AMERICAN              0.0471 0.00
+racehp2pWHITE                         0.3601 0.01
+racehp2pLATINO                        0.3935 0.01
+racehp2pASIAN                         0.0991 0.01
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE 0.1002 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~racehp2p + referred, rchis)
+</code></pre>
+
+<pre><code>                               referred
+racehp2p                             No     Yes
+  AFRICAN AMERICAN                10613  151865
+  WHITE                           93643 1113381
+  LATINO                          77956 1175009
+  ASIAN                           20582  302035
+  PI/OTHER SINGLE/MULTIPLE RACE   26884  283838
+</code></pre>
+
+<pre><code class="r">summary(svytable(~racehp2p + referred, rchis))
+</code></pre>
+
+<pre><code>                               referred
+racehp2p                             No     Yes
+  AFRICAN AMERICAN                10613  151865
+  WHITE                           93643 1113381
+  LATINO                          77956 1175009
+  ASIAN                           20582  302035
+  PI/OTHER SINGLE/MULTIPLE RACE   26884  283838
+
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + referred, design = rchis, statistic = &quot;F&quot;)
+F = 0.3669, ndf = 2.977, ddf = 235.157, p-value = 0.7754
+</code></pre>
+
+<pre><code class="r">svyby(~racehp2p, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred racehp2pAFRICAN AMERICAN racehp2pWHITE racehp2pLATINO
+No        No                  0.04621        0.4077         0.3394
+Yes      Yes                  0.05018        0.3679         0.3883
+    racehp2pASIAN racehp2pPI/OTHER SINGLE/MULTIPLE RACE      se1     se2
+No        0.08961                                0.1171 0.014867 0.05023
+Yes       0.09981                                0.0938 0.005114 0.01241
+        se3      se4      se5
+No  0.05158 0.025008 0.047652
+Yes 0.01391 0.007892 0.007714
+</code></pre>
+
+<pre><code class="r">svychisq(~racehp2p + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~racehp2p + referred, rchis)
+F = 0.3669, ndf = 2.977, ddf = 235.157, p-value = 0.7754
+</code></pre>
+
+<pre><code class="r"># No significant univariate race association
+
+#######################
+# Just white race vs non-white
+# white
+#######################
+table(chis$white)
+</code></pre>
+
+<pre><code>
+Not White     White 
+     2315      1948 
+</code></pre>
+
+<pre><code class="r">svytotal(~white, rchis)
+</code></pre>
+
+<pre><code>                 total    SE
+whiteNot White 2083363 35711
+whiteWhite     1172443 35327
+</code></pre>
+
+<pre><code class="r">svymean(~white, rchis)
+</code></pre>
+
+<pre><code>               mean   SE
+whiteNot White 0.64 0.01
+whiteWhite     0.36 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~white + referred, rchis)
+</code></pre>
+
+<pre><code>           referred
+white            No     Yes
+  Not White  136035 1912747
+  White       93643 1113381
+</code></pre>
+
+<pre><code class="r">svyby(~white, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred whiteNot White whiteWhite     se1     se2
+No        No         0.5923     0.4077 0.05023 0.05023
+Yes      Yes         0.6321     0.3679 0.01241 0.01241
+</code></pre>
+
+<pre><code class="r">svychisq(~white + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~white + referred, rchis)
+F = 0.6087, ndf = 1, ddf = 79, p-value = 0.4376
+</code></pre>
+
+<pre><code class="r"># No significant difference between referrals in white and nonwhite
+
+#######################
+# Type of insurance
+# ins64
+#######################
+table(chis$ins64)
+</code></pre>
+
+<pre><code>
+          UNINSURED MEDI-CAL (MEDICAID)                CHIP 
+                145                1331                 185 
+   EMPLOYMENT-BASED PRIVATELY PURCHASED        OTHER PUBLIC 
+               2245                 224                 133 
+</code></pre>
+
+<pre><code class="r">svytotal(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           total    SE
+ins64UNINSURED            132042 17756
+ins64MEDI-CAL (MEDICAID) 1214984 42332
+ins64CHIP                 171120 24405
+ins64EMPLOYMENT-BASED    1523739 40882
+ins64PRIVATELY PURCHASED  134021 12076
+ins64OTHER PUBLIC          79900 11056
+</code></pre>
+
+<pre><code class="r">svymean(~ins64, rchis)
+</code></pre>
+
+<pre><code>                           mean   SE
+ins64UNINSURED           0.0406 0.01
+ins64MEDI-CAL (MEDICAID) 0.3732 0.01
+ins64CHIP                0.0526 0.01
+ins64EMPLOYMENT-BASED    0.4680 0.01
+ins64PRIVATELY PURCHASED 0.0412 0.00
+ins64OTHER PUBLIC        0.0245 0.00
+</code></pre>
+
+<pre><code class="r">svytable(~ins64 + referred, rchis)
+</code></pre>
+
+<pre><code>                     referred
+ins64                      No     Yes
+  UNINSURED              7990  133574
+  MEDI-CAL (MEDICAID)   83058 1108434
+  CHIP                   3563  173089
+  EMPLOYMENT-BASED     115994 1420956
+  PRIVATELY PURCHASED    6667  120576
+  OTHER PUBLIC          12406   69500
+</code></pre>
+
+<pre><code class="r">svyby(~ins64, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred ins64UNINSURED ins64MEDI-CAL (MEDICAID) ins64CHIP
+No        No        0.03479                   0.3616   0.01551
+Yes      Yes        0.04414                   0.3663   0.05720
+    ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED ins64OTHER PUBLIC
+No                 0.5050                  0.02903           0.05401
+Yes                0.4696                  0.03984           0.02297
+         se1     se2      se3     se4      se5      se6
+No  0.027301 0.05037 0.006057 0.04641 0.009827 0.022032
+Yes 0.006583 0.01466 0.007807 0.01336 0.004048 0.003754
+</code></pre>
+
+<pre><code class="r">svychisq(~ins64 + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~ins64 + referred, rchis)
+F = 1.572, ndf = 3.118, ddf = 246.304, p-value = 0.1951
+</code></pre>
+
+<pre><code class="r"># Type of insurance is significantly associated by chisquare
+
+ref.ins64.univ &lt;- svyglm(referred ~ ins64, family = quasibinomial, rchis)
+summary(ref.ins64.univ)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ ins64, family = quasibinomial, rchis)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                2.8164     1.4533    1.94    0.056 .
+ins64MEDI-CAL (MEDICAID)  -0.2253     1.5031   -0.15    0.881  
+ins64CHIP                  1.0669     1.5282    0.70    0.487  
+ins64EMPLOYMENT-BASED     -0.3109     1.4334   -0.22    0.829  
+ins64PRIVATELY PURCHASED   0.0787     1.4648    0.05    0.957  
+ins64OTHER PUBLIC         -1.0932     1.5285   -0.72    0.477  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8668)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">exp(ref.ins64.univ$coef)
+</code></pre>
+
+<pre><code>             (Intercept) ins64MEDI-CAL (MEDICAID)                ins64CHIP 
+                 16.7169                   0.7983                   2.9064 
+   ins64EMPLOYMENT-BASED ins64PRIVATELY PURCHASED        ins64OTHER PUBLIC 
+                  0.7328                   1.0818                   0.3351 
+</code></pre>
+
+<pre><code class="r"># Maybe too many categories
+# Might have to collapse some
+
+#######################
+# Lack of insurance
+# Look to see if current insurance vs this past year insurance has an effect
+# unins.ever
+#######################
+# unins.ever refers to whether a child has had insurance the whole year or not
+table(chis$unins.ever)
+</code></pre>
+
+<pre><code>
+           Never uninsured Some or All Year uninsured 
+                      3994                        269 
+</code></pre>
+
+<pre><code class="r">svytotal(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       total    SE
+unins.everNever uninsured            3004682 27163
+unins.everSome or All Year uninsured  251124 23755
+</code></pre>
+
+<pre><code class="r">svymean(~unins.ever, rchis)
+</code></pre>
+
+<pre><code>                                       mean   SE
+unins.everNever uninsured            0.9229 0.01
+unins.everSome or All Year uninsured 0.0771 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~unins.ever + referred, rchis)
+</code></pre>
+
+<pre><code>                            referred
+unins.ever                        No     Yes
+  Never uninsured             217039 2766334
+  Some or All Year uninsured   12639  259795
+</code></pre>
+
+<pre><code class="r">svyby(~unins.ever, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred unins.everNever uninsured
+No        No                    0.9450
+Yes      Yes                    0.9141
+    unins.everSome or All Year uninsured      se1      se2
+No                               0.05503 0.028643 0.028643
+Yes                              0.08585 0.008764 0.008764
+</code></pre>
+
+<pre><code class="r">svychisq(~unins.ever + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~unins.ever + referred, rchis)
+F = 0.7533, ndf = 1, ddf = 79, p-value = 0.3881
+</code></pre>
+
+<pre><code class="r"># Just barely significant at 0.05 level with uninsured kids being less likely
+# to have been referred
+
+# ref.unins.univ &lt;- svyglm(referred ~ unins.ever, family = quasibinomial, rchis)
+# summary(ref.unins.univ)
+# exp(ref.unins.univ$coef)
+# No longer significant although uninsured kids had half the odds of 
+# having been referred
+
+#######################
+# Poverty level
+# belowpovl
+#######################
+table(chis$belowpovl)
+</code></pre>
+
+<pre><code>
+100% FPL or higher     Below 100% FPL 
+              3349                914 
+</code></pre>
+
+<pre><code class="r">svytotal(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                              total    SE
+belowpovl100% FPL or higher 2367090 41594
+belowpovlBelow 100% FPL      888716 36737
+</code></pre>
+
+<pre><code class="r">svymean(~belowpovl, rchis)
+</code></pre>
+
+<pre><code>                             mean   SE
+belowpovl100% FPL or higher 0.727 0.01
+belowpovlBelow 100% FPL     0.273 0.01
+</code></pre>
+
+<pre><code class="r">svytable(~belowpovl + referred, rchis)
+</code></pre>
+
+<pre><code>                    referred
+belowpovl                 No     Yes
+  100% FPL or higher  180687 2176528
+  Below 100% FPL       48991  849600
+</code></pre>
+
+<pre><code class="r">svyby(~belowpovl, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred belowpovl100% FPL or higher belowpovlBelow 100% FPL     se1
+No        No                      0.7867                  0.2133 0.04223
+Yes      Yes                      0.7192                  0.2808 0.01374
+        se2
+No  0.04223
+Yes 0.01374
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + referred, rchis)
+</code></pre>
+
+<pre><code>
+    Pearson&#39;s X^2: Rao &amp; Scott adjustment
+
+data:  svychisq(~belowpovl + referred, rchis)
+F = 1.972, ndf = 1, ddf = 79, p-value = 0.1642
+</code></pre>
+
+<pre><code class="r">
+#######################
+# Age
+# srage.p
+#######################
+summary(chis$srage.p)
+</code></pre>
+
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     1.0     3.0     2.6     4.0     5.0 
+</code></pre>
+
+<pre><code class="r">svymean(~srage.p, rchis)
+</code></pre>
+
+<pre><code>        mean   SE
+srage.p  2.5 0.03
+</code></pre>
+
+<pre><code class="r">svyby(~srage.p, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>    referred srage.p     se
+No        No   3.434 0.1566
+Yes      Yes   2.843 0.0297
+</code></pre>
+
+<pre><code class="r">svyttest(srage.p ~ referred, design = rchis)
+</code></pre>
+
+<pre><code>
+    Design-based t-test
+
+data:  srage.p ~ referred
+t = -3.637, df = 78, p-value = 0.0004937
+alternative hypothesis: true difference in mean is not equal to 0
+sample estimates:
+difference in mean 
+           -0.5909 
+</code></pre>
+
+<pre><code class="r">model.age &lt;- svyglm(referred ~ srage.p, design = rchis, family = quasibinomial())
+summary(model.age)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ srage.p, design = rchis, family = quasibinomial())
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   3.4626     0.2840   12.19   &lt;2e-16 ***
+srage.p      -0.2813     0.0823   -3.42    0.001 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8556)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">
+########################
+# Logistic Regression Models
+# 1 Outcome = referred to devo or speech, Predictor including peds
+# 2 Outcome = referred to devo, Predictor including peds
+# 3 Outcome = referred to speech, Predictor including peds
+# 4 Outcome = referred to devo or speech, pedsHiRisk only
+# 5 Outcome = referred to devo, pedsHiRisk only
+# 6 Outcome = referred to speech, pedsHiRisk only
+########################
+
+# GLM with univariates from univariates.R
+model &lt;- svyglm(referred ~ pedsHiRisk 
+                + male 
+                #                + cd1.2 
+                + srage.p 
+                + belowpovl 
+                + unins.ever 
+                + racehp2p 
+                #               + white
+                + srh.a.i
+                + brthwk.p.i
+                ,
+                design = rchis, family = quasibinomial)
+summary(model)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ pedsHiRisk + male + srage.p + belowpovl + 
+    unins.ever + racehp2p + srh.a.i + brthwk.p.i, design = rchis, 
+    family = quasibinomial)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                             3.4491     1.3202    2.61   0.0110
+pedsHiRiskYes                          -1.9070     0.2482   -7.68  8.2e-11
+maleMale                               -0.5119     0.2234   -2.29   0.0251
+srage.p                                -0.2684     0.0828   -3.24   0.0018
+belowpovlBelow 100% FPL                 0.4628     0.3324    1.39   0.1684
+unins.everSome or All Year uninsured    0.7857     0.8474    0.93   0.3571
+racehp2pWHITE                           0.1300     0.3960    0.33   0.7437
+racehp2pLATINO                         -0.1472     0.8092   -0.18   0.8562
+racehp2pASIAN                           0.7492     0.4930    1.52   0.1332
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.1535     0.9533   -0.16   0.8726
+srh.a.iNO                              -0.6355     0.7656   -0.83   0.4094
+brthwk.p.i                              0.3363     0.1797    1.87   0.0656
+
+(Intercept)                           *  
+pedsHiRiskYes                         ***
+maleMale                              *  
+srage.p                               ** 
+belowpovlBelow 100% FPL                  
+unins.everSome or All Year uninsured     
+racehp2pWHITE                            
+racehp2pLATINO                           
+racehp2pASIAN                            
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+srh.a.iNO                                
+brthwk.p.i                            .  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 1.023)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model$coef), exp(confint(model)))
+</code></pre>
+
+<pre><code>                                      OddsRatio   2.5 %   97.5 %
+(Intercept)                             31.4731 2.36708 418.4711
+pedsHiRiskYes                            0.1485 0.09131   0.2416
+maleMale                                 0.5993 0.38678   0.9287
+srage.p                                  0.7646 0.65013   0.8993
+belowpovlBelow 100% FPL                  1.5884 0.82800   3.0473
+unins.everSome or All Year uninsured     2.1940 0.41677  11.5499
+racehp2pWHITE                            1.1389 0.52407   2.4749
+racehp2pLATINO                           0.8631 0.17672   4.2157
+racehp2pASIAN                            2.1152 0.80492   5.5586
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8577 0.13240   5.5563
+srh.a.iNO                                0.5297 0.11812   2.3751
+brthwk.p.i                               1.3998 0.98421   1.9909
+</code></pre>
+
+<pre><code class="r">
+# GLM with univariates from univariates_referral_devo.R
+model2 &lt;- svyglm(cf46 ~ pedsHiRisk 
+                 + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = rchis, family = quasibinomial)
+summary(model2)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf46 ~ pedsHiRisk + male + srage.p + belowpovl + 
+    unins.ever + racehp2p + srh.a.i + brthwk.p.i, design = rchis, 
+    family = quasibinomial)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                            1.63641    0.93797    1.74   0.0856
+pedsHiRiskYes                         -1.58506    0.20002   -7.92    3e-11
+maleMale                              -0.26932    0.17661   -1.52   0.1319
+srage.p                               -0.09287    0.05807   -1.60   0.1144
+belowpovlBelow 100% FPL                0.42426    0.27875    1.52   0.1326
+unins.everSome or All Year uninsured   0.86265    0.55434    1.56   0.1243
+racehp2pWHITE                          0.00179    0.30496    0.01   0.9953
+racehp2pLATINO                        -0.16910    0.53538   -0.32   0.7531
+racehp2pASIAN                          0.39533    0.31800    1.24   0.2181
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE -0.20562    0.64775   -0.32   0.7519
+srh.a.iNO                             -0.42637    0.52146   -0.82   0.4164
+brthwk.p.i                             0.44152    0.16353    2.70   0.0087
+
+(Intercept)                           .  
+pedsHiRiskYes                         ***
+maleMale                                 
+srage.p                                  
+belowpovlBelow 100% FPL                  
+unins.everSome or All Year uninsured     
+racehp2pWHITE                            
+racehp2pLATINO                           
+racehp2pASIAN                            
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+srh.a.iNO                                
+brthwk.p.i                            ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8949)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+</code></pre>
+
+<pre><code>                                      OddsRatio  2.5 %  97.5 %
+(Intercept)                              5.1367 0.8171 32.2914
+pedsHiRiskYes                            0.2049 0.1385  0.3033
+maleMale                                 0.7639 0.5404  1.0799
+srage.p                                  0.9113 0.8133  1.0212
+belowpovlBelow 100% FPL                  1.5285 0.8851  2.6395
+unins.everSome or All Year uninsured     2.3694 0.7994  7.0227
+racehp2pWHITE                            1.0018 0.5511  1.8212
+racehp2pLATINO                           0.8444 0.2957  2.4114
+racehp2pASIAN                            1.4849 0.7962  2.7693
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8141 0.2287  2.8978
+srh.a.iNO                                0.6529 0.2349  1.8142
+brthwk.p.i                               1.5551 1.1286  2.1426
+</code></pre>
+
+<pre><code class="r">
+# GLM with univariates from univariates_referral_speech-only.R
+model3 &lt;- svyglm(cf47 ~ pedsHiRisk 
+                 + male 
+                 #                 + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = rchis, family = quasibinomial)
+summary(model3)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf47 ~ pedsHiRisk + male + srage.p + belowpovl + 
+    unins.ever + racehp2p + srh.a.i + brthwk.p.i, design = rchis, 
+    family = quasibinomial)
+
+Survey design:
+svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
+    (212 + (1:80))], weights = chis$rakedw0, combined.weights = TRUE, 
+    scale = 1, rscales = rep(1, 80), type = &quot;other&quot;)
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                             1.9542     0.7893    2.48  0.01579
+pedsHiRiskYes                          -1.4317     0.1990   -7.19  6.4e-10
+maleMale                               -0.2386     0.1819   -1.31  0.19402
+srage.p                                -0.2298     0.0574   -4.01  0.00016
+belowpovlBelow 100% FPL                -0.1126     0.2543   -0.44  0.65941
+unins.everSome or All Year uninsured    0.8548     0.4479    1.91  0.06055
+racehp2pWHITE                          -0.0980     0.3572   -0.27  0.78476
+racehp2pLATINO                         -0.0886     0.5067   -0.17  0.86168
+racehp2pASIAN                           0.4109     0.4006    1.03  0.30869
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.0228     0.5787   -0.04  0.96863
+srh.a.iNO                              -0.2592     0.3827   -0.68  0.50062
+brthwk.p.i                              0.3605     0.1379    2.61  0.01100
+
+(Intercept)                           *  
+pedsHiRiskYes                         ***
+maleMale                                 
+srage.p                               ***
+belowpovlBelow 100% FPL                  
+unins.everSome or All Year uninsured  .  
+racehp2pWHITE                            
+racehp2pLATINO                           
+racehp2pASIAN                            
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+srh.a.iNO                                
+brthwk.p.i                            *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.8763)
+
+Number of Fisher Scoring iterations: 5
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+</code></pre>
+
+<pre><code>                                      OddsRatio  2.5 %  97.5 %
+(Intercept)                              7.0583 1.5025 33.1585
+pedsHiRiskYes                            0.2389 0.1617  0.3529
+maleMale                                 0.7877 0.5514  1.1252
+srage.p                                  0.7947 0.7102  0.8893
+belowpovlBelow 100% FPL                  0.8935 0.5428  1.4708
+unins.everSome or All Year uninsured     2.3509 0.9772  5.6555
+racehp2pWHITE                            0.9067 0.4502  1.8262
+racehp2pLATINO                           0.9152 0.3390  2.4709
+racehp2pASIAN                            1.5081 0.6878  3.3070
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.9774 0.3144  3.0387
+srh.a.iNO                                0.7717 0.3645  1.6339
+brthwk.p.i                               1.4341 1.0944  1.8792
+</code></pre>
+
+<pre><code class="r">
+#################################################################
+# Subgroup analysis on pedsHiRisk yes and Referred vs not Referred
+#################################################################
+
+# Create a subgroup using subset on rchis
+pedsHiPop &lt;- subset(rchis, pedsHiRisk == &quot;Yes&quot;)
+
+# Sample subset tabulation
+svytotal(~male, pedsHiPop)
+</code></pre>
+
+<pre><code>            total    SE
+maleFemale 256471 20260
+maleMale   365385 29697
+</code></pre>
+
+<pre><code class="r">
+# The other method from Lumley suggests using svyby, giving same result
+svyby(~male, ~pedsHiRisk, svytotal, design = rchis)
+</code></pre>
+
+<pre><code>    pedsHiRisk maleFemale maleMale   se1   se2
+No          No    1270331  1203955 31392 34975
+Yes        Yes     256471   365385 20260 29697
+</code></pre>
+
+<pre><code class="r">
+# Very different results obtained from the original 
+svytable(~male+pedsHiRisk, rchis)
+</code></pre>
+
+<pre><code>        pedsHiRisk
+male          No     Yes
+  Female 1335840  269697
+  Male   1266041  384227
+</code></pre>
+
+<pre><code class="r">
+
+# Referred to either devo or speech
+
+model4 &lt;- svyglm(referred ~ # pedsHiRisk 
+                   + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 #               + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = pedsHiPop, family = quasibinomial)
+summary(model4)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = referred ~ +male + srage.p + belowpovl + unins.ever + 
+    racehp2p + srh.a.i + brthwk.p.i, design = pedsHiPop, family = quasibinomial)
+
+Survey design:
+subset(rchis, pedsHiRisk == &quot;Yes&quot;)
+
+Coefficients:
+                                       Estimate Std. Error t value
+(Intercept)                            3.586331   1.814516    1.98
+maleMale                              -0.494729   0.281136   -1.76
+srage.p                               -0.383573   0.107146   -3.58
+belowpovlBelow 100% FPL                0.814601   0.505211    1.61
+unins.everSome or All Year uninsured   1.698460   0.793806    2.14
+racehp2pWHITE                          0.000923   0.741906    0.00
+racehp2pLATINO                        -1.409158   1.633533   -0.86
+racehp2pASIAN                          0.593627   0.816429    0.73
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE -0.950847   1.532656   -0.62
+srh.a.iNO                             -1.697852   1.476797   -1.15
+brthwk.p.i                             0.166725   0.201648    0.83
+                                      Pr(&gt;|t|)    
+(Intercept)                            0.05210 .  
+maleMale                               0.08288 .  
+srage.p                                0.00063 ***
+belowpovlBelow 100% FPL                0.11144    
+unins.everSome or All Year uninsured   0.03592 *  
+racehp2pWHITE                          0.99901    
+racehp2pLATINO                         0.39132    
+racehp2pASIAN                          0.46962    
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  0.53704    
+srh.a.iNO                              0.25424    
+brthwk.p.i                             0.41120    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.9831)
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model4$coef), exp(confint(model4)))
+</code></pre>
+
+<pre><code>                                      OddsRatio    2.5 %    97.5 %
+(Intercept)                             36.1014 1.030397 1264.8610
+maleMale                                 0.6097 0.351430    1.0579
+srage.p                                  0.6814 0.552349    0.8407
+belowpovlBelow 100% FPL                  2.2583 0.838959    6.0787
+unins.everSome or All Year uninsured     5.4655 1.153301   25.9013
+racehp2pWHITE                            1.0009 0.233824    4.2846
+racehp2pLATINO                           0.2443 0.009944    6.0045
+racehp2pASIAN                            1.8105 0.365480    8.9692
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.3864 0.019163    7.7920
+srh.a.iNO                                0.1831 0.010129    3.3089
+brthwk.p.i                               1.1814 0.795727    1.7541
+</code></pre>
+
+<pre><code class="r">
+# GLM with univariates from univariates_referral_devo.R
+model5 &lt;- svyglm(cf46 ~ 
+                   + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = pedsHiPop, family = quasibinomial)
+summary(model5)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf46 ~ +male + srage.p + belowpovl + unins.ever + 
+    racehp2p + srh.a.i + brthwk.p.i, design = pedsHiPop, family = quasibinomial)
+
+Survey design:
+subset(rchis, pedsHiRisk == &quot;Yes&quot;)
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                             1.0645     1.5832    0.67   0.5036
+maleMale                               -0.3359     0.2986   -1.12   0.2646
+srage.p                                -0.3322     0.0978   -3.40   0.0011
+belowpovlBelow 100% FPL                 0.5428     0.4580    1.19   0.2400
+unins.everSome or All Year uninsured    1.5666     0.6424    2.44   0.0173
+racehp2pWHITE                           0.7891     0.5405    1.46   0.1489
+racehp2pLATINO                          0.0920     1.4393    0.06   0.9492
+racehp2pASIAN                           1.1348     0.5777    1.96   0.0535
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.0969     1.3341   -0.07   0.9423
+srh.a.iNO                              -0.9823     1.3951   -0.70   0.4838
+brthwk.p.i                              0.3063     0.1806    1.70   0.0943
+
+(Intercept)                             
+maleMale                                
+srage.p                               **
+belowpovlBelow 100% FPL                 
+unins.everSome or All Year uninsured  * 
+racehp2pWHITE                           
+racehp2pLATINO                          
+racehp2pASIAN                         . 
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE   
+srh.a.iNO                               
+brthwk.p.i                            . 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.9513)
+
+Number of Fisher Scoring iterations: 5
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+</code></pre>
+
+<pre><code>                                      OddsRatio  2.5 %  97.5 %
+(Intercept)                              5.1367 0.8171 32.2914
+pedsHiRiskYes                            0.2049 0.1385  0.3033
+maleMale                                 0.7639 0.5404  1.0799
+srage.p                                  0.9113 0.8133  1.0212
+belowpovlBelow 100% FPL                  1.5285 0.8851  2.6395
+unins.everSome or All Year uninsured     2.3694 0.7994  7.0227
+racehp2pWHITE                            1.0018 0.5511  1.8212
+racehp2pLATINO                           0.8444 0.2957  2.4114
+racehp2pASIAN                            1.4849 0.7962  2.7693
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8141 0.2287  2.8978
+srh.a.iNO                                0.6529 0.2349  1.8142
+brthwk.p.i                               1.5551 1.1286  2.1426
+</code></pre>
+
+<pre><code class="r">
+# GLM with univariates from univariates_referral_speech-only.R
+model6 &lt;- svyglm(cf47 ~ 
+                   + male 
+                 #                 + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = pedsHiPop, family = quasibinomial)
+summary(model6)
+</code></pre>
+
+<pre><code>
+Call:
+svyglm(formula = cf47 ~ +male + srage.p + belowpovl + unins.ever + 
+    racehp2p + srh.a.i + brthwk.p.i, design = pedsHiPop, family = quasibinomial)
+
+Survey design:
+subset(rchis, pedsHiRisk == &quot;Yes&quot;)
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                             1.4680     1.5835    0.93  0.35714
+maleMale                               -0.1406     0.2155   -0.65  0.51638
+srage.p                                -0.3391     0.0901   -3.76  0.00035
+belowpovlBelow 100% FPL                 0.3051     0.3282    0.93  0.35585
+unins.everSome or All Year uninsured    1.1758     0.5462    2.15  0.03484
+racehp2pWHITE                           0.4704     0.8122    0.58  0.56436
+racehp2pLATINO                         -0.2546     1.3577   -0.19  0.85182
+racehp2pASIAN                           1.0025     0.8585    1.17  0.24697
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.1236     1.3999   -0.09  0.92988
+srh.a.iNO                              -0.8238     1.0934   -0.75  0.45377
+brthwk.p.i                              0.1514     0.1728    0.88  0.38399
+
+(Intercept)                              
+maleMale                                 
+srage.p                               ***
+belowpovlBelow 100% FPL                  
+unins.everSome or All Year uninsured  *  
+racehp2pWHITE                            
+racehp2pLATINO                           
+racehp2pASIAN                            
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+srh.a.iNO                                
+brthwk.p.i                               
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasibinomial family taken to be 0.9713)
+
+Number of Fisher Scoring iterations: 4
+</code></pre>
+
+<pre><code class="r">cbind(OddsRatio = exp(model6$coef), exp(confint(model6)))
+</code></pre>
+
+<pre><code>                                      OddsRatio   2.5 % 97.5 %
+(Intercept)                              4.3403 0.19483 96.693
+maleMale                                 0.8689 0.56950  1.326
+srage.p                                  0.7124 0.59710  0.850
+belowpovlBelow 100% FPL                  1.3568 0.71304  2.582
+unins.everSome or All Year uninsured     3.2407 1.11101  9.453
+racehp2pWHITE                            1.6007 0.32578  7.865
+racehp2pLATINO                           0.7752 0.05417 11.095
+racehp2pASIAN                            2.7250 0.50650 14.660
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8837 0.05684 13.738
+srh.a.iNO                                0.4388 0.05147  3.741
+brthwk.p.i                               1.1635 0.82920  1.632
+</code></pre>
+
+</body>
+
+</html>
+
