@@ -37,8 +37,8 @@ svymean(~brthwk.p.i, pedsHi.subpop.design)
 svyby(~brthwk.p.i, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svyttest(brthwk.p.i ~ referred, design = pedsHi.subpop.design)
 svyboxplot(brthwk.p.i ~ referred, design = pedsHi.subpop.design, xlab = "Referred", ylab = "Birthweight (kg)", main = "Birthweight by Referral Status")
-# There is a significant difference between the mean birthweights in referred
-# and non referred children
+# There is not a significant difference between the mean birthweights in referred
+# and non referred children among pedsHiRisk patients
 
 #######################
 # Usual source of care
@@ -66,7 +66,7 @@ confint(svymean(~srh.a.i, pedsHi.subpop.design))
 svytable(~srh.a.i + referred, pedsHi.subpop.design)
 svyby(~srh.a.i, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svychisq(~srh.a.i + referred, pedsHi.subpop.design)
-# No univariate ethnicity effect
+# No bivariate ethnicity effect
 
 #######################
 # Race
@@ -79,7 +79,7 @@ svytable(~racehp2p + referred, pedsHi.subpop.design)
 summary(svytable(~racehp2p + referred, pedsHi.subpop.design))
 svyby(~racehp2p, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svychisq(~racehp2p + referred, pedsHi.subpop.design)
-# No significant univariate race association
+# No significant bivariate race association
 
 #######################
 # Just white race vs non-white
@@ -103,7 +103,7 @@ svymean(~ins64, pedsHi.subpop.design)
 svytable(~ins64 + referred, pedsHi.subpop.design)
 svyby(~ins64, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svychisq(~ins64 + referred, pedsHi.subpop.design)
-# Type of insurance is significantly associated by chisquare
+# Type of insurance is almost (very close) significantly associated by chisquare
 
 ref.ins64.univ <- svyglm(referred ~ ins64, family = quasibinomial, pedsHi.subpop.design)
 summary(ref.ins64.univ)
@@ -123,7 +123,7 @@ svymean(~unins.ever, pedsHi.subpop.design)
 svytable(~unins.ever + referred, pedsHi.subpop.design)
 svyby(~unins.ever, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svychisq(~unins.ever + referred, pedsHi.subpop.design)
-# Just barely significant at 0.05 level with uninsured kids being less likely
+# Significant at 0.05 level with uninsured kids being less likely
 # to have been referred
 
 # ref.unins.univ <- svyglm(referred ~ unins.ever, family = quasibinomial, pedsHi.subpop.design)
@@ -142,6 +142,7 @@ svymean(~belowpovl, pedsHi.subpop.design)
 svytable(~belowpovl + referred, pedsHi.subpop.design)
 svyby(~belowpovl, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svychisq(~belowpovl + referred, pedsHi.subpop.design)
+# Not significant association between poverty level and referral
 
 #######################
 # Age
@@ -151,5 +152,7 @@ summary(chis$srage.p)
 svymean(~srage.p, pedsHi.subpop.design)
 svyby(~srage.p, by = ~referred, design = pedsHi.subpop.design, FUN = svymean)
 svyttest(srage.p ~ referred, design = pedsHi.subpop.design)
+# Highly significant association by mean age between referred and not referred
+
 model.age <- svyglm(referred ~ srage.p, design = pedsHi.subpop.design, family = quasibinomial())
 summary(model.age)
