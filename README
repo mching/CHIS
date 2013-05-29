@@ -1,5 +1,14 @@
 Michael Ching, MD, MPH
+May 28, 2013
 
 This project examines data from the California Health Interview Survey 2009, Child Public Use File. We were interested to determine how child, family, and health system factors may affect referral for developmental services after controlling for the level of parent concern.
 
-Run the RunFirst.R file in the src directory. This will load ProjectTemplate and preprocess the data. Other data analysis files are in the src directory. The main logistic regression models are in Exploration.R.
+Run the RunFirst.R file in the src directory. This will load ProjectTemplate and preprocess the data. Other data analysis files are in the src directory. The main logistic regression models are in Exploration.R. 
+
+There are three outcomes, referral to developmental specialist only, referral to speech/language/hearing testing only, and a combined "referral" to both.
+
+I wasn't too clear on the difference between univariate and bivariate analysis when I named the univariates files. These files are actually all bivariate analyses. I also did a subgroup analysis on the children who were only High Risk on the PEDS, which is called pedsHiRisk in this project.
+
+For the source data, visit: http://healthpolicy.ucla.edu/chis/data/Pages/public-use-data.aspx  
+
+I used the CHIS 2009 PUF Child file, Stata version.
