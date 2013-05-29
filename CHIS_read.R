@@ -1,3 +1,6 @@
+## This is an obsolete file kept for historical purposes. The updated file to read in the data uses the Project Template library
+## Refer to the readme file to load the data properly
+
 # Michael Ching
 # Script to read in data from CHIS 2009 Child Public Use 
 # dataset
