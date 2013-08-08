@@ -182,7 +182,7 @@ hljs.initHighlightingOnLoad();
 
 <h3>All-in-one.R</h3>
 
-<p>mching &mdash; <em>May 18, 2013, 7:20 AM</em></p>
+<p>mching &mdash; <em>Aug 7, 2013, 9:18 PM</em></p>
 
 <pre><code class="r">#######################
 # CHIS All-in-one
@@ -3330,22 +3330,21 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Number of Fisher Scoring iterations: 5
 </code></pre>
 
-<pre><code class="r">cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+<pre><code class="r">cbind(OddsRatio = exp(model5$coef), exp(confint(model5)))
 </code></pre>
 
-<pre><code>                                      OddsRatio  2.5 %  97.5 %
-(Intercept)                              5.1367 0.8171 32.2914
-pedsHiRiskYes                            0.2049 0.1385  0.3033
-maleMale                                 0.7639 0.5404  1.0799
-srage.p                                  0.9113 0.8133  1.0212
-belowpovlBelow 100% FPL                  1.5285 0.8851  2.6395
-unins.everSome or All Year uninsured     2.3694 0.7994  7.0227
-racehp2pWHITE                            1.0018 0.5511  1.8212
-racehp2pLATINO                           0.8444 0.2957  2.4114
-racehp2pASIAN                            1.4849 0.7962  2.7693
-racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8141 0.2287  2.8978
-srh.a.iNO                                0.6529 0.2349  1.8142
-brthwk.p.i                               1.5551 1.1286  2.1426
+<pre><code>                                      OddsRatio   2.5 %  97.5 %
+(Intercept)                              2.8993 0.13021 64.5577
+maleMale                                 0.7147 0.39805  1.2833
+srage.p                                  0.7174 0.59225  0.8689
+belowpovlBelow 100% FPL                  1.7208 0.70123  4.2230
+unins.everSome or All Year uninsured     4.7905 1.36022 16.8713
+racehp2pWHITE                            2.2013 0.76315  6.3498
+racehp2pLATINO                           1.0963 0.06528 18.4115
+racehp2pASIAN                            3.1105 1.00253  9.6510
+racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.9076 0.06642 12.4028
+srh.a.iNO                                0.3745 0.02432  5.7668
+brthwk.p.i                               1.3584 0.95358  1.9352
 </code></pre>
 
 <pre><code class="r">

@@ -2,6 +2,9 @@
 # CHIS All-in-one
 #######################
 
+#######
+# Somehow the models result in opposite odds ratios (low referral for pedsHiRisk)
+#######
 
 # clear and load data
 rm(list=ls())
@@ -825,7 +828,7 @@ model5 <- svyglm(cf46 ~
                  ,
                  design = pedsHiPop, family = quasibinomial)
 summary(model5)
-cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model5$coef), exp(confint(model5)))
 
 # GLM with univariates from univariates_referral_speech-only.R
 model6 <- svyglm(cf47 ~ 
