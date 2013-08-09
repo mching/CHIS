@@ -1,0 +1,35 @@
+Tables for poster
+=========
+
+Load the Data
+-----
+First we load the data:
+
+```{r}
+library(ProjectTemplate)
+library(Hmisc)
+library(survey)
+library(stargazer)
+
+setwd("~/Dropbox/Mike/CHIS")
+load.project()
+```
+
+This also runs the script to clean the data, contained within the file `/munge/01-A.R`.
+
+Table 1: Univariates
+-------
+We want:  
+* gender (male)
+* birthweight  (brthwk.p.i)
+* ethnicity  (srh.a.i)
+* race  (racehp2p)
+* PEDS risk categories (peds)
+* age (srage.p)
+* uninsured in the last year (unins.ever)
+
+Create a new dataframe to hold just these variables
+```{r}
+Table1.frame <- with(chis, data.frame(male, brthwk.p.i))
+stargazer(Table1.frame)
+```
