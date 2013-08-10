@@ -10,6 +10,7 @@ library(ProjectTemplate)
 library(Hmisc)
 library(survey)
 library(stargazer)
+library(binom)
 
 setwd("~/Dropbox/Mike/CHIS")
 load.project()
@@ -27,9 +28,102 @@ We want:
 * PEDS risk categories (peds)
 * age (srage.p)
 * uninsured in the last year (unins.ever)
+* Developmental specialist referred (cf46)
+* speech referred (cf47)
+* Referred to either (referred)
 
 Create a new dataframe to hold just these variables
 ```{r}
-Table1.frame <- with(chis, data.frame(male, brthwk.p.i))
-stargazer(Table1.frame)
+Table1.frame <- with(chis, data.frame(brthwk.p.i, racehp2p, srh.a.i, male, peds, srage.p, unins.ever, cf46, cf47, referred))
+head(Table1.frame)
+summary(Table1.frame)
 ```
+
+### Gender
+```{r}
+summary(Table1.frame$male)
+length(Table1.frame$male)
+binom.confint(sum(Table1.frame$male == "Male", na.rm = T), length(!is.na(Table1.frame$male)), method = "asym")
+```
+
+### Age
+```{r}
+mean(Table1.frame$srage.p)
+sd(Table1.frame$srage.p)
+n.age <- length(Table1.frame$srage.p)
+mean(Table1.frame$srage.p) + qt(0.025, n.age)
+mean(Table1.frame$srage.p) + qt(0.975, n.age)
+```
+
+### Birthweight
+```{r}
+summary(Table1.frame$brthwk.p.i)
+mean(Table1.frame$brthwk.p.i)
+sd(Table1.frame$brthwk.p.i)
+n.bw <- length(Table1.frame$brthwk.p.i)
+n.bw
+mean(Table1.frame$brthwk.p.i) + qt(0.025, n.bw)
+mean(Table1.frame$brthwk.p.i) + qt(0.975, n.bw)
+```
+
+### PEDS
+```{r}
+summary(Table1.frame$peds)
+pedstable <- table(Table1.frame$peds)
+pedstable
+sum(pedstable)
+sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
+```
+
+### Hispanic Ethnicity
+```{r}
+summary(Table1.frame$srh.a.i)
+binom.confint(sum(Table1.frame$srh.a.i == "YES"), length(Table1.frame$srh.a.i), method = "asym")
+```
+
+### Race
+```{r}
+summary(Table1.frame$racehp2p)
+racetable <- table(Table1.frame$racehp2p)
+racetable
+sapply(racetable, binom.confint, n = sum(racetable), method = "asy")
+```
+
+### Lack of Insurance
+```{r}
+ins.table <- table(Table1.frame$unins.ever)
+ins.table
+binom.confint(ins.table[2], sum(ins.table), method = "asym")
+```
+
+
+### Referred to Developmental Specialist
+```{r}
+summary(Table1.frame$cf46)
+length(Table1.frame$cf46)
+table(Table1.frame$cf46)
+sum(table(Table1.frame$cf46))
+binom.confint(sum(Table1.frame$cf46 == "Referred", na.rm = T), sum(table(Table1.frame$cf46)), method = "asym")
+```
+
+### Referred to Speech, Language, Hearing Evaluation
+```{r}
+summary(Table1.frame$cf47)
+length(Table1.frame$cf47)
+table(Table1.frame$cf47)
+sum(table(Table1.frame$cf47))
+binom.confint(sum(Table1.frame$cf47 == "Referred", na.rm = T), sum(table(Table1.frame$cf47)), method = "asym")
+```
+
+### Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation
+```{r}
+summary(Table1.frame$referred)
+length(Table1.frame$referred)
+table(Table1.frame$referred)
+sum(table(Table1.frame$referred))
+binom.confint(sum(Table1.frame$referred == "Yes", na.rm = T), sum(table(Table1.frame$referred)), method = "asym")
+```
+
+Table 2: Unadjusted Bivariate Comparisons
+------
+We will want to see what is the rate of referrals among children in each of those categories and whether they are significant. We must use the survey functions for weighting to test the associations.
