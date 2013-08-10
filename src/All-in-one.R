@@ -116,6 +116,7 @@ chis$cf47 <- speech.refer
 # chis$cf47 <- factor(as.numeric(chis$cf47), levels = 2:1, labels = c("Not referred", "Referred"))
 # with(chis, table(cf46, cf47, useNA = "ifany"))
 rm(speech.refer)
+
 ###############
 # Generate "referred" variable for any referral for development
 ###############
