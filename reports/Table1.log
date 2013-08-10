@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.13 (TeX Live 2013/dev) (format=pdflatex 2013.5.9)  9 AUG 2013 13:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.13 (TeX Live 2013/dev) (format=pdflatex 2013.5.9)  9 AUG 2013 13:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -265,9 +265,9 @@ e
 ))
 (./Table1-concordance.tex)
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 11.
+(Font)              <7> on input line 12.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 11.
+(Font)              <5> on input line 12.
  [1
 
 {/usr/share/texlive/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Table1.aux) )
@@ -281,7 +281,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  37i,8n,23p,289b,223s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on Table1.pdf (1 page, 14080 bytes).
+Output written on Table1.pdf (1 page, 17519 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  7 compressed objects within 1 object stream
