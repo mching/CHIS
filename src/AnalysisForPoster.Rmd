@@ -127,3 +127,87 @@ binom.confint(sum(Table1.frame$referred == "Yes", na.rm = T), sum(table(Table1.f
 Table 2: Unadjusted Bivariate Comparisons
 ------
 We will want to see what is the rate of referrals among children in each of those categories and whether they are significant. We must use the survey functions for weighting to test the associations.
+
+### Gender
+```{r}
+svyby(~male, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~male + cf46, rchis, statistic = "Chisq")
+
+svyby(~male, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~male + cf47, rchis, statistic = "Chisq")
+
+svyby(~male, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~male + referred, rchis, statistic = "Chisq")
+```
+
+### Age
+```{r}
+svyby(~srage.p, by = ~cf46, design = rchis, FUN = svymean)
+svyttest(srage.p ~ cf46, design = rchis)
+
+svyby(~srage.p, by = ~cf47, design = rchis, FUN = svymean)
+svyttest(srage.p ~ cf47, design = rchis)
+
+svyby(~srage.p, by = ~referred, design = rchis, FUN = svymean)
+svyttest(srage.p ~ referred, design = rchis)
+```
+
+### Birthweight
+```{r}
+svyby(~brthwk.p, by = ~cf46, design = rchis, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ cf46, design = rchis)
+
+svyby(~brthwk.p, by = ~cf47, design = rchis, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ cf47, design = rchis)
+
+svyby(~brthwk.p, by = ~referred, design = rchis, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ referred, design = rchis)
+```
+
+### Race
+```{r}
+svyby(~racehp2p, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~racehp2p + cf46, rchis, statistic = "Chisq")
+
+svyby(~racehp2p, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~racehp2p + cf47, rchis, statistic = "Chisq")
+
+svyby(~racehp2p, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~racehp2p + referred, rchis, statistic = "Chisq")
+```
+
+### Hispanic Ethnicity
+```{r}
+svyby(~srh.a.i, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq")
+
+svyby(~srh.a.i, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq")
+
+svyby(~srh.a.i, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
+```
+
+### Uninsured Ever in Last Year
+```{r}
+svyby(~unins.ever, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~unins.ever + cf46, rchis, statistic = "Chisq")
+
+svyby(~unins.ever, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~unins.ever + cf47, rchis, statistic = "Chisq")
+
+svyby(~unins.ever, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~unins.ever + referred, rchis, statistic = "Chisq")
+```
+
+### PEDS High Risk
+```{r}
+svyby(~pedsHiRisk, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq")
+
+svyby(~pedsHiRisk, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
+
+svyby(~pedsHiRisk, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
+```
