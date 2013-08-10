@@ -25,6 +25,7 @@ We want:
 * birthweight  (brthwk.p.i)
 * ethnicity  (srh.a.i)
 * race  (racehp2p)
+* below poverty level (belowpovl)
 * PEDS risk categories (peds)
 * age (srage.p)
 * uninsured in the last year (unins.ever)
@@ -32,44 +33,48 @@ We want:
 * speech referred (cf47)
 * Referred to either (referred)
 
-Create a new dataframe to hold just these variables
-```{r}
-Table1.frame <- with(chis, data.frame(brthwk.p.i, racehp2p, srh.a.i, male, peds, srage.p, unins.ever, cf46, cf47, referred))
-head(Table1.frame)
-summary(Table1.frame)
-```
-
 ### Gender
 ```{r}
-summary(Table1.frame$male)
-length(Table1.frame$male)
-binom.confint(sum(Table1.frame$male == "Male", na.rm = T), length(!is.na(Table1.frame$male)), method = "asym")
+summary(chis$male)
+length(chis$male)
+binom.confint(sum(chis$male == "Male", na.rm = T), length(!is.na(chis$male)), method = "asym")
+
+svytotal(~male, rchis)
+sum(svytotal(~male, rchis))
+svymean(~male, rchis)
+confint(svymean(~male, rchis))
 ```
 
 ### Age
 ```{r}
-mean(Table1.frame$srage.p)
-sd(Table1.frame$srage.p)
-n.age <- length(Table1.frame$srage.p)
-mean(Table1.frame$srage.p) + qt(0.025, n.age)
-mean(Table1.frame$srage.p) + qt(0.975, n.age)
+mean(chis$srage.p)
+sd(chis$srage.p)
+n.age <- length(chis$srage.p)
+mean(chis$srage.p) + qt(0.025, n.age)
+mean(chis$srage.p) + qt(0.975, n.age)
+
+svymean(~srage.p, rchis)
+confint(svymean(~srage.p, rchis))
 ```
 
 ### Birthweight
 ```{r}
-summary(Table1.frame$brthwk.p.i)
-mean(Table1.frame$brthwk.p.i)
-sd(Table1.frame$brthwk.p.i)
-n.bw <- length(Table1.frame$brthwk.p.i)
+summary(chis$brthwk.p.i)
+mean(chis$brthwk.p.i)
+sd(chis$brthwk.p.i)
+n.bw <- length(chis$brthwk.p.i)
 n.bw
-mean(Table1.frame$brthwk.p.i) + qt(0.025, n.bw)
-mean(Table1.frame$brthwk.p.i) + qt(0.975, n.bw)
+mean(chis$brthwk.p.i) + qt(0.025, n.bw)
+mean(chis$brthwk.p.i) + qt(0.975, n.bw)
+
+svymean(~brthwk.p.i, rchis)
+confint(svymean(~brthwk.p.i, rchis))
 ```
 
 ### PEDS
 ```{r}
-summary(Table1.frame$peds)
-pedstable <- table(Table1.frame$peds)
+summary(chis$peds)
+pedstable <- table(chis$peds)
 pedstable
 sum(pedstable)
 sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
@@ -77,51 +82,71 @@ sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
 
 ### Hispanic Ethnicity
 ```{r}
-summary(Table1.frame$srh.a.i)
-binom.confint(sum(Table1.frame$srh.a.i == "YES"), length(Table1.frame$srh.a.i), method = "asym")
+summary(chis$srh.a.i)
+binom.confint(sum(chis$srh.a.i == "YES"), length(chis$srh.a.i), method = "asym")
+
+svytotal(~srh.a.i, rchis)
+sum(svytotal(~srh.a.i, rchis))
+svymean(~srh.a.i, rchis)
+confint(svymean(~srh.a.i, rchis))
+
 ```
 
 ### Race
 ```{r}
-summary(Table1.frame$racehp2p)
-racetable <- table(Table1.frame$racehp2p)
+summary(chis$racehp2p)
+racetable <- table(chis$racehp2p)
 racetable
 sapply(racetable, binom.confint, n = sum(racetable), method = "asy")
+
+svytotal(~racehp2p, rchis)
+sum(svytotal(~racehp2p, rchis))
+svymean(~racehp2p, rchis)
+confint(svymean(~racehp2p, rchis))
 ```
 
 ### Lack of Insurance
 ```{r}
-ins.table <- table(Table1.frame$unins.ever)
+ins.table <- table(chis$unins.ever)
 ins.table
 binom.confint(ins.table[2], sum(ins.table), method = "asym")
+```
+
+### Below Poverty Level
+```{r}
+summary(chis$belowpovl)
+length(chis$belowpovl)
+binom.confint(sum(chis$belowpovl == "Below 100% FPL", na.rm = T), length(!is.na(chis$belowpovl)), method = "asym")
+# svymean(~belowpovl, rchis) ## Population level estimate
+# confint(svymean(~belowpovl, rchis))
 ```
 
 
 ### Referred to Developmental Specialist
 ```{r}
-summary(Table1.frame$cf46)
-length(Table1.frame$cf46)
-table(Table1.frame$cf46)
-sum(table(Table1.frame$cf46))
-binom.confint(sum(Table1.frame$cf46 == "Referred", na.rm = T), sum(table(Table1.frame$cf46)), method = "asym")
+summary(chis$cf46)
+length(chis$cf46)
+table(chis$cf46)
+sum(table(chis$cf46))
+binom.confint(sum(chis$cf46 == "Referred", na.rm = T), sum(table(chis$cf46)), method = "asym")
 ```
 
 ### Referred to Speech, Language, Hearing Evaluation
 ```{r}
-summary(Table1.frame$cf47)
-length(Table1.frame$cf47)
-table(Table1.frame$cf47)
-sum(table(Table1.frame$cf47))
-binom.confint(sum(Table1.frame$cf47 == "Referred", na.rm = T), sum(table(Table1.frame$cf47)), method = "asym")
+summary(chis$cf47)
+length(chis$cf47)
+table(chis$cf47)
+sum(table(chis$cf47))
+binom.confint(sum(chis$cf47 == "Referred", na.rm = T), sum(table(chis$cf47)), method = "asym")
 ```
 
 ### Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation
 ```{r}
-summary(Table1.frame$referred)
-length(Table1.frame$referred)
-table(Table1.frame$referred)
-sum(table(Table1.frame$referred))
-binom.confint(sum(Table1.frame$referred == "Yes", na.rm = T), sum(table(Table1.frame$referred)), method = "asym")
+summary(chis$referred)
+length(chis$referred)
+table(chis$referred)
+sum(table(chis$referred))
+binom.confint(sum(chis$referred == "Yes", na.rm = T), sum(table(chis$referred)), method = "asym")
 ```
 
 Table 2: Unadjusted Bivariate Comparisons
@@ -188,6 +213,18 @@ svyby(~srh.a.i, by = ~referred, design = rchis, FUN = svymean)
 svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
 ```
 
+### Below Poverty Level
+```{r}
+svyby(~belowpovl, by = ~cf46, design = rchis, FUN = svymean)
+svychisq(~belowpovl + cf46, rchis, statistic = "Chisq")
+
+svyby(~belowpovl, by = ~cf47, design = rchis, FUN = svymean)
+svychisq(~belowpovl + cf47, rchis, statistic = "Chisq")
+
+svyby(~belowpovl, by = ~referred, design = rchis, FUN = svymean)
+svychisq(~belowpovl + referred, rchis, statistic = "Chisq")
+```
+
 ### Uninsured Ever in Last Year
 ```{r}
 svyby(~unins.ever, by = ~cf46, design = rchis, FUN = svymean)
@@ -211,3 +248,6 @@ svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
 svyby(~pedsHiRisk, by = ~referred, design = rchis, FUN = svymean)
 svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
 ```
+
+Table 3: Regression Analyses
+-----
