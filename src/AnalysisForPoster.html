@@ -211,12 +211,12 @@ hljs.initHighlightingOnLoad();
 <pre><code>## Attaching package: &#39;Hmisc&#39;
 </code></pre>
 
-<pre><code>## The following object is masked from &#39;package:survival&#39;:
+<pre><code>## The following object(s) are masked from &#39;package:survival&#39;:
 ## 
 ## untangle.specials
 </code></pre>
 
-<pre><code>## The following object is masked from &#39;package:base&#39;:
+<pre><code>## The following object(s) are masked from &#39;package:base&#39;:
 ## 
 ## format.pval, round.POSIXt, trunc.POSIXt, units
 </code></pre>
@@ -227,12 +227,12 @@ hljs.initHighlightingOnLoad();
 <pre><code>## Attaching package: &#39;survey&#39;
 </code></pre>
 
-<pre><code>## The following object is masked from &#39;package:Hmisc&#39;:
+<pre><code>## The following object(s) are masked from &#39;package:Hmisc&#39;:
 ## 
 ## deff
 </code></pre>
 
-<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+<pre><code>## The following object(s) are masked from &#39;package:graphics&#39;:
 ## 
 ## dotchart
 </code></pre>
@@ -240,14 +240,7 @@ hljs.initHighlightingOnLoad();
 <pre><code class="r">library(stargazer)
 </code></pre>
 
-<pre><code>## Please cite as:
-</code></pre>
-
-<pre><code>## Hlavac, Marek (2013). stargazer: LaTeX code and ASCII text for
-## well-formatted regression and summary statistics tables.
-</code></pre>
-
-<pre><code>## R package version 4.0. http://CRAN.R-project.org/package=stargazer
+<pre><code>## Error: there is no package called &#39;stargazer&#39;
 </code></pre>
 
 <pre><code class="r">library(binom)
@@ -282,7 +275,7 @@ load.project()
 <pre><code>## Running preprocessing script: 01-A.R
 </code></pre>
 
-<pre><code>## Warning: duplicated levels in factors are deprecated
+<pre><code>## Warning: duplicated levels will not be allowed in factors anymore
 </code></pre>
 
 <p>This also runs the script to clean the data, contained within the file <code>/munge/01-A.R</code>.</p>
@@ -296,6 +289,7 @@ load.project()
 <li>birthweight  (brthwk.p.i)</li>
 <li>ethnicity  (srh.a.i)</li>
 <li>race  (racehp2p)</li>
+<li>below poverty level (belowpovl)</li>
 <li>PEDS risk categories (peds)</li>
 <li>age (srage.p)</li>
 <li>uninsured in the last year (unins.ever)</li>
@@ -304,85 +298,22 @@ load.project()
 <li>Referred to either (referred)</li>
 </ul>
 
-<p>Create a new dataframe to hold just these variables</p>
-
-<pre><code class="r">Table1.frame &lt;- with(chis, data.frame(brthwk.p.i, racehp2p, srh.a.i, male, peds, 
-    srage.p, unins.ever, cf46, cf47, referred))
-head(Table1.frame)
-</code></pre>
-
-<pre><code>##   brthwk.p.i                      racehp2p srh.a.i   male          peds
-## 1       1.73                         WHITE      NO   Male MODERATE RISK
-## 2       4.34                         WHITE      NO   Male      LOW RISK
-## 3       3.23                         WHITE      NO   Male      LOW RISK
-## 4       3.74 PI/OTHER SINGLE/MULTIPLE RACE     YES   Male     HIGH RISK
-## 5       3.03                        LATINO     YES Female     HIGH RISK
-## 6       3.40                         WHITE      NO   Male       NO RISK
-##   srage.p                 unins.ever         cf46         cf47 referred
-## 1       0            Never uninsured Not referred Not referred       No
-## 2       4            Never uninsured Not referred Not referred       No
-## 3       5 Some or All Year uninsured Not referred Not referred       No
-## 4       2            Never uninsured Not referred Not referred       No
-## 5       4            Never uninsured     Referred     Referred      Yes
-## 6       0            Never uninsured         &lt;NA&gt;         &lt;NA&gt;     &lt;NA&gt;
-</code></pre>
-
-<pre><code class="r">summary(Table1.frame)
-</code></pre>
-
-<pre><code>## 
-##  187 values imputed to 3.35 
-## 
-## 
-##  11 values imputed to NO
-</code></pre>
-
-<pre><code>##    brthwk.p.i                            racehp2p    srh.a.i   
-##  Min.   :0.91   WHITE                        :1948   YES:1556  
-##  1st Qu.:3.01   LATINO                       :1239   NO :2707  
-##  Median :3.35   ASIAN                        : 617             
-##  Mean   :3.33   AFRICAN AMERICAN             : 140             
-##  3rd Qu.:3.69   PI/OTHER SINGLE/MULTIPLE RACE: 319             
-##  Max.   :4.99                                                  
-##      male                 peds         srage.p   
-##  Female:2035   NO RISK      :1754   Min.   :0.0  
-##  Male  :2228   LOW RISK     : 800   1st Qu.:1.0  
-##                MODERATE RISK: 756   Median :3.0  
-##                HIGH RISK    : 792   Mean   :2.6  
-##                NA&#39;s         : 161   3rd Qu.:4.0  
-##                                     Max.   :5.0  
-##                       unins.ever             cf46                cf47     
-##  Never uninsured           :3994   Not referred:3335   Not referred:3221  
-##  Some or All Year uninsured: 269   Referred    : 441   Referred    : 555  
-##                                    NA&#39;s        : 487   NA&#39;s        : 487  
-##                                                                           
-##                                                                           
-##                                                                           
-##  referred   
-##  No  :3061  
-##  Yes : 715  
-##  NA&#39;s: 487  
-##             
-##             
-## 
-</code></pre>
-
 <h3>Gender</h3>
 
-<pre><code class="r">summary(Table1.frame$male)
+<pre><code class="r">summary(chis$male)
 </code></pre>
 
 <pre><code>## Female   Male 
 ##   2035   2228
 </code></pre>
 
-<pre><code class="r">length(Table1.frame$male)
+<pre><code class="r">length(chis$male)
 </code></pre>
 
 <pre><code>## [1] 4263
 </code></pre>
 
-<pre><code class="r">binom.confint(sum(Table1.frame$male == &quot;Male&quot;, na.rm = T), length(!is.na(Table1.frame$male)), 
+<pre><code class="r">binom.confint(sum(chis$male == &quot;Male&quot;, na.rm = T), length(!is.na(chis$male)), 
     method = &quot;asym&quot;)
 </code></pre>
 
@@ -390,36 +321,82 @@ head(Table1.frame)
 ## 1 asymptotic 2228 4263 0.5226 0.5076 0.5376
 </code></pre>
 
+<pre><code class="r">
+svytotal(~male, rchis)
+</code></pre>
+
+<pre><code>##              total    SE
+## maleFemale 1595089 16455
+## maleMale   1660717 20365
+</code></pre>
+
+<pre><code class="r">sum(svytotal(~male, rchis))
+</code></pre>
+
+<pre><code>## [1] 3255806
+</code></pre>
+
+<pre><code class="r">svymean(~male, rchis)
+</code></pre>
+
+<pre><code>##            mean   SE
+## maleFemale 0.49 0.01
+## maleMale   0.51 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~male, rchis))
+</code></pre>
+
+<pre><code>##             2.5 % 97.5 %
+## maleFemale 0.4797 0.5001
+## maleMale   0.4999 0.5203
+</code></pre>
+
 <h3>Age</h3>
 
-<pre><code class="r">mean(Table1.frame$srage.p)
+<pre><code class="r">mean(chis$srage.p)
 </code></pre>
 
 <pre><code>## [1] 2.605
 </code></pre>
 
-<pre><code class="r">sd(Table1.frame$srage.p)
+<pre><code class="r">sd(chis$srage.p)
 </code></pre>
 
 <pre><code>## [1] 1.679
 </code></pre>
 
-<pre><code class="r">n.age &lt;- length(Table1.frame$srage.p)
-mean(Table1.frame$srage.p) + qt(0.025, n.age)
+<pre><code class="r">n.age &lt;- length(chis$srage.p)
+mean(chis$srage.p) + qt(0.025, n.age)
 </code></pre>
 
 <pre><code>## [1] 0.6445
 </code></pre>
 
-<pre><code class="r">mean(Table1.frame$srage.p) + qt(0.975, n.age)
+<pre><code class="r">mean(chis$srage.p) + qt(0.975, n.age)
 </code></pre>
 
 <pre><code>## [1] 4.565
 </code></pre>
 
+<pre><code class="r">
+svymean(~srage.p, rchis)
+</code></pre>
+
+<pre><code>##         mean   SE
+## srage.p  2.5 0.03
+</code></pre>
+
+<pre><code class="r">confint(svymean(~srage.p, rchis))
+</code></pre>
+
+<pre><code>##         2.5 % 97.5 %
+## srage.p 2.444  2.559
+</code></pre>
+
 <h3>Birthweight</h3>
 
-<pre><code class="r">summary(Table1.frame$brthwk.p.i)
+<pre><code class="r">summary(chis$brthwk.p.i)
 </code></pre>
 
 <pre><code>## 
@@ -430,47 +407,62 @@ mean(Table1.frame$srage.p) + qt(0.025, n.age)
 ##    0.91    3.01    3.35    3.34    3.69    4.99
 </code></pre>
 
-<pre><code class="r">mean(Table1.frame$brthwk.p.i)
+<pre><code class="r">mean(chis$brthwk.p.i)
 </code></pre>
 
 <pre><code>## [1] 3.335
 </code></pre>
 
-<pre><code class="r">sd(Table1.frame$brthwk.p.i)
+<pre><code class="r">sd(chis$brthwk.p.i)
 </code></pre>
 
 <pre><code>## [1] 0.5941
 </code></pre>
 
-<pre><code class="r">n.bw &lt;- length(Table1.frame$brthwk.p.i)
+<pre><code class="r">n.bw &lt;- length(chis$brthwk.p.i)
 n.bw
 </code></pre>
 
 <pre><code>## [1] 4263
 </code></pre>
 
-<pre><code class="r">mean(Table1.frame$brthwk.p.i) + qt(0.025, n.bw)
+<pre><code class="r">mean(chis$brthwk.p.i) + qt(0.025, n.bw)
 </code></pre>
 
 <pre><code>## [1] 1.375
 </code></pre>
 
-<pre><code class="r">mean(Table1.frame$brthwk.p.i) + qt(0.975, n.bw)
+<pre><code class="r">mean(chis$brthwk.p.i) + qt(0.975, n.bw)
 </code></pre>
 
 <pre><code>## [1] 5.296
 </code></pre>
 
+<pre><code class="r">
+svymean(~brthwk.p.i, rchis)
+</code></pre>
+
+<pre><code>##            mean   SE
+## brthwk.p.i 3.31 0.02
+</code></pre>
+
+<pre><code class="r">confint(svymean(~brthwk.p.i, rchis))
+</code></pre>
+
+<pre><code>##            2.5 % 97.5 %
+## brthwk.p.i 3.281  3.344
+</code></pre>
+
 <h3>PEDS</h3>
 
-<pre><code class="r">summary(Table1.frame$peds)
+<pre><code class="r">summary(chis$peds)
 </code></pre>
 
 <pre><code>##       NO RISK      LOW RISK MODERATE RISK     HIGH RISK          NA&#39;s 
 ##          1754           800           756           792           161
 </code></pre>
 
-<pre><code class="r">pedstable &lt;- table(Table1.frame$peds)
+<pre><code class="r">pedstable &lt;- table(chis$peds)
 pedstable
 </code></pre>
 
@@ -499,7 +491,7 @@ pedstable
 
 <h3>Hispanic Ethnicity</h3>
 
-<pre><code class="r">summary(Table1.frame$srh.a.i)
+<pre><code class="r">summary(chis$srh.a.i)
 </code></pre>
 
 <pre><code>## 
@@ -510,17 +502,47 @@ pedstable
 ## 1556 2707
 </code></pre>
 
-<pre><code class="r">binom.confint(sum(Table1.frame$srh.a.i == &quot;YES&quot;), length(Table1.frame$srh.a.i), 
-    method = &quot;asym&quot;)
+<pre><code class="r">binom.confint(sum(chis$srh.a.i == &quot;YES&quot;), length(chis$srh.a.i), method = &quot;asym&quot;)
 </code></pre>
 
 <pre><code>##       method    x    n  mean  lower  upper
 ## 1 asymptotic 1556 4263 0.365 0.3505 0.3795
 </code></pre>
 
+<pre><code class="r">
+svytotal(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>##              total    SE
+## srh.a.iYES 1576142 38297
+## srh.a.iNO  1679664 39011
+</code></pre>
+
+<pre><code class="r">sum(svytotal(~srh.a.i, rchis))
+</code></pre>
+
+<pre><code>## [1] 3255806
+</code></pre>
+
+<pre><code class="r">svymean(~srh.a.i, rchis)
+</code></pre>
+
+<pre><code>##             mean   SE
+## srh.a.iYES 0.484 0.01
+## srh.a.iNO  0.516 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~srh.a.i, rchis))
+</code></pre>
+
+<pre><code>##             2.5 % 97.5 %
+## srh.a.iYES 0.4613 0.5069
+## srh.a.iNO  0.4931 0.5387
+</code></pre>
+
 <h3>Race</h3>
 
-<pre><code class="r">summary(Table1.frame$racehp2p)
+<pre><code class="r">summary(chis$racehp2p)
 </code></pre>
 
 <pre><code>##                         WHITE                        LATINO 
@@ -531,7 +553,7 @@ pedstable
 ##                           319
 </code></pre>
 
-<pre><code class="r">racetable &lt;- table(Table1.frame$racehp2p)
+<pre><code class="r">racetable &lt;- table(chis$racehp2p)
 racetable
 </code></pre>
 
@@ -563,9 +585,49 @@ racetable
 ## upper  0.08273
 </code></pre>
 
+<pre><code class="r">
+svytotal(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>##                                         total    SE
+## racehp2pWHITE                         1172443 35327
+## racehp2pLATINO                        1281091 41261
+## racehp2pASIAN                          322606 23191
+## racehp2pAFRICAN AMERICAN               153466 14233
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE  326200 22629
+</code></pre>
+
+<pre><code class="r">sum(svytotal(~racehp2p, rchis))
+</code></pre>
+
+<pre><code>## [1] 3255806
+</code></pre>
+
+<pre><code class="r">svymean(~racehp2p, rchis)
+</code></pre>
+
+<pre><code>##                                         mean   SE
+## racehp2pWHITE                         0.3601 0.01
+## racehp2pLATINO                        0.3935 0.01
+## racehp2pASIAN                         0.0991 0.01
+## racehp2pAFRICAN AMERICAN              0.0471 0.00
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE 0.1002 0.01
+</code></pre>
+
+<pre><code class="r">confint(svymean(~racehp2p, rchis))
+</code></pre>
+
+<pre><code>##                                         2.5 %  97.5 %
+## racehp2pWHITE                         0.33920 0.38102
+## racehp2pLATINO                        0.36894 0.41802
+## racehp2pASIAN                         0.08527 0.11290
+## racehp2pAFRICAN AMERICAN              0.03854 0.05573
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE 0.08647 0.11391
+</code></pre>
+
 <h3>Lack of Insurance</h3>
 
-<pre><code class="r">ins.table &lt;- table(Table1.frame$unins.ever)
+<pre><code class="r">ins.table &lt;- table(chis$unins.ever)
 ins.table
 </code></pre>
 
@@ -581,22 +643,49 @@ ins.table
 ## 1 asymptotic 269 4263 0.0631 0.0558 0.0704
 </code></pre>
 
+<h3>Below Poverty Level</h3>
+
+<pre><code class="r">summary(chis$belowpovl)
+</code></pre>
+
+<pre><code>## 100% FPL or higher     Below 100% FPL 
+##               3349                914
+</code></pre>
+
+<pre><code class="r">length(chis$belowpovl)
+</code></pre>
+
+<pre><code>## [1] 4263
+</code></pre>
+
+<pre><code class="r">binom.confint(sum(chis$belowpovl == &quot;Below 100% FPL&quot;, na.rm = T), length(!is.na(chis$belowpovl)), 
+    method = &quot;asym&quot;)
+</code></pre>
+
+<pre><code>##       method   x    n   mean  lower  upper
+## 1 asymptotic 914 4263 0.2144 0.2021 0.2267
+</code></pre>
+
+<pre><code class="r"># svymean(~belowpovl, rchis) ## Population level estimate
+# confint(svymean(~belowpovl, rchis))
+</code></pre>
+
 <h3>Referred to Developmental Specialist</h3>
 
-<pre><code class="r">summary(Table1.frame$cf46)
+<pre><code class="r">summary(chis$cf46)
 </code></pre>
 
 <pre><code>## Not referred     Referred         NA&#39;s 
 ##         3335          441          487
 </code></pre>
 
-<pre><code class="r">length(Table1.frame$cf46)
+<pre><code class="r">length(chis$cf46)
 </code></pre>
 
 <pre><code>## [1] 4263
 </code></pre>
 
-<pre><code class="r">table(Table1.frame$cf46)
+<pre><code class="r">table(chis$cf46)
 </code></pre>
 
 <pre><code>## 
@@ -604,13 +693,13 @@ ins.table
 ##         3335          441
 </code></pre>
 
-<pre><code class="r">sum(table(Table1.frame$cf46))
+<pre><code class="r">sum(table(chis$cf46))
 </code></pre>
 
 <pre><code>## [1] 3776
 </code></pre>
 
-<pre><code class="r">binom.confint(sum(Table1.frame$cf46 == &quot;Referred&quot;, na.rm = T), sum(table(Table1.frame$cf46)), 
+<pre><code class="r">binom.confint(sum(chis$cf46 == &quot;Referred&quot;, na.rm = T), sum(table(chis$cf46)), 
     method = &quot;asym&quot;)
 </code></pre>
 
@@ -620,20 +709,20 @@ ins.table
 
 <h3>Referred to Speech, Language, Hearing Evaluation</h3>
 
-<pre><code class="r">summary(Table1.frame$cf47)
+<pre><code class="r">summary(chis$cf47)
 </code></pre>
 
 <pre><code>## Not referred     Referred         NA&#39;s 
 ##         3221          555          487
 </code></pre>
 
-<pre><code class="r">length(Table1.frame$cf47)
+<pre><code class="r">length(chis$cf47)
 </code></pre>
 
 <pre><code>## [1] 4263
 </code></pre>
 
-<pre><code class="r">table(Table1.frame$cf47)
+<pre><code class="r">table(chis$cf47)
 </code></pre>
 
 <pre><code>## 
@@ -641,13 +730,13 @@ ins.table
 ##         3221          555
 </code></pre>
 
-<pre><code class="r">sum(table(Table1.frame$cf47))
+<pre><code class="r">sum(table(chis$cf47))
 </code></pre>
 
 <pre><code>## [1] 3776
 </code></pre>
 
-<pre><code class="r">binom.confint(sum(Table1.frame$cf47 == &quot;Referred&quot;, na.rm = T), sum(table(Table1.frame$cf47)), 
+<pre><code class="r">binom.confint(sum(chis$cf47 == &quot;Referred&quot;, na.rm = T), sum(table(chis$cf47)), 
     method = &quot;asym&quot;)
 </code></pre>
 
@@ -657,20 +746,20 @@ ins.table
 
 <h3>Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation</h3>
 
-<pre><code class="r">summary(Table1.frame$referred)
+<pre><code class="r">summary(chis$referred)
 </code></pre>
 
 <pre><code>##   No  Yes NA&#39;s 
 ## 3061  715  487
 </code></pre>
 
-<pre><code class="r">length(Table1.frame$referred)
+<pre><code class="r">length(chis$referred)
 </code></pre>
 
 <pre><code>## [1] 4263
 </code></pre>
 
-<pre><code class="r">table(Table1.frame$referred)
+<pre><code class="r">table(chis$referred)
 </code></pre>
 
 <pre><code>## 
@@ -678,13 +767,13 @@ ins.table
 ## 3061  715
 </code></pre>
 
-<pre><code class="r">sum(table(Table1.frame$referred))
+<pre><code class="r">sum(table(chis$referred))
 </code></pre>
 
 <pre><code>## [1] 3776
 </code></pre>
 
-<pre><code class="r">binom.confint(sum(Table1.frame$referred == &quot;Yes&quot;, na.rm = T), sum(table(Table1.frame$referred)), 
+<pre><code class="r">binom.confint(sum(chis$referred == &quot;Yes&quot;, na.rm = T), sum(table(chis$referred)), 
     method = &quot;asym&quot;)
 </code></pre>
 
@@ -712,7 +801,7 @@ ins.table
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~male + cf46, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~male + cf46, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 11.35, df = 1, p-value = 0.05685
 </code></pre>
 
@@ -731,7 +820,7 @@ svyby(~male, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~male + cf47, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~male + cf47, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 11.96, df = 1, p-value = 0.06888
 </code></pre>
 
@@ -750,7 +839,7 @@ svyby(~male, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~male + referred, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~male + referred, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 6.097, df = 1, p-value = 0.1995
 </code></pre>
 
@@ -770,9 +859,9 @@ svyby(~male, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  srage.p ~ cf46
+## data:  srage.p ~ cf46 
 ## t = 1.881, df = 78, p-value = 0.06364
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.2381
@@ -793,9 +882,9 @@ svyby(~srage.p, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  srage.p ~ cf47
+## data:  srage.p ~ cf47 
 ## t = 4.178, df = 78, p-value = 7.598e-05
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.4848
@@ -816,9 +905,9 @@ svyby(~srage.p, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  srage.p ~ referred
+## data:  srage.p ~ referred 
 ## t = 2.95, df = 78, p-value = 0.004195
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.3016
@@ -840,9 +929,9 @@ svyby(~srage.p, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  brthwk.p ~ cf46
+## data:  brthwk.p ~ cf46 
 ## t = -1.526, df = 78, p-value = 0.1311
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1394
@@ -863,9 +952,9 @@ svyby(~brthwk.p, by = ~cf47, design = rchis, FUN = svymean, na.rm = T)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  brthwk.p ~ cf47
+## data:  brthwk.p ~ cf47 
 ## t = -1.524, df = 78, p-value = 0.1317
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1055
@@ -886,9 +975,9 @@ svyby(~brthwk.p, by = ~referred, design = rchis, FUN = svymean, na.rm = T)
 <pre><code>## 
 ##  Design-based t-test
 ## 
-## data:  brthwk.p ~ referred
+## data:  brthwk.p ~ referred 
 ## t = -2.571, df = 78, p-value = 0.01204
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1507
@@ -919,7 +1008,7 @@ svyby(~brthwk.p, by = ~referred, design = rchis, FUN = svymean, na.rm = T)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf46, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~racehp2p + cf46, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 5.004, df = 4, p-value = 0.7909
 </code></pre>
 
@@ -947,7 +1036,7 @@ svyby(~racehp2p, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf47, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~racehp2p + cf47, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 2.332, df = 4, p-value = 0.9569
 </code></pre>
 
@@ -972,7 +1061,7 @@ svyby(~racehp2p, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + referred, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~racehp2p + referred, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 2.4, df = 4, p-value = 0.9456
 </code></pre>
 
@@ -992,7 +1081,7 @@ svyby(~racehp2p, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf46, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~srh.a.i + cf46, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 5.446, df = 1, p-value = 0.2097
 </code></pre>
 
@@ -1011,7 +1100,7 @@ svyby(~srh.a.i, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf47, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~srh.a.i + cf47, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 0.134, df = 1, p-value = 0.8566
 </code></pre>
 
@@ -1030,8 +1119,75 @@ svyby(~srh.a.i, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + referred, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~srh.a.i + referred, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 0.611, df = 1, p-value = 0.6707
+</code></pre>
+
+<h3>Below Poverty Level</h3>
+
+<pre><code class="r">svyby(~belowpovl, by = ~cf46, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>##                      cf46 belowpovl100% FPL or higher
+## Not referred Not referred                      0.7170
+## Referred         Referred                      0.7779
+##              belowpovlBelow 100% FPL     se1     se2
+## Not referred                  0.2830 0.01462 0.01462
+## Referred                      0.2221 0.03371 0.03371
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + cf46, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
+## 
+## data:  svychisq(~belowpovl + cf46, rchis, statistic = &quot;Chisq&quot;) 
+## X-squared = 8.042, df = 1, p-value = 0.1331
+</code></pre>
+
+<pre><code class="r">
+svyby(~belowpovl, by = ~cf47, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>##                      cf47 belowpovl100% FPL or higher
+## Not referred Not referred                      0.7277
+## Referred         Referred                      0.7029
+##              belowpovlBelow 100% FPL     se1     se2
+## Not referred                  0.2723 0.01440 0.01440
+## Referred                      0.2971 0.04353 0.04353
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + cf47, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
+## 
+## data:  svychisq(~belowpovl + cf47, rchis, statistic = &quot;Chisq&quot;) 
+## X-squared = 1.663, df = 1, p-value = 0.5878
+</code></pre>
+
+<pre><code class="r">
+svyby(~belowpovl, by = ~referred, design = rchis, FUN = svymean)
+</code></pre>
+
+<pre><code>##     referred belowpovl100% FPL or higher belowpovlBelow 100% FPL     se1
+## No        No                      0.7257                  0.2743 0.01522
+## Yes      Yes                      0.7169                  0.2831 0.03468
+##         se2
+## No  0.01522
+## Yes 0.03468
+</code></pre>
+
+<pre><code class="r">svychisq(~belowpovl + referred, rchis, statistic = &quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
+## 
+## data:  svychisq(~belowpovl + referred, rchis, statistic = &quot;Chisq&quot;) 
+## X-squared = 0.26, df = 1, p-value = 0.8208
 </code></pre>
 
 <h3>Uninsured Ever in Last Year</h3>
@@ -1053,7 +1209,7 @@ svyby(~srh.a.i, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf46, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~unins.ever + cf46, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 8.895, df = 1, p-value = 0.1345
 </code></pre>
 
@@ -1075,7 +1231,7 @@ svyby(~unins.ever, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf47, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~unins.ever + cf47, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 8.283, df = 1, p-value = 0.1266
 </code></pre>
 
@@ -1097,7 +1253,7 @@ svyby(~unins.ever, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + referred, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~unins.ever + referred, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 14.41, df = 1, p-value = 0.04059
 </code></pre>
 
@@ -1117,7 +1273,7 @@ svyby(~unins.ever, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 261.2, df = 1, p-value = 8.514e-16
 </code></pre>
 
@@ -1136,7 +1292,7 @@ svyby(~pedsHiRisk, by = ~cf47, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 264.2, df = 1, p-value = 5.615e-16
 </code></pre>
 
@@ -1155,7 +1311,7 @@ svyby(~pedsHiRisk, by = ~referred, design = rchis, FUN = svymean)
 <pre><code>## 
 ##  Pearson&#39;s X^2: Rao &amp; Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = &quot;Chisq&quot;)
+## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = &quot;Chisq&quot;) 
 ## X-squared = 285, df = 1, p-value &lt; 2.2e-16
 </code></pre>
 
