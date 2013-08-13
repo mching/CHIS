@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+% Table created by stargazer v.4.0 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mon, Aug 12, 2013 - 09:20:37 PM
+\begin{table}[!htbp] \centering 
+  \caption{Regression Results} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & Developmental Only & Speech-Language-Hearing Only & Both \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ PEDS High Risk & 1.585$^{***}$ & 1.432$^{***}$ & 1.416$^{***}$ \\ 
+  & (0.200) & (0.199) & (0.183) \\ 
+  & & & \\ 
+ Male & 0.269 & 0.239 & 0.162 \\ 
+  & (0.177) & (0.182) & (0.166) \\ 
+  & & & \\ 
+ Age (y) & 0.093 & 0.230$^{***}$ & 0.139$^{***}$ \\ 
+  & (0.058) & (0.057) & (0.050) \\ 
+  & & & \\ 
+ Below 100% FPL & $-$0.424 & 0.113 & 0.008 \\ 
+  & (0.279) & (0.254) & (0.235) \\ 
+  & & & \\ 
+ Some or All Year Uninsured & $-$0.863 & $-$0.855$^{*}$ & $-$0.935$^{**}$ \\ 
+  & (0.554) & (0.448) & (0.384) \\ 
+  & & & \\ 
+ Race-Latino & 0.171 & $-$0.009 & $-$0.037 \\ 
+  & (0.533) & (0.418) & (0.343) \\ 
+  & & & \\ 
+ Race-Asian & $-$0.394 & $-$0.509$^{**}$ & $-$0.407$^{*}$ \\ 
+  & (0.246) & (0.243) & (0.224) \\ 
+  & & & \\ 
+ Race-African American & 0.002 & $-$0.098 & $-$0.138 \\ 
+  & (0.305) & (0.357) & (0.307) \\ 
+  & & & \\ 
+ Race-PI/Other/Multiple & 0.207 & $-$0.075 & $-$0.071 \\ 
+  & (0.646) & (0.509) & (0.407) \\ 
+  & & & \\ 
+ Non-Hispanic & 0.426 & 0.259 & 0.204 \\ 
+  & (0.521) & (0.383) & (0.311) \\ 
+  & & & \\ 
+ Constant & $-$0.442$^{***}$ & $-$0.361$^{**}$ & $-$0.463$^{***}$ \\ 
+  & (0.164) & (0.138) & (0.126) \\ 
+  & & & \\ 
+ Constant & $-$1.638$^{*}$ & $-$1.856$^{**}$ & $-$0.779 \\ 
+  & (0.924) & (0.716) & (0.612) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 80 & 80 & 80 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\normalsize 
+\end{tabular} 
+\end{table} 
+
+
+\end{document}
