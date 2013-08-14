@@ -73,23 +73,6 @@ library(survey)
 ```
 
 ```r
-library(stargazer)
-```
-
-```
-## Please cite as:
-```
-
-```
-## Hlavac, Marek (2013). stargazer: LaTeX code and ASCII text for
-## well-formatted regression and summary statistics tables.
-```
-
-```
-## R package version 4.0. http://CRAN.R-project.org/package=stargazer
-```
-
-```r
 library(binom)
 ```
 

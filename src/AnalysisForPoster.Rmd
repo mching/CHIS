@@ -9,7 +9,6 @@ First we load the data:
 library(ProjectTemplate)
 library(Hmisc)
 library(survey)
-library(stargazer)
 library(binom)
 
 setwd("~/Dropbox/Mike/CHIS")
