@@ -276,6 +276,99 @@ svyby(~pedsHiRisk, by = ~referred, design = rchis, FUN = svymean)
 svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
 ```
 
+Table 2: Alternate Method by Odds Ratios
+-----
+We can also calculate the unadjusted odds ratios as below. We should probably write a function to automate this task but maybe this is too much effort.
+
+### Gender
+```{r}
+model1 <- svyglm(cf46 ~ male, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ male, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ male, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Age
+```{r}
+model1 <- svyglm(cf46 ~ srage.p, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ srage.p, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ srage.p, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Birthweight
+```{r}
+model1 <- svyglm(cf46 ~ brthwk.p.i, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ brthwk.p.i, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ brthwk.p.i, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Race
+```{r}
+model1 <- svyglm(cf46 ~ racehp2p, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ racehp2p, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ racehp2p, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Hispanic Ethnicity
+```{r}
+model1 <- svyglm(cf46 ~ srh.a.i, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ srh.a.i, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ srh.a.i, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Below Poverty Level
+```{r}
+model1 <- svyglm(cf46 ~ belowpovl, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ belowpovl, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ belowpovl, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Uninsured Ever in Last Year
+```{r}
+model1 <- svyglm(cf46 ~ unins.ever, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ unins.ever, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ unins.ever, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### PEDS High Risk
+```{r}
+model1 <- svyglm(cf46 ~ pedsHiRisk, design = rchis, family = quasibinomial)
+model2 <- svyglm(cf47 ~ pedsHiRisk, design = rchis, family = quasibinomial)
+model3 <- svyglm(referred ~ pedsHiRisk, design = rchis, family = quasibinomial)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+
 Table 3: Regression Analyses
 -----
 
