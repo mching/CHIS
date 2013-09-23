@@ -461,3 +461,116 @@ model1 <- svyglm(referred ~ pedsHiRisk
 summary(model1)
 cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
 ```
+
+
+Add interaction terms
+=====
+
+### GLM with univariates from univariates_referral_devo.R
+```{r}
+model2int <- svyglm(cf46 ~ pedsHiRisk 
+                 + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 + pedsHiRisk*srage.p
+                 + pedsHiRisk*brthwk.p.i
+                 + pedsHiRisk*unins.ever
+                 ,
+                 design = rchis, family = quasibinomial)
+summary(model2int)
+cbind(OddsRatio = exp(model2int$coef), exp(confint(model2int)))
+```
+
+### GLM with univariates from univariates_referral_speech-only.R
+
+```{r}
+model3int <- svyglm(cf47 ~ pedsHiRisk 
+                 + male 
+                 #                 + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 + pedsHiRisk*srage.p
+                 + pedsHiRisk*brthwk.p.i
+                 + pedsHiRisk*unins.ever
+                 ,
+                 design = rchis, family = quasibinomial)
+summary(model3int)
+cbind(OddsRatio = exp(model3int$coef), exp(confint(model3int)))
+```
+
+### GLM with univariates from univariates.R
+
+```{r}
+model1int <- svyglm(referred ~ pedsHiRisk
+                # + peds
+                + male 
+                #                + cd1.2 
+                + srage.p 
+                + belowpovl 
+                + unins.ever 
+                + racehp2p 
+                #               + white
+                + srh.a.i
+                + brthwk.p.i
+                + pedsHiRisk*srage.p
+                + pedsHiRisk*brthwk.p.i
+                + pedsHiRisk*unins.ever
+                ,
+                design = rchis, family = quasibinomial)
+summary(model1int)
+cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
+```
+
+Looking at the interaction terms, there is a clear interaction between PEDS risk and birthweight or age. This kind of makes sense for birthweight. If you are low birthweight, you are likely to be referred for services regardless of PEDS result. In addition, perhaps the effect of PEDS is less strong on referral when the children are younger. To illustrate, we should try to subdivide the population by age and birthweight.
+
+#### Age
+We can see that the rate of referral in the low risk PEDS group is very low in the 0 age group and ranges about 13-16% after that. In contrast, the rate of referral in the high risk PEDS group is higher in older children than in younger children. 
+
+```{r}
+by.age.all <- svyby(~referred, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis, na.rm = T)
+by.age.devo <- svyby(~cf46, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis, na.rm = T)
+by.age.speech <- svyby(~cf47, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis, na.rm = T)
+
+by.age.all
+by.age.devo
+by.age.speech
+```
+
+#### Birthweight
+We need to cut the birthweight logically, perhaps by LBW and normal birthweight.
+```{r}
+head(chis$brthwk.p.i)
+chis$bw.cut <- cut(chis$brthwk.p.i, breaks = c(0, 2.5, 1000), labels = c("LBW", "normal BW"))
+
+# Attach bw.cut variable to survey definition
+rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+```
+
+
+```{r}
+by.lbw.all <- svyby(~referred, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis, na.rm = T)
+by.lbw.devo <- svyby(~cf46, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis, na.rm = T)
+by.lbw.speech <- svyby(~cf47, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis, na.rm = T)
+
+by.lbw.all
+by.lbw.devo
+by.lbw.speech
+```
+
+
+hist(chis$brthwk.p.i)
+
+svyhist(~brthwk.p.i, rchis)
+plot(chis$brthwk.p.i, chis$referred)
+```
