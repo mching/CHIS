@@ -547,6 +547,13 @@ by.age.devo
 by.age.speech
 ```
 
+Some plots might be nice, but I can't figure it out...
+```{r}
+plotmatrix.all <- cbind(0:5, by.age.all[1:6,4], by.age.all[7:12,4])
+plot(as.data.frame(plotmatrix.all))
+```
+
+
 #### Birthweight
 We need to cut the birthweight logically, perhaps by LBW and normal birthweight.
 ```{r}
@@ -568,9 +575,3 @@ by.lbw.devo
 by.lbw.speech
 ```
 
-
-hist(chis$brthwk.p.i)
-
-svyhist(~brthwk.p.i, rchis)
-plot(chis$brthwk.p.i, chis$referred)
-```
