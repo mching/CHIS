@@ -532,6 +532,26 @@ summary(model1int)
 cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
 ```
 
+Using AIC to compare models does not work because it svrepglm is not fitted by maximum likelihood. See: https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
+
+```{r}
+regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            + pedsHiRisk * unins.ever
+            )
+
+regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            + pedsHiRisk * unins.ever
+            )
+
+regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            + pedsHiRisk * unins.ever
+            )
+```
+
+
 Looking at the interaction terms, there is a clear interaction between PEDS risk and birthweight or age. This kind of makes sense for birthweight. If you are low birthweight, you are likely to be referred for services regardless of PEDS result. In addition, perhaps the effect of PEDS is less strong on referral when the children are younger. To illustrate, we should try to subdivide the population by age and birthweight.
 
 #### Age
