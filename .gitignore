@@ -9,3 +9,6 @@ doc
 Figures
 IRB
 chis09_child_stata
+*.pptx
+*.pdf
+src/figure/
