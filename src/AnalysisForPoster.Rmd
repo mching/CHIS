@@ -10,7 +10,6 @@ library(ProjectTemplate)
 library(Hmisc)
 library(survey)
 library(binom)
-library(lattice)
 
 setwd("~/Dropbox/Mike/CHIS")
 load.project()
@@ -569,34 +568,9 @@ by.age.speech
 ```
 
 Some plots might be nice, but I can't figure it out...
-
-This code block gives the percentages but we don't need to see both referred and non-referred on the same plot. Also the scales on the y axis are not the same.
 ```{r}
-par(mfrow = c(1, 1))
-plot(by.age.all[1:6, ], 
-     xlab = "Age", ylab = "Percentage Referred", 
-     main = "Referrals by Age with Low to Moderate Risk PEDS", 
-     xaxt = "n")
-axis(side = 1, at = c(2, 5, 8, 11, 14, 17), labels = 0:5)
-
-plot(by.age.all[7:12, ], 
-     xlab = "Age", ylab = "Percentage Referred", 
-     main = "Referrals by Age with High Risk PEDS", 
-     xaxt = "n")
-
-axis(side = 1, at = c(2, 5, 8, 11, 14, 17), labels = 0:5)
-```
-
-This code block gives the percentages with the right scales, but I would like the 0s to be next to each other rather than this far apart.
-```{r}
-fig.by.age.all <- cbind(by.age.all[1:6, 4], by.age.all[7:12, 4])
-barplot(fig.by.age.all, beside = T)
-axis(side = 1, at =0.5+c(1:13), labels = c(0:5, "", 0:5))
-```
-
-Try lattice package. This might work if you do a grid of age and PEDS risk.
-```{r}
-
+plotmatrix.all <- cbind(0:5, by.age.all[1:6,4], by.age.all[7:12,4])
+plot(as.data.frame(plotmatrix.all))
 ```
 
 
@@ -621,6 +595,3 @@ by.lbw.devo
 by.lbw.speech
 ```
 
-```{r}
-plot(by.lbw.all)
-```
