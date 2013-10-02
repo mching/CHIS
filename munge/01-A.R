@@ -40,6 +40,27 @@ rm(pedsHiRisk)
 # svytotal(~pedsHiRisk, rchis, na.rm = T)
 # svytotal(~peds, design=rchis, na.rm=T)
 
+############
+# Generate a pedsModHiRisk variable
+# No need to impute peds Inapplicables, this is done by Westat
+# Inapplicables
+############
+
+table(chis$peds, useNA = "ifany")
+
+# Generate pedsModHiRisk variable that corresponds to high risk on the PEDS
+pedsModHiRisk <- rep(NA, samplesize)
+
+pedsModHiRisk[chis$peds == "HIGH RISK"] <- 1
+pedsModHiRisk[chis$peds == "MODERATE RISK"] <- 1
+pedsModHiRisk[chis$peds != "HIGH RISK" & chis$peds != "MODERATE RISK"] <- 0
+table(pedsModHiRisk, useNA = "ifany")
+
+pedsModHiRisk <- factor(pedsModHiRisk, levels = c(0, 1), labels = c("No-Low Risk", "Mod-High Risk"))
+chis$pedsModHiRisk <- pedsModHiRisk  ## attach to the chis dataframe
+rm(pedsModHiRisk)
+
+
 ###############
 # cf46 Referral to developmental specialist
 ###############
