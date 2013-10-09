@@ -481,7 +481,7 @@ model2int <- svyglm(cf46 ~ pedsHiRisk
                  + brthwk.p.i
                  + pedsHiRisk*srage.p
                  + pedsHiRisk*brthwk.p.i
-                 + pedsHiRisk*unins.ever
+#                 + pedsHiRisk*unins.ever
                  ,
                  design = rchis, family = quasibinomial)
 summary(model2int)
@@ -503,7 +503,7 @@ model3int <- svyglm(cf47 ~ pedsHiRisk
                  + brthwk.p.i
                  + pedsHiRisk*srage.p
                  + pedsHiRisk*brthwk.p.i
-                 + pedsHiRisk*unins.ever
+#                 + pedsHiRisk*unins.ever
                  ,
                  design = rchis, family = quasibinomial)
 summary(model3int)
@@ -526,7 +526,7 @@ model1int <- svyglm(referred ~ pedsHiRisk
                 + brthwk.p.i
                 + pedsHiRisk*srage.p
                 + pedsHiRisk*brthwk.p.i
-                + pedsHiRisk*unins.ever
+#                + pedsHiRisk*unins.ever
                 ,
                 design = rchis, family = quasibinomial)
 summary(model1int)
@@ -538,12 +538,12 @@ Using AIC to compare models does not work because it svrepglm is not fitted by m
 ```{r}
 regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
             + pedsHiRisk * brthwk.p.i 
-            + pedsHiRisk * unins.ever
+#            + pedsHiRisk * unins.ever
             )
 
 regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
             + pedsHiRisk * brthwk.p.i 
-            + pedsHiRisk * unins.ever
+#            + pedsHiRisk * unins.ever
             )
 
 regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
