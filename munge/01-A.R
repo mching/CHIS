@@ -77,7 +77,8 @@ rm(devo.refer)
 
 # table(chis$cf46, useNA = "ifany")
 devo.referred.sample.size <- sum(table(chis$cf46))
-
+# x <- table(chis$cf46,chis$peds, useNA="ifany")
+# prop.table(x, 2)
 ###############
 # Generate male variable
 ###############
