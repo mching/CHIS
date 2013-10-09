@@ -19,19 +19,35 @@ library(Hmisc)
 ```
 
 ```
-## Loading required package: survival Loading required package: splines
-## Loading required package: Formula Hmisc library by Frank E Harrell Jr
+## Loading required package: survival
+```
+
+```
+## Loading required package: splines
+```
+
+```
+## Hmisc library by Frank E Harrell Jr
 ## 
 ## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview') to see overall
 ## documentation.
 ## 
+## NOTE:Hmisc no longer redefines [.factor to drop unused levels when
+## subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
+```
+
+```
 ## Attaching package: 'Hmisc'
-## 
-## The following object is masked from 'package:survival':
+```
+
+```
+## The following object(s) are masked from 'package:survival':
 ## 
 ## untangle.specials
-## 
-## The following object is masked from 'package:base':
+```
+
+```
+## The following object(s) are masked from 'package:base':
 ## 
 ## format.pval, round.POSIXt, trunc.POSIXt, units
 ```
@@ -42,12 +58,16 @@ library(survey)
 
 ```
 ## Attaching package: 'survey'
-## 
-## The following object is masked from 'package:Hmisc':
+```
+
+```
+## The following object(s) are masked from 'package:Hmisc':
 ## 
 ## deff
-## 
-## The following object is masked from 'package:graphics':
+```
+
+```
+## The following object(s) are masked from 'package:graphics':
 ## 
 ## dotchart
 ```
@@ -57,23 +77,46 @@ library(binom)
 ```
 
 ```
-## Error: there is no package called 'binom'
+## Loading required package: lattice
 ```
 
 ```r
+library(lattice)
 
 setwd("~/Dropbox/Mike/CHIS")
 load.project()
 ```
 
 ```
-## Loading project configuration Autoloading helper functions Running helper
-## script: helpers.R Autoloading data Loading data set: CHILD Munging data
+## Loading project configuration
+```
+
+```
+## Autoloading helper functions
+```
+
+```
+## Running helper script: helpers.R
+```
+
+```
+## Autoloading data
+```
+
+```
+## Loading data set: CHILD
+```
+
+```
+## Munging data
+```
+
+```
 ## Running preprocessing script: 01-A.R
 ```
 
 ```
-## Warning: duplicated levels in factors are deprecated
+## Warning: duplicated levels will not be allowed in factors anymore
 ```
 
 
@@ -119,7 +162,8 @@ binom.confint(sum(chis$male == "Male", na.rm = T), length(!is.na(chis$male)),
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method    x    n   mean  lower  upper
+## 1 asymptotic 2228 4263 0.5226 0.5076 0.5376
 ```
 
 ```r
@@ -329,7 +373,13 @@ sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
 ```
 
 ```
-## Error: object 'binom.confint' not found
+##        NO RISK  LOW RISK MODERATE RISK HIGH RISK
+## method factor,1 factor,1 factor,1      factor,1 
+## x      1754     800      756           792      
+## n      4102     4102     4102          4102     
+## mean   0.4276   0.195    0.1843        0.1931   
+## lower  0.4125   0.1829   0.1724        0.181    
+## upper  0.4427   0.2072   0.1962        0.2052
 ```
 
 ```r
@@ -399,7 +449,8 @@ binom.confint(sum(chis$srh.a.i == "YES"), length(chis$srh.a.i), method = "asym")
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method    x    n  mean  lower  upper
+## 1 asymptotic 1556 4263 0.365 0.3505 0.3795
 ```
 
 ```r
@@ -477,7 +528,20 @@ sapply(racetable, binom.confint, n = sum(racetable), method = "asy")
 ```
 
 ```
-## Error: object 'binom.confint' not found
+##        WHITE    LATINO   ASIAN    AFRICAN AMERICAN
+## method factor,1 factor,1 factor,1 factor,1        
+## x      1948     1239     617      140             
+## n      4263     4263     4263     4263            
+## mean   0.457    0.2906   0.1447   0.03284         
+## lower  0.442    0.277    0.1342   0.02749         
+## upper  0.4719   0.3043   0.1553   0.03819         
+##        PI/OTHER SINGLE/MULTIPLE RACE
+## method factor,1                     
+## x      319                          
+## n      4263                         
+## mean   0.07483                      
+## lower  0.06693                      
+## upper  0.08273
 ```
 
 ```r
@@ -547,7 +611,8 @@ binom.confint(ins.table[2], sum(ins.table), method = "asym")
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method   x    n   mean  lower  upper
+## 1 asymptotic 269 4263 0.0631 0.0558 0.0704
 ```
 
 ```r
@@ -615,7 +680,8 @@ binom.confint(sum(chis$belowpovl == "Below 100% FPL", na.rm = T), length(!is.na(
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method   x    n   mean  lower  upper
+## 1 asymptotic 914 4263 0.2144 0.2021 0.2267
 ```
 
 ```r
@@ -702,7 +768,8 @@ binom.confint(sum(chis$cf46 == "Referred", na.rm = T), sum(table(chis$cf46)),
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method   x    n   mean  lower upper
+## 1 asymptotic 441 3776 0.1168 0.1065 0.127
 ```
 
 ```r
@@ -788,7 +855,8 @@ binom.confint(sum(chis$cf47 == "Referred", na.rm = T), sum(table(chis$cf47)),
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method   x    n  mean  lower  upper
+## 1 asymptotic 555 3776 0.147 0.1357 0.1583
 ```
 
 ```r
@@ -874,7 +942,8 @@ binom.confint(sum(chis$referred == "Yes", na.rm = T), sum(table(chis$referred)),
 ```
 
 ```
-## Error: could not find function "binom.confint"
+##       method   x    n   mean  lower  upper
+## 1 asymptotic 715 3776 0.1894 0.1769 0.2019
 ```
 
 ```r
@@ -941,7 +1010,7 @@ svychisq(~male + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~male + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 11.35, df = 1, p-value = 0.05685
 ```
 
@@ -964,7 +1033,7 @@ svychisq(~male + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~male + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 11.96, df = 1, p-value = 0.06888
 ```
 
@@ -987,7 +1056,7 @@ svychisq(~male + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~male + referred, rchis, statistic = "Chisq") 
 ## X-squared = 6.097, df = 1, p-value = 0.1995
 ```
 
@@ -1012,9 +1081,9 @@ svyttest(srage.p ~ cf46, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ cf46
+## data:  srage.p ~ cf46 
 ## t = 1.881, df = 78, p-value = 0.06364
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.2381
@@ -1039,9 +1108,9 @@ svyttest(srage.p ~ cf47, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ cf47
+## data:  srage.p ~ cf47 
 ## t = 4.178, df = 78, p-value = 7.598e-05
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.4848
@@ -1066,9 +1135,9 @@ svyttest(srage.p ~ referred, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ referred
+## data:  srage.p ~ referred 
 ## t = 2.95, df = 78, p-value = 0.004195
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##             0.3016
@@ -1095,9 +1164,9 @@ svyttest(brthwk.p ~ cf46, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ cf46
+## data:  brthwk.p ~ cf46 
 ## t = -1.526, df = 78, p-value = 0.1311
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1394
@@ -1122,9 +1191,9 @@ svyttest(brthwk.p ~ cf47, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ cf47
+## data:  brthwk.p ~ cf47 
 ## t = -1.524, df = 78, p-value = 0.1317
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1055
@@ -1149,9 +1218,9 @@ svyttest(brthwk.p ~ referred, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ referred
+## data:  brthwk.p ~ referred 
 ## t = -2.571, df = 78, p-value = 0.01204
-## alternative hypothesis: true difference in mean is not equal to 0
+## alternative hypothesis: true difference in mean is not equal to 0 
 ## sample estimates:
 ## difference in mean 
 ##            -0.1507
@@ -1187,7 +1256,7 @@ svychisq(~racehp2p + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~racehp2p + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 5.004, df = 4, p-value = 0.7909
 ```
 
@@ -1219,7 +1288,7 @@ svychisq(~racehp2p + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~racehp2p + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 2.332, df = 4, p-value = 0.9569
 ```
 
@@ -1248,7 +1317,7 @@ svychisq(~racehp2p + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~racehp2p + referred, rchis, statistic = "Chisq") 
 ## X-squared = 2.4, df = 4, p-value = 0.9456
 ```
 
@@ -1273,7 +1342,7 @@ svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 5.446, df = 1, p-value = 0.2097
 ```
 
@@ -1296,7 +1365,7 @@ svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 0.134, df = 1, p-value = 0.8566
 ```
 
@@ -1319,7 +1388,7 @@ svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~srh.a.i + referred, rchis, statistic = "Chisq") 
 ## X-squared = 0.611, df = 1, p-value = 0.6707
 ```
 
@@ -1347,7 +1416,7 @@ svychisq(~belowpovl + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~belowpovl + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 8.042, df = 1, p-value = 0.1331
 ```
 
@@ -1373,7 +1442,7 @@ svychisq(~belowpovl + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~belowpovl + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 1.663, df = 1, p-value = 0.5878
 ```
 
@@ -1399,7 +1468,7 @@ svychisq(~belowpovl + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~belowpovl + referred, rchis, statistic = "Chisq") 
 ## X-squared = 0.26, df = 1, p-value = 0.8208
 ```
 
@@ -1427,7 +1496,7 @@ svychisq(~unins.ever + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~unins.ever + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 8.895, df = 1, p-value = 0.1345
 ```
 
@@ -1453,7 +1522,7 @@ svychisq(~unins.ever + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~unins.ever + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 8.283, df = 1, p-value = 0.1266
 ```
 
@@ -1479,7 +1548,7 @@ svychisq(~unins.ever + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~unins.ever + referred, rchis, statistic = "Chisq") 
 ## X-squared = 14.41, df = 1, p-value = 0.04059
 ```
 
@@ -1504,7 +1573,7 @@ svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq")
+## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq") 
 ## X-squared = 261.2, df = 1, p-value = 8.514e-16
 ```
 
@@ -1527,7 +1596,7 @@ svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
+## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq") 
 ## X-squared = 264.2, df = 1, p-value = 5.615e-16
 ```
 
@@ -1550,7 +1619,7 @@ svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
+## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq") 
 ## X-squared = 285, df = 1, p-value < 2.2e-16
 ```
 
@@ -1584,7 +1653,7 @@ summary(model1)
 ## (Intercept)   -2.216      0.113   -19.6   <2e-16 ***
 ## maleMale       0.326      0.171     1.9    0.061 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1610,7 +1679,7 @@ summary(model2)
 ## (Intercept)   -1.896      0.150  -12.64   <2e-16 ***
 ## maleMale       0.299      0.167    1.79    0.078 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1636,7 +1705,7 @@ summary(model3)
 ## (Intercept)   -1.524      0.121  -12.62   <2e-16 ***
 ## maleMale       0.192      0.151    1.27     0.21    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1700,7 +1769,7 @@ summary(model1)
 ## (Intercept)  -2.3686     0.1861  -12.73   <2e-16 ***
 ## srage.p       0.1098     0.0586    1.88    0.064 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8658)
 ## 
@@ -1726,7 +1795,7 @@ summary(model2)
 ## (Intercept)  -2.4332     0.2130  -11.43  < 2e-16 ***
 ## srage.p       0.2274     0.0548    4.15  8.5e-05 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8622)
 ## 
@@ -1752,7 +1821,7 @@ summary(model3)
 ## (Intercept)  -1.8398     0.1700  -10.82   <2e-16 ***
 ## srage.p       0.1394     0.0469    2.98   0.0039 ** 
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8655)
 ## 
@@ -1840,7 +1909,7 @@ summary(model2)
 ## (Intercept)   -0.905      0.526   -1.72    0.089 .
 ## brthwk.p.i    -0.254      0.166   -1.53    0.130  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8737)
 ## 
@@ -1866,7 +1935,7 @@ summary(model3)
 ## (Intercept)   -0.239      0.452   -0.53    0.599  
 ## brthwk.p.i    -0.362      0.143   -2.54    0.013 *
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8784)
 ## 
@@ -1939,7 +2008,7 @@ summary(model1)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1974,7 +2043,7 @@ summary(model2)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2009,7 +2078,7 @@ summary(model3)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2082,7 +2151,7 @@ summary(model1)
 ## (Intercept)   -2.166      0.128  -16.96   <2e-16 ***
 ## srh.a.iNO      0.226      0.180    1.26     0.21    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2108,7 +2177,7 @@ summary(model2)
 ## (Intercept)  -1.7547     0.1437  -12.21   <2e-16 ***
 ## srh.a.iNO     0.0315     0.1760    0.18     0.86    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2134,7 +2203,7 @@ summary(model3)
 ## (Intercept)  -1.4570     0.1186  -12.28   <2e-16 ***
 ## srh.a.iNO     0.0607     0.1434    0.42     0.67    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2198,7 +2267,7 @@ summary(model1)
 ## (Intercept)              -1.9602     0.0992   -19.8   <2e-16 ***
 ## belowpovlBelow 100% FPL  -0.3237     0.2165    -1.5     0.14    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2224,7 +2293,7 @@ summary(model2)
 ## (Intercept)              -1.7726     0.0871  -20.36   <2e-16 ***
 ## belowpovlBelow 100% FPL   0.1216     0.2313    0.53      0.6    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2250,7 +2319,7 @@ summary(model3)
 ## (Intercept)              -1.4369     0.0734  -19.56   <2e-16 ***
 ## belowpovlBelow 100% FPL   0.0439     0.1976    0.22     0.82    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2317,7 +2386,7 @@ summary(model1)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2346,7 +2415,7 @@ summary(model2)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2375,7 +2444,7 @@ summary(model3)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2439,7 +2508,7 @@ summary(model1)
 ## (Intercept)     -2.527      0.104  -24.26  < 2e-16 ***
 ## pedsHiRiskYes    1.518      0.201    7.56  6.6e-11 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2465,7 +2534,7 @@ summary(model2)
 ## (Intercept)     -2.158      0.132  -16.41  < 2e-16 ***
 ## pedsHiRiskYes    1.409      0.184    7.66  4.3e-11 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2491,7 +2560,7 @@ summary(model3)
 ## (Intercept)     -1.807      0.104  -17.42   <2e-16 ***
 ## pedsHiRiskYes    1.365      0.165    8.25    3e-12 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2593,7 +2662,7 @@ summary(model2)
 ## srh.a.iNO                                
 ## brthwk.p.i                            ** 
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8949)
 ## 
@@ -2680,7 +2749,7 @@ summary(model3)
 ## srh.a.iNO                                
 ## brthwk.p.i                            *  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8763)
 ## 
@@ -2768,7 +2837,7 @@ summary(model1)
 ## srh.a.iNO                                
 ## brthwk.p.i                            ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8734)
 ## 
@@ -2868,7 +2937,7 @@ summary(model2int)
 ## pedsHiRiskYes:brthwk.p.i                              1.72  0.08962 .  
 ## pedsHiRiskYes:unins.everSome or All Year uninsured   -1.21  0.23084    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8867)
 ## 
@@ -2984,7 +3053,7 @@ summary(model3int)
 ## pedsHiRiskYes:brthwk.p.i                              2.11  0.03854 *  
 ## pedsHiRiskYes:unins.everSome or All Year uninsured   -0.94  0.35264    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8717)
 ## 
@@ -3101,7 +3170,7 @@ summary(model1int)
 ## pedsHiRiskYes:brthwk.p.i                              1.88    0.064 .  
 ## pedsHiRiskYes:unins.everSome or All Year uninsured   -0.87    0.388    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8722)
 ## 
@@ -3306,6 +3375,11 @@ axis(side = 1, at = 0.5 + c(1:13), labels = c(0:5, "", 0:5))
 ![plot of chunk unnamed-chunk-38](figure/unnamed-chunk-38.png) 
 
 
+Try lattice package. This might work if you do a grid of age and PEDS risk.
+
+
+
+
 #### Birthweight
 We need to cut the birthweight logically, perhaps by LBW and normal birthweight.
 
@@ -3383,4 +3457,11 @@ by.lbw.speech
 ## Yes.normal BW 0.02973
 ```
 
+
+
+```r
+plot(by.lbw.all)
+```
+
+![plot of chunk unnamed-chunk-42](figure/unnamed-chunk-42.png) 
 
