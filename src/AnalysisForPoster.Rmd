@@ -569,19 +569,43 @@ by.age.devo
 by.age.speech
 ```
 
+What is the RR of referral at different ages?
+```{r}
+for(i in 0:5) print(by.age.all[i + 7,4]/by.age.all[i + 1,4])
+```
+
+
 Some plots might be nice, but I can't figure it out...
 
 Try ggplot2 package. This works much better!!!
 ```{r}
-ggplot(data = by.age.all, aes(x = srage.p, y=referredYes, fill = pedsHiRisk)) + 
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
   geom_bar(stat="identity", position=position_dodge()) + 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+#  geom_smooth(method = "lm") + 
 #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
   scale_y_continuous(labels=percent) +
-#  scale_fill_brewer(palette="Set3", name = "PEDS High Risk") + 
-  scale_fill_grey(name = "PEDS High Risk") +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
   xlab("Age (years)") +
   ylab("Percentage Referred") +
-  theme_bw() +
+  theme_bw(base_family = "Avenir") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
+
+
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_point() + 
+#  facet_grid(. ~ pedsHiRisk) +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+#  theme_bw() +
   ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
 
 ```
