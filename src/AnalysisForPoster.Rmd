@@ -580,10 +580,7 @@ Some plots might be nice, but I can't figure it out...
 Try ggplot2 package. This works much better!!!
 ```{r}
 ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
-  geom_bar(stat="identity", position=position_dodge()) + 
-  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
-                  width=.2,                    # Width of the error bars
-                  position=position_dodge(.9))
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
 #  geom_smooth(method = "lm") + 
 #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
   scale_y_continuous(labels=percent) +
@@ -592,7 +589,10 @@ ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) 
   xlab("Age (years)") +
   ylab("Percentage Referred") +
   theme_bw(base_family = "Avenir") +
-  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
 
 
 ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
