@@ -574,10 +574,27 @@ What is the RR of referral at different ages?
 for(i in 0:5) print(by.age.all[i + 7,4]/by.age.all[i + 1,4])
 ```
 
+# Figures
 
-Some plots might be nice, but I can't figure it out...
+### Devo by PEDS and Age
+```{r}
+ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist by PEDS and Age") + 
+  geom_errorbar(aes(ymin=cf46Referred - se2, ymax = cf46Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
 
-Try ggplot2 package. This works much better!!!
+# Devo or SLHT by PEDS and age
 ```{r}
 ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
@@ -588,7 +605,7 @@ ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) 
 #  scale_fill_grey(name = "PEDS High Risk") +
   xlab("Age (years)") +
   ylab("Percentage Referred") +
-  theme_bw(base_family = "Avenir") +
+  theme_bw(base_family = "Times") +
   ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
   geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
                   width=.2,                    # Width of the error bars
@@ -609,6 +626,7 @@ ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) 
   ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
 
 ```
+
 
 
 #### Birthweight
@@ -632,7 +650,21 @@ by.lbw.devo
 by.lbw.speech
 ```
 
+# Plot for Birthweight
 ```{r}
-plot(by.lbw.all)
+ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=cf47Referred - se2, ymax = cf47Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
 ```
 
