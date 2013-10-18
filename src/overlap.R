@@ -2,6 +2,7 @@
 # cf46 = developmental specialist referral
 # cf47 = speech-language-hearing referral
 # chis has only children under 6
+# run munge and 0-1 scripts first
 
 library(survey)
 
