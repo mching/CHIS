@@ -534,6 +534,25 @@ summary(model1int)
 cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
 ```
 
+Automatically extract the numbers from the models. This is not correct since the OR is not interpretable for interaction term.
+```{r}
+# OR.dev <- cbind(OddsRatio = exp(model2int$coef), exp(confint(model2int)))
+# OR.speech <- cbind(OddsRatio = exp(model3int$coef), exp(confint(model3int)))
+# OR.either <- cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
+
+# write.table(OR.dev, file = "./doc/ORDevInteraction.txt")
+# write.table(OR.speech, file = "./doc/ORSpeechInteraction.txt")
+# write.table(OR.either, file = "./doc/OREitherInteraction.txt")
+```
+
+What you want is the coefficients...
+```{r}
+summary(model2int)$coef[, c(1:2, 4)]
+summary(model3int)$coef[, c(1:2, 4)]
+summary(model1int)$coef[, c(1:2, 4)]
+```
+
+
 Using AIC to compare models does not work because it svrepglm is not fitted by maximum likelihood. See: https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
 
 ```{r}
