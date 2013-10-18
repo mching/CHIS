@@ -386,7 +386,7 @@ cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
 cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
 ```
 
-### PEDS High Risk
+### PEDS Moderate High Risk
 ```{r}
 model1 <- svyglm(cf46 ~ pedsModHiRisk, design = rchis, family = quasibinomial)
 model2 <- svyglm(cf47 ~ pedsModHiRisk, design = rchis, family = quasibinomial)
