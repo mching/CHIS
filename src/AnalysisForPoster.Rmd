@@ -659,7 +659,7 @@ ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk
   scale_y_continuous(labels=percent) +
   scale_fill_brewer(name = "PEDS High Risk") + 
 #  scale_fill_grey(name = "PEDS High Risk") +
-  xlab("Age (years)") +
+  xlab("Birthweight") +
   ylab("Percentage Referred") +
   theme_bw(base_family = "Times") +
   ggtitle("Percentage Referred to Speech-Language-Hearing by PEDS and Birthweight")+ 
@@ -668,3 +668,19 @@ ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk
                   position=position_dodge(.9))
 ```
 
+```{r}
+ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```

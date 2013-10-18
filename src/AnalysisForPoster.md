@@ -20,36 +20,23 @@ library(Hmisc)
 
 ```
 ## Loading required package: survival
-```
-
-```
 ## Loading required package: splines
-```
-
-```
+## Loading required package: Formula
 ## Hmisc library by Frank E Harrell Jr
 ## 
-## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview') to see overall
-## documentation.
+## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview')
+## to see overall documentation.
 ## 
-## NOTE:Hmisc no longer redefines [.factor to drop unused levels when
-## subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
-```
-
-```
+## 
 ## Attaching package: 'Hmisc'
-```
-
-```
-## The following object(s) are masked from 'package:survival':
 ## 
-## untangle.specials
-```
-
-```
-## The following object(s) are masked from 'package:base':
+## The following object is masked from 'package:survival':
 ## 
-## format.pval, round.POSIXt, trunc.POSIXt, units
+##     untangle.specials
+## 
+## The following object is masked from 'package:base':
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
 ```
 
 ```r
@@ -57,19 +44,16 @@ library(survey)
 ```
 
 ```
+## 
 ## Attaching package: 'survey'
-```
-
-```
-## The following object(s) are masked from 'package:Hmisc':
 ## 
-## deff
-```
-
-```
-## The following object(s) are masked from 'package:graphics':
+## The following object is masked from 'package:Hmisc':
 ## 
-## dotchart
+##     deff
+## 
+## The following object is masked from 'package:graphics':
+## 
+##     dotchart
 ```
 
 ```r
@@ -81,7 +65,8 @@ library(binom)
 ```
 
 ```r
-library(lattice)
+library(ggplot2)
+library(scales)
 
 setwd("~/Dropbox/Mike/CHIS")
 load.project()
@@ -89,34 +74,16 @@ load.project()
 
 ```
 ## Loading project configuration
-```
-
-```
 ## Autoloading helper functions
-```
-
-```
-## Running helper script: helpers.R
-```
-
-```
+##  Running helper script: helpers.R
 ## Autoloading data
-```
-
-```
-## Loading data set: CHILD
-```
-
-```
+##  Loading data set: CHILD
 ## Munging data
+##  Running preprocessing script: 01-A.R
 ```
 
 ```
-## Running preprocessing script: 01-A.R
-```
-
-```
-## Warning: duplicated levels will not be allowed in factors anymore
+## Warning: duplicated levels in factors are deprecated
 ```
 
 
@@ -1010,7 +977,7 @@ svychisq(~male + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~male + cf46, rchis, statistic = "Chisq")
 ## X-squared = 11.35, df = 1, p-value = 0.05685
 ```
 
@@ -1033,7 +1000,7 @@ svychisq(~male + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~male + cf47, rchis, statistic = "Chisq")
 ## X-squared = 11.96, df = 1, p-value = 0.06888
 ```
 
@@ -1056,7 +1023,7 @@ svychisq(~male + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~male + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~male + referred, rchis, statistic = "Chisq")
 ## X-squared = 6.097, df = 1, p-value = 0.1995
 ```
 
@@ -1081,9 +1048,9 @@ svyttest(srage.p ~ cf46, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ cf46 
+## data:  srage.p ~ cf46
 ## t = 1.881, df = 78, p-value = 0.06364
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##             0.2381
@@ -1108,9 +1075,9 @@ svyttest(srage.p ~ cf47, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ cf47 
+## data:  srage.p ~ cf47
 ## t = 4.178, df = 78, p-value = 7.598e-05
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##             0.4848
@@ -1135,9 +1102,9 @@ svyttest(srage.p ~ referred, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  srage.p ~ referred 
+## data:  srage.p ~ referred
 ## t = 2.95, df = 78, p-value = 0.004195
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##             0.3016
@@ -1164,9 +1131,9 @@ svyttest(brthwk.p ~ cf46, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ cf46 
+## data:  brthwk.p ~ cf46
 ## t = -1.526, df = 78, p-value = 0.1311
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##            -0.1394
@@ -1191,9 +1158,9 @@ svyttest(brthwk.p ~ cf47, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ cf47 
+## data:  brthwk.p ~ cf47
 ## t = -1.524, df = 78, p-value = 0.1317
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##            -0.1055
@@ -1218,9 +1185,9 @@ svyttest(brthwk.p ~ referred, design = rchis)
 ## 
 ## 	Design-based t-test
 ## 
-## data:  brthwk.p ~ referred 
+## data:  brthwk.p ~ referred
 ## t = -2.571, df = 78, p-value = 0.01204
-## alternative hypothesis: true difference in mean is not equal to 0 
+## alternative hypothesis: true difference in mean is not equal to 0
 ## sample estimates:
 ## difference in mean 
 ##            -0.1507
@@ -1256,7 +1223,7 @@ svychisq(~racehp2p + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~racehp2p + cf46, rchis, statistic = "Chisq")
 ## X-squared = 5.004, df = 4, p-value = 0.7909
 ```
 
@@ -1288,7 +1255,7 @@ svychisq(~racehp2p + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~racehp2p + cf47, rchis, statistic = "Chisq")
 ## X-squared = 2.332, df = 4, p-value = 0.9569
 ```
 
@@ -1317,7 +1284,7 @@ svychisq(~racehp2p + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~racehp2p + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~racehp2p + referred, rchis, statistic = "Chisq")
 ## X-squared = 2.4, df = 4, p-value = 0.9456
 ```
 
@@ -1342,7 +1309,7 @@ svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~srh.a.i + cf46, rchis, statistic = "Chisq")
 ## X-squared = 5.446, df = 1, p-value = 0.2097
 ```
 
@@ -1365,7 +1332,7 @@ svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~srh.a.i + cf47, rchis, statistic = "Chisq")
 ## X-squared = 0.134, df = 1, p-value = 0.8566
 ```
 
@@ -1388,7 +1355,7 @@ svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~srh.a.i + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~srh.a.i + referred, rchis, statistic = "Chisq")
 ## X-squared = 0.611, df = 1, p-value = 0.6707
 ```
 
@@ -1416,7 +1383,7 @@ svychisq(~belowpovl + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~belowpovl + cf46, rchis, statistic = "Chisq")
 ## X-squared = 8.042, df = 1, p-value = 0.1331
 ```
 
@@ -1442,7 +1409,7 @@ svychisq(~belowpovl + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~belowpovl + cf47, rchis, statistic = "Chisq")
 ## X-squared = 1.663, df = 1, p-value = 0.5878
 ```
 
@@ -1468,7 +1435,7 @@ svychisq(~belowpovl + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~belowpovl + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~belowpovl + referred, rchis, statistic = "Chisq")
 ## X-squared = 0.26, df = 1, p-value = 0.8208
 ```
 
@@ -1496,7 +1463,7 @@ svychisq(~unins.ever + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~unins.ever + cf46, rchis, statistic = "Chisq")
 ## X-squared = 8.895, df = 1, p-value = 0.1345
 ```
 
@@ -1522,7 +1489,7 @@ svychisq(~unins.ever + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~unins.ever + cf47, rchis, statistic = "Chisq")
 ## X-squared = 8.283, df = 1, p-value = 0.1266
 ```
 
@@ -1548,7 +1515,7 @@ svychisq(~unins.ever + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~unins.ever + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~unins.ever + referred, rchis, statistic = "Chisq")
 ## X-squared = 14.41, df = 1, p-value = 0.04059
 ```
 
@@ -1573,7 +1540,7 @@ svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq") 
+## data:  svychisq(~pedsHiRisk + cf46, rchis, statistic = "Chisq")
 ## X-squared = 261.2, df = 1, p-value = 8.514e-16
 ```
 
@@ -1596,7 +1563,7 @@ svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq") 
+## data:  svychisq(~pedsHiRisk + cf47, rchis, statistic = "Chisq")
 ## X-squared = 264.2, df = 1, p-value = 5.615e-16
 ```
 
@@ -1619,7 +1586,7 @@ svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
 ## 
 ## 	Pearson's X^2: Rao & Scott adjustment
 ## 
-## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq") 
+## data:  svychisq(~pedsHiRisk + referred, rchis, statistic = "Chisq")
 ## X-squared = 285, df = 1, p-value < 2.2e-16
 ```
 
@@ -1653,7 +1620,7 @@ summary(model1)
 ## (Intercept)   -2.216      0.113   -19.6   <2e-16 ***
 ## maleMale       0.326      0.171     1.9    0.061 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1679,7 +1646,7 @@ summary(model2)
 ## (Intercept)   -1.896      0.150  -12.64   <2e-16 ***
 ## maleMale       0.299      0.167    1.79    0.078 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1705,7 +1672,7 @@ summary(model3)
 ## (Intercept)   -1.524      0.121  -12.62   <2e-16 ***
 ## maleMale       0.192      0.151    1.27     0.21    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -1769,7 +1736,7 @@ summary(model1)
 ## (Intercept)  -2.3686     0.1861  -12.73   <2e-16 ***
 ## srage.p       0.1098     0.0586    1.88    0.064 .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8658)
 ## 
@@ -1795,7 +1762,7 @@ summary(model2)
 ## (Intercept)  -2.4332     0.2130  -11.43  < 2e-16 ***
 ## srage.p       0.2274     0.0548    4.15  8.5e-05 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8622)
 ## 
@@ -1821,7 +1788,7 @@ summary(model3)
 ## (Intercept)  -1.8398     0.1700  -10.82   <2e-16 ***
 ## srage.p       0.1394     0.0469    2.98   0.0039 ** 
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8655)
 ## 
@@ -1909,7 +1876,7 @@ summary(model2)
 ## (Intercept)   -0.905      0.526   -1.72    0.089 .
 ## brthwk.p.i    -0.254      0.166   -1.53    0.130  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8737)
 ## 
@@ -1935,7 +1902,7 @@ summary(model3)
 ## (Intercept)   -0.239      0.452   -0.53    0.599  
 ## brthwk.p.i    -0.362      0.143   -2.54    0.013 *
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8784)
 ## 
@@ -2008,7 +1975,7 @@ summary(model1)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2043,7 +2010,7 @@ summary(model2)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2078,7 +2045,7 @@ summary(model3)
 ## racehp2pAFRICAN AMERICAN                 
 ## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2151,7 +2118,7 @@ summary(model1)
 ## (Intercept)   -2.166      0.128  -16.96   <2e-16 ***
 ## srh.a.iNO      0.226      0.180    1.26     0.21    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2177,7 +2144,7 @@ summary(model2)
 ## (Intercept)  -1.7547     0.1437  -12.21   <2e-16 ***
 ## srh.a.iNO     0.0315     0.1760    0.18     0.86    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2203,7 +2170,7 @@ summary(model3)
 ## (Intercept)  -1.4570     0.1186  -12.28   <2e-16 ***
 ## srh.a.iNO     0.0607     0.1434    0.42     0.67    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2267,7 +2234,7 @@ summary(model1)
 ## (Intercept)              -1.9602     0.0992   -19.8   <2e-16 ***
 ## belowpovlBelow 100% FPL  -0.3237     0.2165    -1.5     0.14    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2293,7 +2260,7 @@ summary(model2)
 ## (Intercept)              -1.7726     0.0871  -20.36   <2e-16 ***
 ## belowpovlBelow 100% FPL   0.1216     0.2313    0.53      0.6    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2319,7 +2286,7 @@ summary(model3)
 ## (Intercept)              -1.4369     0.0734  -19.56   <2e-16 ***
 ## belowpovlBelow 100% FPL   0.0439     0.1976    0.22     0.82    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2386,7 +2353,7 @@ summary(model1)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2415,7 +2382,7 @@ summary(model2)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured    
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2444,7 +2411,7 @@ summary(model3)
 ## (Intercept)                          ***
 ## unins.everSome or All Year uninsured .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2508,7 +2475,7 @@ summary(model1)
 ## (Intercept)     -2.527      0.104  -24.26  < 2e-16 ***
 ## pedsHiRiskYes    1.518      0.201    7.56  6.6e-11 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2534,7 +2501,7 @@ summary(model2)
 ## (Intercept)     -2.158      0.132  -16.41  < 2e-16 ***
 ## pedsHiRiskYes    1.409      0.184    7.66  4.3e-11 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2560,7 +2527,7 @@ summary(model3)
 ## (Intercept)     -1.807      0.104  -17.42   <2e-16 ***
 ## pedsHiRiskYes    1.365      0.165    8.25    3e-12 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8668)
 ## 
@@ -2662,7 +2629,7 @@ summary(model2)
 ## srh.a.iNO                                
 ## brthwk.p.i                            ** 
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8949)
 ## 
@@ -2749,7 +2716,7 @@ summary(model3)
 ## srh.a.iNO                                
 ## brthwk.p.i                            *  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8763)
 ## 
@@ -2837,7 +2804,7 @@ summary(model1)
 ## srh.a.iNO                                
 ## brthwk.p.i                            ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for quasibinomial family taken to be 0.8734)
 ## 
@@ -2884,7 +2851,7 @@ model2int <- svyglm(cf46 ~ pedsHiRisk
                  + brthwk.p.i
                  + pedsHiRisk*srage.p
                  + pedsHiRisk*brthwk.p.i
-                 + pedsHiRisk*unins.ever
+#                 + pedsHiRisk*unins.ever
                  ,
                  design = rchis, family = quasibinomial)
 summary(model2int)
@@ -2895,8 +2862,7 @@ summary(model2int)
 ## Call:
 ## svyglm(formula = cf46 ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
 ## 
 ## Survey design:
 ## svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
@@ -2904,42 +2870,40 @@ summary(model2int)
 ##     scale = 1, rscales = rep(1, 80), type = "other")
 ## 
 ## Coefficients:
-##                                                    Estimate Std. Error
-## (Intercept)                                         -0.1075     0.8639
-## pedsHiRiskYes                                       -1.2623     1.0574
-## maleMale                                             0.2399     0.1728
-## srage.p                                             -0.0653     0.0656
-## belowpovlBelow 100% FPL                             -0.4157     0.2816
-## unins.everSome or All Year uninsured                -0.3646     0.8126
-## racehp2pLATINO                                       0.0292     0.4494
-## racehp2pASIAN                                       -0.3985     0.2497
-## racehp2pAFRICAN AMERICAN                            -0.0489     0.3165
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                0.0898     0.5425
-## srh.a.iNO                                            0.3255     0.4408
-## brthwk.p.i                                          -0.7478     0.2120
-## pedsHiRiskYes:srage.p                                0.4023     0.1283
-## pedsHiRiskYes:brthwk.p.i                             0.5198     0.3017
-## pedsHiRiskYes:unins.everSome or All Year uninsured  -1.1185     0.9248
-##                                                    t value Pr(>|t|)    
-## (Intercept)                                          -0.12  0.90138    
-## pedsHiRiskYes                                        -1.19  0.23692    
-## maleMale                                              1.39  0.16966    
-## srage.p                                              -1.00  0.32304    
-## belowpovlBelow 100% FPL                              -1.48  0.14477    
-## unins.everSome or All Year uninsured                 -0.45  0.65513    
-## racehp2pLATINO                                        0.06  0.94845    
-## racehp2pASIAN                                        -1.60  0.11532    
-## racehp2pAFRICAN AMERICAN                             -0.15  0.87764    
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                 0.17  0.86898    
-## srh.a.iNO                                             0.74  0.46291    
-## brthwk.p.i                                           -3.53  0.00078 ***
-## pedsHiRiskYes:srage.p                                 3.14  0.00257 ** 
-## pedsHiRiskYes:brthwk.p.i                              1.72  0.08962 .  
-## pedsHiRiskYes:unins.everSome or All Year uninsured   -1.21  0.23084    
+##                                       Estimate Std. Error t value Pr(>|t|)
+## (Intercept)                            -0.0133     0.9157   -0.01  0.98843
+## pedsHiRiskYes                          -1.4110     1.1280   -1.25  0.21539
+## maleMale                                0.2350     0.1744    1.35  0.18254
+## srage.p                                -0.0672     0.0662   -1.01  0.31396
+## belowpovlBelow 100% FPL                -0.4334     0.2808   -1.54  0.12756
+## unins.everSome or All Year uninsured   -0.8963     0.5578   -1.61  0.11285
+## racehp2pLATINO                          0.0177     0.4546    0.04  0.96912
+## racehp2pASIAN                          -0.3855     0.2478   -1.56  0.12458
+## racehp2pAFRICAN AMERICAN               -0.0438     0.3164   -0.14  0.89037
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE   0.0650     0.5527    0.12  0.90680
+## srh.a.iNO                               0.3018     0.4479    0.67  0.50276
+## brthwk.p.i                             -0.7603     0.2180   -3.49  0.00087
+## pedsHiRiskYes:srage.p                   0.3919     0.1249    3.14  0.00255
+## pedsHiRiskYes:brthwk.p.i                0.5580     0.3191    1.75  0.08496
+##                                          
+## (Intercept)                              
+## pedsHiRiskYes                            
+## maleMale                                 
+## srage.p                                  
+## belowpovlBelow 100% FPL                  
+## unins.everSome or All Year uninsured     
+## racehp2pLATINO                           
+## racehp2pASIAN                            
+## racehp2pAFRICAN AMERICAN                 
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+## srh.a.iNO                                
+## brthwk.p.i                            ***
+## pedsHiRiskYes:srage.p                 ** 
+## pedsHiRiskYes:brthwk.p.i              .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for quasibinomial family taken to be 0.8867)
+## (Dispersion parameter for quasibinomial family taken to be 0.8992)
 ## 
 ## Number of Fisher Scoring iterations: 6
 ```
@@ -2949,38 +2913,21 @@ cbind(OddsRatio = exp(model2int$coef), exp(confint(model2int)))
 ```
 
 ```
-##                                                    OddsRatio   2.5 %
-## (Intercept)                                           0.8981 0.16520
-## pedsHiRiskYes                                         0.2830 0.03562
-## maleMale                                              1.2712 0.90601
-## srage.p                                               0.9368 0.82379
-## belowpovlBelow 100% FPL                               0.6599 0.37999
-## unins.everSome or All Year uninsured                  0.6945 0.14125
-## racehp2pLATINO                                        1.0296 0.42670
-## racehp2pASIAN                                         0.6713 0.41151
-## racehp2pAFRICAN AMERICAN                              0.9523 0.51209
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                 1.0940 0.37781
-## srh.a.iNO                                             1.3847 0.58364
-## brthwk.p.i                                            0.4734 0.31247
-## pedsHiRiskYes:srage.p                                 1.4952 1.16280
-## pedsHiRiskYes:brthwk.p.i                              1.6817 0.93104
-## pedsHiRiskYes:unins.everSome or All Year uninsured    0.3268 0.05334
-##                                                    97.5 %
-## (Intercept)                                        4.8825
-## pedsHiRiskYes                                      2.2485
-## maleMale                                           1.7835
-## srage.p                                            1.0653
-## belowpovlBelow 100% FPL                            1.1460
-## unins.everSome or All Year uninsured               3.4143
-## racehp2pLATINO                                     2.4844
-## racehp2pASIAN                                      1.0951
-## racehp2pAFRICAN AMERICAN                           1.7708
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE              3.1678
-## srh.a.iNO                                          3.2854
-## brthwk.p.i                                         0.7173
-## pedsHiRiskYes:srage.p                              1.9226
-## pedsHiRiskYes:brthwk.p.i                           3.0376
-## pedsHiRiskYes:unins.everSome or All Year uninsured 2.0017
+##                                       OddsRatio   2.5 % 97.5 %
+## (Intercept)                              0.9868 0.16396 5.9386
+## pedsHiRiskYes                            0.2439 0.02673 2.2252
+## maleMale                                 1.2649 0.89863 1.7803
+## srage.p                                  0.9350 0.82127 1.0646
+## belowpovlBelow 100% FPL                  0.6483 0.37391 1.1241
+## unins.everSome or All Year uninsured     0.4081 0.13675 1.2177
+## racehp2pLATINO                           1.0178 0.41754 2.4811
+## racehp2pASIAN                            0.6801 0.41841 1.1054
+## racehp2pAFRICAN AMERICAN                 0.9572 0.51486 1.7794
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    1.0671 0.36122 3.1524
+## srh.a.iNO                                1.3523 0.56211 3.2535
+## brthwk.p.i                               0.4675 0.30495 0.7168
+## pedsHiRiskYes:srage.p                    1.4798 1.15839 1.8903
+## pedsHiRiskYes:brthwk.p.i                 1.7472 0.93487 3.2653
 ```
 
 
@@ -3000,7 +2947,7 @@ model3int <- svyglm(cf47 ~ pedsHiRisk
                  + brthwk.p.i
                  + pedsHiRisk*srage.p
                  + pedsHiRisk*brthwk.p.i
-                 + pedsHiRisk*unins.ever
+#                 + pedsHiRisk*unins.ever
                  ,
                  design = rchis, family = quasibinomial)
 summary(model3int)
@@ -3011,8 +2958,7 @@ summary(model3int)
 ## Call:
 ## svyglm(formula = cf47 ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
 ## 
 ## Survey design:
 ## svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
@@ -3020,42 +2966,40 @@ summary(model3int)
 ##     scale = 1, rscales = rep(1, 80), type = "other")
 ## 
 ## Coefficients:
-##                                                    Estimate Std. Error
-## (Intercept)                                         -0.6730     0.6946
-## pedsHiRiskYes                                       -0.9177     0.9993
-## maleMale                                             0.2299     0.1832
-## srage.p                                              0.1652     0.0753
-## belowpovlBelow 100% FPL                              0.1305     0.2545
-## unins.everSome or All Year uninsured                -0.5003     0.6320
-## racehp2pLATINO                                      -0.1060     0.3628
-## racehp2pASIAN                                       -0.5140     0.2427
-## racehp2pAFRICAN AMERICAN                            -0.1431     0.3686
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE               -0.1799     0.4322
-## srh.a.iNO                                            0.1748     0.3232
-## brthwk.p.i                                          -0.6425     0.1828
-## pedsHiRiskYes:srage.p                                0.1817     0.1286
-## pedsHiRiskYes:brthwk.p.i                             0.5561     0.2633
-## pedsHiRiskYes:unins.everSome or All Year uninsured  -0.7149     0.7636
-##                                                    t value Pr(>|t|)    
-## (Intercept)                                          -0.97  0.33625    
-## pedsHiRiskYes                                        -0.92  0.36184    
-## maleMale                                              1.25  0.21399    
-## srage.p                                               2.19  0.03189 *  
-## belowpovlBelow 100% FPL                               0.51  0.60980    
-## unins.everSome or All Year uninsured                 -0.79  0.43151    
-## racehp2pLATINO                                       -0.29  0.77115    
-## racehp2pASIAN                                        -2.12  0.03800 *  
-## racehp2pAFRICAN AMERICAN                             -0.39  0.69916    
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                -0.42  0.67865    
-## srh.a.iNO                                             0.54  0.59039    
-## brthwk.p.i                                           -3.52  0.00081 ***
-## pedsHiRiskYes:srage.p                                 1.41  0.16258    
-## pedsHiRiskYes:brthwk.p.i                              2.11  0.03854 *  
-## pedsHiRiskYes:unins.everSome or All Year uninsured   -0.94  0.35264    
+##                                       Estimate Std. Error t value Pr(>|t|)
+## (Intercept)                            -0.6110     0.7344   -0.83  0.40844
+## pedsHiRiskYes                          -1.0260     1.0557   -0.97  0.33466
+## maleMale                                0.2275     0.1837    1.24  0.21991
+## srage.p                                 0.1642     0.0761    2.16  0.03452
+## belowpovlBelow 100% FPL                 0.1187     0.2552    0.47  0.64333
+## unins.everSome or All Year uninsured   -0.8445     0.4491   -1.88  0.06446
+## racehp2pLATINO                         -0.1157     0.3650   -0.32  0.75230
+## racehp2pASIAN                          -0.5043     0.2426   -2.08  0.04150
+## racehp2pAFRICAN AMERICAN               -0.1409     0.3668   -0.38  0.70213
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.1940     0.4391   -0.44  0.66002
+## srh.a.iNO                               0.1601     0.3287    0.49  0.62781
+## brthwk.p.i                             -0.6507     0.1885   -3.45  0.00097
+## pedsHiRiskYes:srage.p                   0.1723     0.1266    1.36  0.17827
+## pedsHiRiskYes:brthwk.p.i                0.5849     0.2808    2.08  0.04114
+##                                          
+## (Intercept)                              
+## pedsHiRiskYes                            
+## maleMale                                 
+## srage.p                               *  
+## belowpovlBelow 100% FPL                  
+## unins.everSome or All Year uninsured  .  
+## racehp2pLATINO                           
+## racehp2pASIAN                         *  
+## racehp2pAFRICAN AMERICAN                 
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+## srh.a.iNO                                
+## brthwk.p.i                            ***
+## pedsHiRiskYes:srage.p                    
+## pedsHiRiskYes:brthwk.p.i              *  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for quasibinomial family taken to be 0.8717)
+## (Dispersion parameter for quasibinomial family taken to be 0.8745)
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -3065,38 +3009,21 @@ cbind(OddsRatio = exp(model3int$coef), exp(confint(model3int)))
 ```
 
 ```
-##                                                    OddsRatio   2.5 %
-## (Intercept)                                           0.5102 0.13075
-## pedsHiRiskYes                                         0.3994 0.05634
-## maleMale                                              1.2585 0.87884
-## srage.p                                               1.1797 1.01771
-## belowpovlBelow 100% FPL                               1.1394 0.69196
-## unins.everSome or All Year uninsured                  0.6064 0.17568
-## racehp2pLATINO                                        0.8995 0.44178
-## racehp2pASIAN                                         0.5981 0.37173
-## racehp2pAFRICAN AMERICAN                              0.8667 0.42080
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                 0.8354 0.35808
-## srh.a.iNO                                             1.1910 0.63216
-## brthwk.p.i                                            0.5260 0.36762
-## pedsHiRiskYes:srage.p                                 1.1993 0.93200
-## pedsHiRiskYes:brthwk.p.i                              1.7438 1.04081
-## pedsHiRiskYes:unins.everSome or All Year uninsured    0.4892 0.10953
-##                                                    97.5 %
-## (Intercept)                                        1.9908
-## pedsHiRiskYes                                      2.8319
-## maleMale                                           1.8021
-## srage.p                                            1.3674
-## belowpovlBelow 100% FPL                            1.8761
-## unins.everSome or All Year uninsured               2.0928
-## racehp2pLATINO                                     1.8313
-## racehp2pASIAN                                      0.9624
-## racehp2pAFRICAN AMERICAN                           1.7850
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE              1.9489
-## srh.a.iNO                                          2.2440
-## brthwk.p.i                                         0.7526
-## pedsHiRiskYes:srage.p                              1.5431
-## pedsHiRiskYes:brthwk.p.i                           2.9216
-## pedsHiRiskYes:unins.everSome or All Year uninsured 2.1853
+##                                       OddsRatio   2.5 % 97.5 %
+## (Intercept)                              0.5428 0.12869 2.2896
+## pedsHiRiskYes                            0.3584 0.04527 2.8381
+## maleMale                                 1.2554 0.87589 1.7995
+## srage.p                                  1.1784 1.01522 1.3678
+## belowpovlBelow 100% FPL                  1.1261 0.68281 1.8571
+## unins.everSome or All Year uninsured     0.4298 0.17822 1.0363
+## racehp2pLATINO                           0.8908 0.43557 1.8216
+## racehp2pASIAN                            0.6039 0.37539 0.9715
+## racehp2pAFRICAN AMERICAN                 0.8686 0.42326 1.7825
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8236 0.34832 1.9476
+## srh.a.iNO                                1.1736 0.61623 2.2353
+## brthwk.p.i                               0.5217 0.36058 0.7548
+## pedsHiRiskYes:srage.p                    1.1880 0.92692 1.5227
+## pedsHiRiskYes:brthwk.p.i                 1.7948 1.03511 3.1121
 ```
 
 
@@ -3117,7 +3044,7 @@ model1int <- svyglm(referred ~ pedsHiRisk
                 + brthwk.p.i
                 + pedsHiRisk*srage.p
                 + pedsHiRisk*brthwk.p.i
-                + pedsHiRisk*unins.ever
+                #                + pedsHiRisk*unins.ever
                 ,
                 design = rchis, family = quasibinomial)
 summary(model1int)
@@ -3128,8 +3055,7 @@ summary(model1int)
 ## Call:
 ## svyglm(formula = referred ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
 ## 
 ## Survey design:
 ## svrepdesign.default(chis[, -(212 + (1:80))], repweights = chis[, 
@@ -3137,42 +3063,40 @@ summary(model1int)
 ##     scale = 1, rscales = rep(1, 80), type = "other")
 ## 
 ## Coefficients:
-##                                                    Estimate Std. Error
-## (Intercept)                                          0.2246     0.5909
-## pedsHiRiskYes                                       -0.8155     0.8315
-## maleMale                                             0.1394     0.1656
-## srage.p                                              0.0450     0.0641
-## belowpovlBelow 100% FPL                              0.0142     0.2369
-## unins.everSome or All Year uninsured                -0.6887     0.5073
-## racehp2pLATINO                                      -0.1355     0.3008
-## racehp2pASIAN                                       -0.4032     0.2244
-## racehp2pAFRICAN AMERICAN                            -0.1766     0.3198
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE               -0.1619     0.3438
-## srh.a.iNO                                            0.1276     0.2672
-## brthwk.p.i                                          -0.6636     0.1537
-## pedsHiRiskYes:srage.p                                0.2985     0.1206
-## pedsHiRiskYes:brthwk.p.i                             0.4147     0.2202
-## pedsHiRiskYes:unins.everSome or All Year uninsured  -0.5872     0.6750
-##                                                    t value Pr(>|t|)    
-## (Intercept)                                           0.38    0.705    
-## pedsHiRiskYes                                        -0.98    0.330    
-## maleMale                                              0.84    0.403    
-## srage.p                                               0.70    0.486    
-## belowpovlBelow 100% FPL                               0.06    0.952    
-## unins.everSome or All Year uninsured                 -1.36    0.179    
-## racehp2pLATINO                                       -0.45    0.654    
-## racehp2pASIAN                                        -1.80    0.077 .  
-## racehp2pAFRICAN AMERICAN                             -0.55    0.583    
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                -0.47    0.639    
-## srh.a.iNO                                             0.48    0.635    
-## brthwk.p.i                                           -4.32  5.5e-05 ***
-## pedsHiRiskYes:srage.p                                 2.48    0.016 *  
-## pedsHiRiskYes:brthwk.p.i                              1.88    0.064 .  
-## pedsHiRiskYes:unins.everSome or All Year uninsured   -0.87    0.388    
+##                                       Estimate Std. Error t value Pr(>|t|)
+## (Intercept)                            0.27345    0.61402    0.45    0.658
+## pedsHiRiskYes                         -0.91477    0.86254   -1.06    0.293
+## maleMale                               0.13706    0.16566    0.83    0.411
+## srage.p                                0.04402    0.06457    0.68    0.498
+## belowpovlBelow 100% FPL                0.00514    0.23719    0.02    0.983
+## unins.everSome or All Year uninsured  -0.96338    0.38900   -2.48    0.016
+## racehp2pLATINO                        -0.14064    0.30194   -0.47    0.643
+## racehp2pASIAN                         -0.39566    0.22351   -1.77    0.081
+## racehp2pAFRICAN AMERICAN              -0.17463    0.31904   -0.55    0.586
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE -0.17288    0.34889   -0.50    0.622
+## srh.a.iNO                              0.11786    0.27066    0.44    0.665
+## brthwk.p.i                            -0.67088    0.15643   -4.29    6e-05
+## pedsHiRiskYes:srage.p                  0.28957    0.11823    2.45    0.017
+## pedsHiRiskYes:brthwk.p.i               0.44239    0.22875    1.93    0.057
+##                                          
+## (Intercept)                              
+## pedsHiRiskYes                            
+## maleMale                                 
+## srage.p                                  
+## belowpovlBelow 100% FPL                  
+## unins.everSome or All Year uninsured  *  
+## racehp2pLATINO                           
+## racehp2pASIAN                         .  
+## racehp2pAFRICAN AMERICAN                 
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    
+## srh.a.iNO                                
+## brthwk.p.i                            ***
+## pedsHiRiskYes:srage.p                 *  
+## pedsHiRiskYes:brthwk.p.i              .  
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for quasibinomial family taken to be 0.8722)
+## (Dispersion parameter for quasibinomial family taken to be 0.8757)
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -3182,38 +3106,21 @@ cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
 ```
 
 ```
-##                                                    OddsRatio   2.5 %
-## (Intercept)                                           1.2518 0.39312
-## pedsHiRiskYes                                         0.4424 0.08671
-## maleMale                                              1.1495 0.83097
-## srage.p                                               1.0460 0.92246
-## belowpovlBelow 100% FPL                               1.0143 0.63759
-## unins.everSome or All Year uninsured                  0.5022 0.18582
-## racehp2pLATINO                                        0.8733 0.48434
-## racehp2pASIAN                                         0.6682 0.43041
-## racehp2pAFRICAN AMERICAN                              0.8381 0.44784
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE                 0.8505 0.43356
-## srh.a.iNO                                             1.1361 0.67300
-## brthwk.p.i                                            0.5150 0.38103
-## pedsHiRiskYes:srage.p                                 1.3478 1.06408
-## pedsHiRiskYes:brthwk.p.i                              1.5140 0.98336
-## pedsHiRiskYes:unins.everSome or All Year uninsured    0.5559 0.14805
-##                                                    97.5 %
-## (Intercept)                                        3.9861
-## pedsHiRiskYes                                      2.2573
-## maleMale                                           1.5902
-## srage.p                                            1.1860
-## belowpovlBelow 100% FPL                            1.6137
-## unins.everSome or All Year uninsured               1.3575
-## racehp2pLATINO                                     1.5746
-## racehp2pASIAN                                      1.0372
-## racehp2pAFRICAN AMERICAN                           1.5684
-## racehp2pPI/OTHER SINGLE/MULTIPLE RACE              1.6685
-## srh.a.iNO                                          1.9179
-## brthwk.p.i                                         0.6961
-## pedsHiRiskYes:srage.p                              1.7071
-## pedsHiRiskYes:brthwk.p.i                           2.3309
-## pedsHiRiskYes:unins.everSome or All Year uninsured 2.0872
+##                                       OddsRatio   2.5 % 97.5 %
+## (Intercept)                              1.3145 0.39455 4.3794
+## pedsHiRiskYes                            0.4006 0.07388 2.1723
+## maleMale                                 1.1469 0.82892 1.5868
+## srage.p                                  1.0450 0.92079 1.1860
+## belowpovlBelow 100% FPL                  1.0052 0.63145 1.6000
+## unins.everSome or All Year uninsured     0.3816 0.17803 0.8180
+## racehp2pLATINO                           0.8688 0.48074 1.5701
+## racehp2pASIAN                            0.6732 0.43443 1.0433
+## racehp2pAFRICAN AMERICAN                 0.8398 0.44936 1.5694
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE    0.8412 0.42456 1.6669
+## srh.a.iNO                                1.1251 0.66191 1.9124
+## brthwk.p.i                               0.5113 0.37626 0.6947
+## pedsHiRiskYes:srage.p                    1.3359 1.05956 1.6842
+## pedsHiRiskYes:brthwk.p.i                 1.5564 0.99406 2.4369
 ```
 
 
@@ -3221,47 +3128,50 @@ Using AIC to compare models does not work because it svrepglm is not fitted by m
 
 
 ```r
-regTermTest(model2int, test.terms = ~pedsHiRisk * srage.p + pedsHiRisk * brthwk.p.i + 
-    pedsHiRisk * unins.ever)
+regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
 ```
 
 ```
-## Wald test for pedsHiRisk srage.p brthwk.p.i unins.ever pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i pedsHiRisk:unins.ever
+## Wald test for pedsHiRisk srage.p brthwk.p.i pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i
 ##  in svyglm(formula = cf46 ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
-## F =  18.47  on  7  and  65  df: p= 2.7e-13
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
+## F =  23.82  on  5  and  66  df: p= 1.3e-13
 ```
 
 ```r
 
-regTermTest(model3int, test.terms = ~pedsHiRisk * srage.p + pedsHiRisk * brthwk.p.i + 
-    pedsHiRisk * unins.ever)
+regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
 ```
 
 ```
-## Wald test for pedsHiRisk srage.p brthwk.p.i unins.ever pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i pedsHiRisk:unins.ever
+## Wald test for pedsHiRisk srage.p brthwk.p.i pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i
 ##  in svyglm(formula = cf47 ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
-## F =  11.84  on  7  and  65  df: p= 1.3e-09
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
+## F =  13.54  on  5  and  66  df: p= 4.3e-09
 ```
 
 ```r
 
-regTermTest(model1int, test.terms = ~pedsHiRisk * srage.p + pedsHiRisk * brthwk.p.i + 
-    pedsHiRisk * unins.ever)
+regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
 ```
 
 ```
-## Wald test for pedsHiRisk srage.p brthwk.p.i unins.ever pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i pedsHiRisk:unins.ever
+## Wald test for pedsHiRisk srage.p brthwk.p.i pedsHiRisk:srage.p pedsHiRisk:brthwk.p.i
 ##  in svyglm(formula = referred ~ pedsHiRisk + male + srage.p + belowpovl + 
 ##     unins.ever + racehp2p + srh.a.i + brthwk.p.i + pedsHiRisk * 
-##     srage.p + pedsHiRisk * brthwk.p.i + pedsHiRisk * unins.ever, 
-##     design = rchis, family = quasibinomial)
-## F =  15.97  on  7  and  65  df: p= 5.2e-12
+##     srage.p + pedsHiRisk * brthwk.p.i, design = rchis, family = quasibinomial)
+## F =  18.77  on  5  and  66  df: p= 1.5e-11
 ```
 
 
@@ -3340,42 +3250,85 @@ by.age.speech
 ```
 
 
-Some plots might be nice, but I can't figure it out...
-
-This code block gives the percentages but we don't need to see both referred and non-referred on the same plot. Also the scales on the y axis are not the same.
+What is the RR of referral at different ages?
 
 ```r
-par(mfrow = c(1, 1))
-plot(by.age.all[1:6, ], xlab = "Age", ylab = "Percentage Referred", main = "Referrals by Age with Low to Moderate Risk PEDS", 
-    xaxt = "n")
-axis(side = 1, at = c(2, 5, 8, 11, 14, 17), labels = 0:5)
+for (i in 0:5) print(by.age.all[i + 7, 4]/by.age.all[i + 1, 4])
 ```
 
-![plot of chunk unnamed-chunk-37](figure/unnamed-chunk-371.png) 
-
-```r
-
-plot(by.age.all[7:12, ], xlab = "Age", ylab = "Percentage Referred", main = "Referrals by Age with High Risk PEDS", 
-    xaxt = "n")
-
-axis(side = 1, at = c(2, 5, 8, 11, 14, 17), labels = 0:5)
+```
+## [1] 6.117
+## [1] 1.583
+## [1] 2.317
+## [1] 2.355
+## [1] 3.214
+## [1] 3.891
 ```
 
-![plot of chunk unnamed-chunk-37](figure/unnamed-chunk-372.png) 
 
+# Figures
 
-This code block gives the percentages with the right scales, but I would like the 0s to be next to each other rather than this far apart.
+### Devo by PEDS and Age
 
 ```r
-fig.by.age.all <- cbind(by.age.all[1:6, 4], by.age.all[7:12, 4])
-barplot(fig.by.age.all, beside = T)
-axis(side = 1, at = 0.5 + c(1:13), labels = c(0:5, "", 0:5))
+ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist by PEDS and Age") + 
+  geom_errorbar(aes(ymin=cf46Referred - se2, ymax = cf46Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
 ```
 
 ![plot of chunk unnamed-chunk-38](figure/unnamed-chunk-38.png) 
 
 
-Try lattice package. This might work if you do a grid of age and PEDS risk.
+# Devo or SLHT by PEDS and age
+
+```r
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
+
+![plot of chunk unnamed-chunk-39](figure/unnamed-chunk-391.png) 
+
+```r
+
+
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_point() + 
+#  facet_grid(. ~ pedsHiRisk) +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+#  theme_bw() +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
+```
+
+![plot of chunk unnamed-chunk-39](figure/unnamed-chunk-392.png) 
 
 
 
@@ -3458,10 +3411,25 @@ by.lbw.speech
 ```
 
 
+# Plot for Birthweight
 
 ```r
-plot(by.lbw.all)
+ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=cf47Referred - se2, ymax = cf47Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
 ```
 
 ![plot of chunk unnamed-chunk-42](figure/unnamed-chunk-42.png) 
+
 
