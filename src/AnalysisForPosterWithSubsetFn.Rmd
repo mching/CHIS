@@ -1,0 +1,693 @@
+Tables for poster
+=========
+
+Load the Data
+-----
+First we load the data:
+
+```{r}
+library(ProjectTemplate)
+library(Hmisc)
+library(survey)
+library(binom)
+library(ggplot2)
+library(scales)
+
+setwd("~/Dropbox/Mike/CHIS")
+load.project()
+```
+
+This also runs the script to clean the data, contained within the file `/munge/01-A.R`.
+
+Create new design object subsetting by age less than 6.
+
+```{r}
+rchis05 <- subset(rchis, srage.p < 6)
+```
+
+
+Table 1: Univariates
+-------
+We want:  
+* gender (male)
+* birthweight  (brthwk.p.i)
+* ethnicity  (srh.a.i)
+* race  (racehp2p)
+* below poverty level (belowpovl)
+* PEDS risk categories (peds)
+* age (srage.p)
+* uninsured in the last year (unins.ever)
+* Developmental specialist referred (cf46)
+* speech referred (cf47)
+* Referred to either (referred)
+
+### Gender
+```{r}
+summary(chis$male)
+length(chis$male)
+binom.confint(sum(chis$male == "Male", na.rm = T), length(!is.na(chis$male)), method = "asym")
+
+svytotal(~male, rchis05)
+sum(svytotal(~male, rchis05))
+svymean(~male, rchis05)
+confint(svymean(~male, rchis05))
+```
+
+### Age
+```{r}
+mean(chis$srage.p)
+sd(chis$srage.p)
+n.age <- length(chis$srage.p)
+mean(chis$srage.p) + qt(0.025, n.age)
+mean(chis$srage.p) + qt(0.975, n.age)
+
+svymean(~srage.p, rchis05)
+confint(svymean(~srage.p, rchis05))
+```
+
+### Birthweight
+```{r}
+summary(chis$brthwk.p.i)
+mean(chis$brthwk.p.i)
+sd(chis$brthwk.p.i)
+n.bw <- length(chis$brthwk.p.i)
+n.bw
+mean(chis$brthwk.p.i) + qt(0.025, n.bw)
+mean(chis$brthwk.p.i) + qt(0.975, n.bw)
+
+svymean(~brthwk.p.i, rchis05)
+confint(svymean(~brthwk.p.i, rchis05))
+```
+
+### PEDS
+```{r}
+summary(chis$peds)
+pedstable <- table(chis$peds)
+pedstable
+sum(pedstable)
+sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
+
+svytotal(~peds, rchis05, na.rm = T)
+sum(svytotal(~peds, rchis05, na.rm = T))
+svymean(~peds, rchis05, na.rm = T)
+confint(svymean(~peds, rchis05, na.rm = T))
+```
+
+### Hispanic Ethnicity
+```{r}
+summary(chis$srh.a.i)
+binom.confint(sum(chis$srh.a.i == "YES"), length(chis$srh.a.i), method = "asym")
+
+svytotal(~srh.a.i, rchis05)
+sum(svytotal(~srh.a.i, rchis05))
+svymean(~srh.a.i, rchis05)
+confint(svymean(~srh.a.i, rchis05))
+
+```
+
+### Race
+```{r}
+summary(chis$racehp2p)
+racetable <- table(chis$racehp2p)
+racetable
+sapply(racetable, binom.confint, n = sum(racetable), method = "asy")
+
+svytotal(~racehp2p, rchis05)
+sum(svytotal(~racehp2p, rchis05))
+svymean(~racehp2p, rchis05)
+confint(svymean(~racehp2p, rchis05))
+```
+
+### Lack of Insurance
+```{r}
+ins.table <- table(chis$unins.ever)
+ins.table
+binom.confint(ins.table[2], sum(ins.table), method = "asym")
+
+svytotal(~unins.ever, rchis05, na.rm = T)
+sum(svytotal(~unins.ever, rchis05, na.rm = T))
+svymean(~unins.ever, rchis05) 
+confint(svymean(~unins.ever, rchis05))
+```
+
+### Below Poverty Level
+```{r}
+summary(chis$belowpovl)
+length(chis$belowpovl)
+binom.confint(sum(chis$belowpovl == "Below 100% FPL", na.rm = T), length(!is.na(chis$belowpovl)), method = "asym")
+
+svytotal(~belowpovl, rchis05, na.rm = T)
+sum(svytotal(~belowpovl, rchis05, na.rm = T))
+svymean(~belowpovl, rchis05) 
+confint(svymean(~belowpovl, rchis05))
+```
+
+
+### Referred to Developmental Specialist
+```{r}
+summary(chis$cf46)
+length(chis$cf46)
+table(chis$cf46)
+sum(table(chis$cf46))
+binom.confint(sum(chis$cf46 == "Referred", na.rm = T), sum(table(chis$cf46)), method = "asym")
+
+svytotal(~cf46, rchis05, na.rm = T)
+sum(svytotal(~cf46, rchis05, na.rm = T))
+svymean(~cf46, rchis05, na.rm = T)
+confint(svymean(~cf46, rchis05, na.rm = T))
+```
+
+### Referred to Speech, Language, Hearing Evaluation
+```{r}
+summary(chis$cf47)
+length(chis$cf47)
+table(chis$cf47)
+sum(table(chis$cf47))
+binom.confint(sum(chis$cf47 == "Referred", na.rm = T), sum(table(chis$cf47)), method = "asym")
+
+svytotal(~cf47, rchis05, na.rm = T)
+sum(svytotal(~cf47, rchis05, na.rm = T))
+svymean(~cf47, rchis05, na.rm = T)
+confint(svymean(~cf47, rchis05, na.rm = T))
+```
+
+### Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation
+```{r}
+summary(chis$referred)
+length(chis$referred)
+table(chis$referred)
+sum(table(chis$referred))
+binom.confint(sum(chis$referred == "Yes", na.rm = T), sum(table(chis$referred)), method = "asym")
+
+svytotal(~referred, rchis05, na.rm = T)
+sum(svytotal(~referred, rchis05, na.rm = T))
+svymean(~referred, rchis05, na.rm = T)
+confint(svymean(~referred, rchis05, na.rm = T))
+```
+
+Table 2: Unadjusted Bivariate Comparisons
+------
+We will want to see what is the rate of referrals among children in each of those categories and whether they are significant. We must use the survey functions for weighting to test the associations.
+
+### Gender
+```{r}
+svyby(~male, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~male + cf46, rchis05, statistic = "Chisq")
+
+svyby(~male, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~male + cf47, rchis05, statistic = "Chisq")
+
+svyby(~male, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~male + referred, rchis05, statistic = "Chisq")
+```
+
+### Age
+```{r}
+svyby(~srage.p, by = ~cf46, design = rchis05, FUN = svymean)
+svyttest(srage.p ~ cf46, design = rchis05)
+
+svyby(~srage.p, by = ~cf47, design = rchis05, FUN = svymean)
+svyttest(srage.p ~ cf47, design = rchis05)
+
+svyby(~srage.p, by = ~referred, design = rchis05, FUN = svymean)
+svyttest(srage.p ~ referred, design = rchis05)
+```
+
+### Birthweight
+```{r}
+svyby(~brthwk.p, by = ~cf46, design = rchis05, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ cf46, design = rchis05)
+
+svyby(~brthwk.p, by = ~cf47, design = rchis05, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ cf47, design = rchis05)
+
+svyby(~brthwk.p, by = ~referred, design = rchis05, FUN = svymean, na.rm = T)
+svyttest(brthwk.p ~ referred, design = rchis05)
+```
+
+### Race
+```{r}
+svyby(~racehp2p, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~racehp2p + cf46, rchis05, statistic = "Chisq")
+
+svyby(~racehp2p, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~racehp2p + cf47, rchis05, statistic = "Chisq")
+
+svyby(~racehp2p, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~racehp2p + referred, rchis05, statistic = "Chisq")
+```
+
+### Hispanic Ethnicity
+```{r}
+svyby(~srh.a.i, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~srh.a.i + cf46, rchis05, statistic = "Chisq")
+
+svyby(~srh.a.i, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~srh.a.i + cf47, rchis05, statistic = "Chisq")
+
+svyby(~srh.a.i, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~srh.a.i + referred, rchis05, statistic = "Chisq")
+```
+
+### Below Poverty Level
+```{r}
+svyby(~belowpovl, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~belowpovl + cf46, rchis05, statistic = "Chisq")
+
+svyby(~belowpovl, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~belowpovl + cf47, rchis05, statistic = "Chisq")
+
+svyby(~belowpovl, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~belowpovl + referred, rchis05, statistic = "Chisq")
+```
+
+### Uninsured Ever in Last Year
+```{r}
+svyby(~unins.ever, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~unins.ever + cf46, rchis05, statistic = "Chisq")
+
+svyby(~unins.ever, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~unins.ever + cf47, rchis05, statistic = "Chisq")
+
+svyby(~unins.ever, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~unins.ever + referred, rchis05, statistic = "Chisq")
+```
+
+### PEDS High Risk
+```{r}
+svyby(~pedsHiRisk, by = ~cf46, design = rchis05, FUN = svymean)
+svychisq(~pedsHiRisk + cf46, rchis05, statistic = "Chisq")
+
+svyby(~pedsHiRisk, by = ~cf47, design = rchis05, FUN = svymean)
+svychisq(~pedsHiRisk + cf47, rchis05, statistic = "Chisq")
+
+svyby(~pedsHiRisk, by = ~referred, design = rchis05, FUN = svymean)
+svychisq(~pedsHiRisk + referred, rchis05, statistic = "Chisq")
+```
+
+Table 2: Alternate Method by Odds Ratios
+-----
+We can also calculate the unadjusted odds ratios as below. We should probably write a function to automate this task but maybe this is too much effort.
+
+### Gender
+```{r}
+model1 <- svyglm(cf46 ~ male, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ male, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ male, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Age
+```{r}
+model1 <- svyglm(cf46 ~ srage.p, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ srage.p, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ srage.p, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Birthweight
+```{r}
+model1 <- svyglm(cf46 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ brthwk.p.i, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Race
+```{r}
+model1 <- svyglm(cf46 ~ racehp2p, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ racehp2p, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ racehp2p, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Hispanic Ethnicity
+```{r}
+model1 <- svyglm(cf46 ~ srh.a.i, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ srh.a.i, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ srh.a.i, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Below Poverty Level
+```{r}
+model1 <- svyglm(cf46 ~ belowpovl, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ belowpovl, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ belowpovl, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### Uninsured Ever in Last Year
+```{r}
+model1 <- svyglm(cf46 ~ unins.ever, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ unins.ever, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ unins.ever, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### PEDS High Risk
+```{r}
+model1 <- svyglm(cf46 ~ pedsHiRisk, design = rchis05, family = quasibinomial)
+model2 <- svyglm(cf47 ~ pedsHiRisk, design = rchis05, family = quasibinomial)
+model3 <- svyglm(referred ~ pedsHiRisk, design = rchis05, family = quasibinomial)
+
+summary(model1)
+summary(model2)
+summary(model3)
+
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+
+Table 3: Regression Analyses
+-----
+
+
+### GLM with univariates from univariates_referral_devo.R
+```{r}
+model2 <- svyglm(cf46 ~ pedsHiRisk 
+                 + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = rchis05, family = quasibinomial)
+summary(model2)
+cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
+```
+
+### GLM with univariates from univariates_referral_speech-only.R
+
+```{r}
+model3 <- svyglm(cf47 ~ pedsHiRisk 
+                 + male 
+                 #                 + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 ,
+                 design = rchis05, family = quasibinomial)
+summary(model3)
+cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+```
+
+### GLM with univariates from univariates.R
+
+```{r}
+model1 <- svyglm(referred ~ pedsHiRisk
+                # + peds
+                + male 
+                #                + cd1.2 
+                + srage.p 
+                + belowpovl 
+                + unins.ever 
+                + racehp2p 
+                #               + white
+                + srh.a.i
+                + brthwk.p.i
+                ,
+                design = rchis05, family = quasibinomial)
+summary(model1)
+cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
+```
+
+
+Add interaction terms
+=====
+
+### GLM with univariates from univariates_referral_devo.R
+```{r}
+model2int <- svyglm(cf46 ~ pedsHiRisk 
+                 + male 
+                 #                + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 + pedsHiRisk*srage.p
+                 + pedsHiRisk*brthwk.p.i
+#                 + pedsHiRisk*unins.ever
+                 ,
+                 design = rchis05, family = quasibinomial)
+summary(model2int)
+cbind(OddsRatio = exp(model2int$coef), exp(confint(model2int)))
+```
+
+### GLM with univariates from univariates_referral_speech-only.R
+
+```{r}
+model3int <- svyglm(cf47 ~ pedsHiRisk 
+                 + male 
+                 #                 + cd1.2 
+                 + srage.p 
+                 + belowpovl 
+                 + unins.ever 
+                 + racehp2p 
+                 # + white
+                 + srh.a.i
+                 + brthwk.p.i
+                 + pedsHiRisk*srage.p
+                 + pedsHiRisk*brthwk.p.i
+#                 + pedsHiRisk*unins.ever
+                 ,
+                 design = rchis05, family = quasibinomial)
+summary(model3int)
+cbind(OddsRatio = exp(model3int$coef), exp(confint(model3int)))
+```
+
+### GLM with univariates from univariates.R
+
+```{r}
+model1int <- svyglm(referred ~ pedsHiRisk
+                # + peds
+                + male 
+                #                + cd1.2 
+                + srage.p 
+                + belowpovl 
+                + unins.ever 
+                + racehp2p 
+                #               + white
+                + srh.a.i
+                + brthwk.p.i
+                + pedsHiRisk*srage.p
+                + pedsHiRisk*brthwk.p.i
+                #                + pedsHiRisk*unins.ever
+                ,
+                design = rchis05, family = quasibinomial)
+summary(model1int)
+cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
+```
+
+Using AIC to compare models does not work because it svrepglm is not fitted by maximum likelihood. See: https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
+
+```{r}
+regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
+
+regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
+
+regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+#            + pedsHiRisk * unins.ever
+            )
+```
+
+
+Looking at the interaction terms, there is a clear interaction between PEDS risk and birthweight or age. This kind of makes sense for birthweight. If you are low birthweight, you are likely to be referred for services regardless of PEDS result. In addition, perhaps the effect of PEDS is less strong on referral when the children are younger. To illustrate, we should try to subdivide the population by age and birthweight.
+
+#### Age
+We can see that the rate of referral in the low risk PEDS group is very low in the 0 age group and ranges about 13-16% after that. In contrast, the rate of referral in the high risk PEDS group is higher in older children than in younger children. 
+
+```{r}
+by.age.all <- svyby(~referred, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis05, na.rm = T)
+by.age.devo <- svyby(~cf46, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis05, na.rm = T)
+by.age.speech <- svyby(~cf47, by = ~srage.p + pedsHiRisk, FUN = svymean, design = rchis05, na.rm = T)
+
+by.age.all
+by.age.devo
+by.age.speech
+```
+
+What is the RR of referral at different ages?
+```{r}
+for(i in 0:5) print(by.age.all[i + 7,4]/by.age.all[i + 1,4])
+```
+
+# Figures
+
+### Devo by PEDS and Age
+```{r}
+ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist by PEDS and Age") + 
+  geom_errorbar(aes(ymin=cf46Referred - se2, ymax = cf46Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
+
+# Devo or SLHT by PEDS and age
+```{r}
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+
+
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_point() + 
+#  facet_grid(. ~ pedsHiRisk) +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+#  theme_bw() +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
+
+```
+
+
+
+#### Birthweight
+We need to cut the birthweight logically, perhaps by LBW and normal birthweight.
+```{r}
+head(chis$brthwk.p.i)
+chis$bw.cut <- cut(chis$brthwk.p.i, breaks = c(0, 2.5, 1000), labels = c("LBW", "normal BW"))
+
+# Attach bw.cut variable to survey definition
+rchis05 <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+```
+
+
+```{r}
+by.lbw.all <- svyby(~referred, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
+by.lbw.devo <- svyby(~cf46, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
+by.lbw.speech <- svyby(~cf47, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
+
+by.lbw.all
+by.lbw.devo
+by.lbw.speech
+```
+
+# Plot for Birthweight
+```{r}
+ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=cf47Referred - se2, ymax = cf47Referred + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
+
+```{r}
+ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
