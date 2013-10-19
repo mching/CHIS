@@ -3,8 +3,10 @@
 library(Hmisc)
 library(survey)
 
+# Try not dropping kids then subsetting after
 # Drop all kids older than 5 
-chis <- chis[chis$srage.p < 6, ]
+# chis <- chis[chis$srage.p < 6, ]
+
 # chis <- chis[chis$srage.p > 0, ] ## Keep this line if you want to drop 0 yos
 samplesize <- length(chis[,1])
 
