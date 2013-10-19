@@ -1,5 +1,6 @@
 Tables for poster
 =========
+## This method uses a chis dataset that has been subsetted by age before the design object rchis is created. You should not edit this file anymore since Lumley says to subset only after the design object is created with the whole dataset. Use AnalysisForPosterWithSubsetFn.Rmd instead.
 
 Load the Data
 -----
