@@ -20,23 +20,36 @@ library(Hmisc)
 
 ```
 ## Loading required package: survival
+```
+
+```
 ## Loading required package: splines
-## Loading required package: Formula
+```
+
+```
 ## Hmisc library by Frank E Harrell Jr
 ## 
-## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview')
-## to see overall documentation.
+## Type library(help='Hmisc'), ?Overview, or ?Hmisc.Overview') to see overall
+## documentation.
 ## 
-## 
+## NOTE:Hmisc no longer redefines [.factor to drop unused levels when
+## subsetting.  To get the old behavior of Hmisc type dropUnusedLevels().
+```
+
+```
 ## Attaching package: 'Hmisc'
-## 
+```
+
+```
 ## The following object is masked from 'package:survival':
 ## 
-##     untangle.specials
-## 
+## untangle.specials
+```
+
+```
 ## The following object is masked from 'package:base':
 ## 
-##     format.pval, round.POSIXt, trunc.POSIXt, units
+## format.pval, round.POSIXt, trunc.POSIXt, units
 ```
 
 ```r
@@ -44,16 +57,19 @@ library(survey)
 ```
 
 ```
-## 
 ## Attaching package: 'survey'
-## 
+```
+
+```
 ## The following object is masked from 'package:Hmisc':
 ## 
-##     deff
-## 
+## deff
+```
+
+```
 ## The following object is masked from 'package:graphics':
 ## 
-##     dotchart
+## dotchart
 ```
 
 ```r
@@ -74,12 +90,30 @@ load.project()
 
 ```
 ## Loading project configuration
+```
+
+```
 ## Autoloading helper functions
-##  Running helper script: helpers.R
+```
+
+```
+## Running helper script: helpers.R
+```
+
+```
 ## Autoloading data
-##  Loading data set: CHILD
+```
+
+```
+## Loading data set: CHILD
+```
+
+```
 ## Munging data
-##  Running preprocessing script: 01-A.R
+```
+
+```
+## Running preprocessing script: 01-A.R
 ```
 
 ```
@@ -3124,6 +3158,90 @@ cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
 ```
 
 
+Automatically extract the numbers from the models. This is not correct since the OR is not interpretable for interaction term.
+
+```r
+# OR.dev <- cbind(OddsRatio = exp(model2int$coef),
+# exp(confint(model2int))) OR.speech <- cbind(OddsRatio =
+# exp(model3int$coef), exp(confint(model3int))) OR.either <-
+# cbind(OddsRatio = exp(model1int$coef), exp(confint(model1int)))
+
+# write.table(OR.dev, file = './doc/ORDevInteraction.txt')
+# write.table(OR.speech, file = './doc/ORSpeechInteraction.txt')
+# write.table(OR.either, file = './doc/OREitherInteraction.txt')
+```
+
+
+What you want is the coefficients...
+
+```r
+summary(model2int)$coef[, c(1:2, 4)]
+```
+
+```
+##                                       Estimate Std. Error  Pr(>|t|)
+## (Intercept)                           -0.01334     0.9157 0.9884251
+## pedsHiRiskYes                         -1.41101     1.1280 0.2153905
+## maleMale                               0.23496     0.1744 0.1825380
+## srage.p                               -0.06717     0.0662 0.3139569
+## belowpovlBelow 100% FPL               -0.43336     0.2808 0.1275558
+## unins.everSome or All Year uninsured  -0.89631     0.5578 0.1128550
+## racehp2pLATINO                         0.01767     0.4546 0.9691209
+## racehp2pASIAN                         -0.38554     0.2478 0.1245848
+## racehp2pAFRICAN AMERICAN              -0.04378     0.3164 0.8903674
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE  0.06496     0.5527 0.9067972
+## srh.a.iNO                              0.30183     0.4479 0.5027574
+## brthwk.p.i                            -0.76031     0.2180 0.0008729
+## pedsHiRiskYes:srage.p                  0.39190     0.1249 0.0025510
+## pedsHiRiskYes:brthwk.p.i               0.55800     0.3191 0.0849578
+```
+
+```r
+summary(model3int)$coef[, c(1:2, 4)]
+```
+
+```
+##                                       Estimate Std. Error Pr(>|t|)
+## (Intercept)                            -0.6110    0.73438 0.408441
+## pedsHiRiskYes                          -1.0260    1.05569 0.334664
+## maleMale                                0.2275    0.18368 0.219913
+## srage.p                                 0.1642    0.07605 0.034522
+## belowpovlBelow 100% FPL                 0.1187    0.25525 0.643331
+## unins.everSome or All Year uninsured   -0.8445    0.44909 0.064457
+## racehp2pLATINO                         -0.1157    0.36502 0.752302
+## racehp2pASIAN                          -0.5043    0.24258 0.041500
+## racehp2pAFRICAN AMERICAN               -0.1409    0.36679 0.702133
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE  -0.1940    0.43910 0.660024
+## srh.a.iNO                               0.1601    0.32871 0.627806
+## brthwk.p.i                             -0.6507    0.18846 0.000974
+## pedsHiRiskYes:srage.p                   0.1723    0.12662 0.178267
+## pedsHiRiskYes:brthwk.p.i                0.5849    0.28082 0.041142
+```
+
+```r
+summary(model1int)$coef[, c(1:2, 4)]
+```
+
+```
+##                                        Estimate Std. Error  Pr(>|t|)
+## (Intercept)                            0.273448    0.61402 6.575e-01
+## pedsHiRiskYes                         -0.914770    0.86254 2.928e-01
+## maleMale                               0.137060    0.16566 4.110e-01
+## srage.p                                0.044019    0.06457 4.978e-01
+## belowpovlBelow 100% FPL                0.005144    0.23719 9.828e-01
+## unins.everSome or All Year uninsured  -0.963378    0.38900 1.584e-02
+## racehp2pLATINO                        -0.140637    0.30194 6.429e-01
+## racehp2pASIAN                         -0.395655    0.22351 8.131e-02
+## racehp2pAFRICAN AMERICAN              -0.174628    0.31904 5.860e-01
+## racehp2pPI/OTHER SINGLE/MULTIPLE RACE -0.172877    0.34889 6.219e-01
+## srh.a.iNO                              0.117856    0.27066 6.647e-01
+## brthwk.p.i                            -0.670876    0.15643 5.991e-05
+## pedsHiRiskYes:srage.p                  0.289575    0.11823 1.698e-02
+## pedsHiRiskYes:brthwk.p.i               0.442386    0.22875 5.741e-02
+```
+
+
+
 Using AIC to compare models does not work because it svrepglm is not fitted by maximum likelihood. See: https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
 
 
@@ -3287,7 +3405,7 @@ ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)
                   position=position_dodge(.9))
 ```
 
-![plot of chunk unnamed-chunk-38](figure/unnamed-chunk-38.png) 
+![plot of chunk unnamed-chunk-40](figure/unnamed-chunk-40.png) 
 
 
 # Devo or SLHT by PEDS and age
@@ -3309,7 +3427,7 @@ ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) 
                   position=position_dodge(.9))
 ```
 
-![plot of chunk unnamed-chunk-39](figure/unnamed-chunk-391.png) 
+![plot of chunk unnamed-chunk-41](figure/unnamed-chunk-411.png) 
 
 ```r
 
@@ -3328,7 +3446,7 @@ ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) 
   ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")
 ```
 
-![plot of chunk unnamed-chunk-39](figure/unnamed-chunk-392.png) 
+![plot of chunk unnamed-chunk-41](figure/unnamed-chunk-412.png) 
 
 
 
@@ -3430,6 +3548,26 @@ ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk
                   position=position_dodge(.9))
 ```
 
-![plot of chunk unnamed-chunk-42](figure/unnamed-chunk-42.png) 
+![plot of chunk unnamed-chunk-44](figure/unnamed-chunk-44.png) 
 
+
+
+```r
+ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#  geom_smooth(method = "lm") + 
+#  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  scale_fill_brewer(name = "PEDS High Risk") + 
+#  scale_fill_grey(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))
+```
+
+![plot of chunk unnamed-chunk-45](figure/unnamed-chunk-45.png) 
 
