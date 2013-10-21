@@ -12,3 +12,4 @@ chis09_child_stata
 *.pptx
 *.pdf
 src/figure/
+.DS_Store
