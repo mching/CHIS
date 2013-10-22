@@ -29,3 +29,17 @@ summary(model.polynomial)
 
 # Compare with ANOVA
 anova(model.linear, model.polynomial)
+
+# What if you don't center first?
+model.linear.uncentered <- lm(y ~ x)
+summary(model.linear.uncentered)
+
+# Other ways of making polynomial model
+x2 <- x^2
+model.polynomial.uncentered <- lm(y ~ x + I(x^2))
+model.polynomial.uncentered2 <- lm(y ~ x + x2)
+model.polynomial.uncentered3 <- lm(y ~ poly(x, 2)) # What is an "orthogonal polynomial"?
+
+summary(model.polynomial.uncentered)
+summary(model.polynomial.uncentered2)
+summary(model.polynomial.uncentered3)
