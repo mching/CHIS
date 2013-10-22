@@ -39,4 +39,8 @@ summary(model4)
 
 ggplot(dat, aes(x = age, y = outcome, color = group)) + 
   geom_point(size = 3) +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  geom_smooth(method = lm, formula = y ~ x + I(x^2))
+
+# Maybe what we need to do is stratify by age and get age specific estimates
+# or stratify by PEDS and get PEDS specific estimates
