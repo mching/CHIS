@@ -47,14 +47,21 @@ ggplot(dat, aes(x = age, y = outcome, color = group)) +
 
 # Can you extend this example to logistic regression?
 # Group 1
-x1 <- rep(0:5, 20)
-y1 <- rbinom(length(x1))
-qplot(x1, y1)
+set.seed(10)
+number.per.age <- 50
+x1 <- rep(0:5, rep(number.per.age, 6))
+y1 <- c(rbinom(number.per.age, 1, c(0.2)),
+        rbinom(number.per.age, 1, c(0.1)),
+        rbinom(number.per.age, 1, c(0.2)),
+        rbinom(number.per.age, 1, c(0.25)),
+        rbinom(number.per.age, 1, c(0.3)),
+        rbinom(number.per.age, 1, c(0.5))
+        )
+
 
 # Group 2
-x2 <- rep(0:5, 20)
-y2 <- rnorm(length(x2))
-qplot(x2, y2)
+x2 <- x1
+y2 <- rbinom(6*number.per.age, 1, 0.1)
 
 # Combined Group
 age <- c(x1, x2)
@@ -62,3 +69,16 @@ group <- as.factor(c(rep(1, length(x1)), rep(2, length(x1))))
 y <- c(y1, y2)
 
 dat <- data.frame(outcome = y, age = age, group = group)
+
+# Plot data
+plotdata <- ddply(dat, .(group, age), summarize, mean = mean(outcome), se = sd(outcome)/sqrt(number.per.age))
+
+ggplot(data = plotdata, aes(x = age, y = mean, fill = group)) +
+  geom_bar(stat="identity", position = position_dodge()) +
+  geom_errorbar(aes(ymin=mean - se, ymax = mean + se), width=.2, position=position_dodge(.9)) +
+  geom_smooth(method = "lm", se = F)
+
+# Models
+model1 <- glm(outcome ~ age + group, data = dat, family = binomial)
+summary(model1)
+
