@@ -3,11 +3,6 @@
 library(Hmisc)
 library(survey)
 
-# Try not dropping kids then subsetting after
-# Drop all kids older than 5 
-# chis <- chis[chis$srage.p < 6, ]
-
-# chis <- chis[chis$srage.p > 0, ] ## Keep this line if you want to drop 0 yos
 samplesize <- length(chis[,1])
 
 ############
@@ -270,3 +265,6 @@ rm(unins.ever)
 ###############
 rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
 summary(rchis)
+
+# Create subset design object
+rchis05 <- subset(rchis, srage.p < 6)

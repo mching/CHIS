@@ -17,14 +17,7 @@ setwd("~/Dropbox/Mike/CHIS")
 load.project()
 ```
 
-This also runs the script to clean the data, contained within the file `/munge/01-A.R`.
-
-Create new design object subsetting by age less than 6.
-
-```{r}
-rchis05 <- subset(rchis, srage.p < 6)
-```
-
+This also runs the script to clean the data, contained within the file `/munge/01-A.R`. The design object with 0-5 year olds is created by subsetting the design object from the full dataset. The subset design object is called `rchis05`.
 
 Table 1: Univariates
 -------
