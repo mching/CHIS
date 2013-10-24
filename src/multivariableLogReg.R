@@ -43,7 +43,7 @@ cbind(OddsRatio = exp(mvreg.either$coef), exp(confint(mvreg.either)))
 
 #### Interactions
 
-# 
+# Developmental Specialist Only
 mvreg.dev.int <- svyglm(cf46 ~ pedsHiRisk 
                     + male 
                     + srage.p 
@@ -58,6 +58,7 @@ mvreg.dev.int <- svyglm(cf46 ~ pedsHiRisk
 summary(mvreg.dev.int)
 cbind(OddsRatio = exp(mvreg.dev.int$coef), exp(confint(mvreg.dev.int)))
 
+# Speech-language-hearing only
 mvreg.speech.int <- svyglm(cf47 ~ pedsHiRisk 
                     + male 
                     + srage.p 
@@ -72,6 +73,7 @@ mvreg.speech.int <- svyglm(cf47 ~ pedsHiRisk
 summary(mvreg.speech.int)
 cbind(OddsRatio = exp(mvreg.speech.int$coef), exp(confint(mvreg.speech.int)))
 
+# Either referral
 mvreg.either.int <- svyglm(referred ~ pedsHiRisk
                     + male 
                     + srage.p 
