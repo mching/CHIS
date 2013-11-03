@@ -87,3 +87,39 @@ mvreg.either.int <- svyglm(referred ~ pedsHiRisk
                     design = rchis05, family = quasibinomial)
 summary(mvreg.either.int)
 cbind(OddsRatio = exp(mvreg.either.int$coef), exp(confint(mvreg.either.int)))
+
+# Quadratic
+# Take out some covariates
+mvreg.either.quadratic <- svyglm(referred ~ pedsHiRisk +
+                                   # male +
+                                   srage.p +
+                                   # belowpovl +
+                                   # unins.ever +
+                                   # racehp2p +
+                                   # srh.a.i +
+                                   brthwk.p.i +
+                                   pedsHiRisk*srage.p +
+                                   pedsHiRisk*brthwk.p.i
+                                   # I(pedsHiRisk^2*srage.p) +
+                                   # I(pedsHiRisk^2*brthwk.p.i)
+                                   ,
+                                 design = rchis05, family = quasibinomial)
+summary(mvreg.either.quadratic)
+
+# Add quadratic terms
+mvreg.either.quadratic2 <- svyglm(referred ~ pedsHiRisk +
+                                   # male +
+                                   srage.p +
+                                   # belowpovl +
+                                   # unins.ever +
+                                   # racehp2p +
+                                   # srh.a.i +
+                                   brthwk.p.i +
+                                   pedsHiRisk*srage.p +
+                                   pedsHiRisk*brthwk.p.i +
+                                   I(pedsHiRisk^2)*srage.p +
+                                   I(pedsHiRisk^2)*brthwk.p.i
+                                 ,
+                                 design = rchis05, family = quasibinomial)
+summary(mvreg.either.quadratic2)
+table(chis$srage.p)
