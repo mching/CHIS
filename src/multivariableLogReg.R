@@ -1,5 +1,6 @@
 # Table 3: Regression Analyses
-
+library(survey)
+library(ggplot2)
 # Logistic regression of developmental specialist referral only
 mvreg.dev <- svyglm(cf46 ~ pedsHiRisk 
                  + male 
@@ -77,49 +78,54 @@ cbind(OddsRatio = exp(mvreg.speech.int$coef), exp(confint(mvreg.speech.int)))
 mvreg.either.int <- svyglm(referred ~ pedsHiRisk
                     + male 
                     + srage.p 
-                    + belowpovl 
+#                    + belowpovl 
                     + unins.ever 
-                    + racehp2p 
-                    + srh.a.i
+#                    + racehp2p 
+#                    + srh.a.i
                     + brthwk.p.i
                     + pedsHiRisk*srage.p
                     + pedsHiRisk*brthwk.p.i,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.either.int)
-cbind(OddsRatio = exp(mvreg.either.int$coef), exp(confint(mvreg.either.int)))
+
+# Odds ratios at different ages
+
+regTermTest(mvreg.either.int, test.terms = ~ racehp2p + srh.a.i)
+
 
 # Quadratic
-# Take out some covariates
-mvreg.either.quadratic <- svyglm(referred ~ pedsHiRisk +
+# Take out some covariates to simplify model. Only interaction
+mvreg.either.0 <- svyglm(referred ~ pedsHiRisk +
                                    # male +
                                    srage.p +
                                    # belowpovl +
                                    # unins.ever +
                                    # racehp2p +
                                    # srh.a.i +
-                                   brthwk.p.i +
-                                   pedsHiRisk*srage.p +
-                                   pedsHiRisk*brthwk.p.i
-                                   # I(pedsHiRisk^2*srage.p) +
-                                   # I(pedsHiRisk^2*brthwk.p.i)
-                                   ,
-                                 design = rchis05, family = quasibinomial)
-summary(mvreg.either.quadratic)
-
-# Add quadratic terms
-mvreg.either.quadratic2 <- svyglm(referred ~ pedsHiRisk +
-                                   # male +
-                                   srage.p +
-                                   # belowpovl +
-                                   # unins.ever +
-                                   # racehp2p +
-                                   # srh.a.i +
-                                   brthwk.p.i +
-                                   pedsHiRisk*srage.p +
-                                   pedsHiRisk*brthwk.p.i +
-                                   I(pedsHiRisk^2)*srage.p +
-                                   I(pedsHiRisk^2)*brthwk.p.i
+                                   # brthwk.p.i +
+                                   pedsHiRisk*srage.p 
+                                   # pedsHiRisk*brthwk.p.i +
+                                   # I((srage.p)^2) 
+                                   # I((brthwk.p.i)^2)
                                  ,
                                  design = rchis05, family = quasibinomial)
-summary(mvreg.either.quadratic2)
-table(chis$srage.p)
+summary(mvreg.either.0)
+
+# Quadratic age interaction
+mvreg.either.1 <- svyglm(referred ~ pedsHiRisk +
+                           # male +
+                           srage.p +
+                           # belowpovl +
+                           # unins.ever +
+                           # racehp2p +
+                           # srh.a.i +
+                           # brthwk.p.i +
+                           pedsHiRisk*srage.p +
+                         # pedsHiRisk*brthwk.p.i +
+                           I((srage.p)^2)
+                         # I((brthwk.p.i)^2)
+                         ,
+                         design = rchis05, family = quasibinomial)
+summary(mvreg.either.1)
+
+regTermTest(mvreg.either.quadratic, test.terms = ~ pedsHiRisk * srage.p)
