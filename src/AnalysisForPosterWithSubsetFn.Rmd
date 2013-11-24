@@ -44,6 +44,8 @@ svytotal(~male, rchis05)
 sum(svytotal(~male, rchis05))
 svymean(~male, rchis05)
 confint(svymean(~male, rchis05))
+
+cbind(svymean(~male, rchis05), confint(svymean(~male, rchis05)))
 ```
 
 ### Age
@@ -54,8 +56,7 @@ n.age <- length(chis$srage.p)
 mean(chis$srage.p) + qt(0.025, n.age)
 mean(chis$srage.p) + qt(0.975, n.age)
 
-svymean(~srage.p, rchis05)
-confint(svymean(~srage.p, rchis05))
+cbind(svymean(~srage.p, rchis05), confint(svymean(~srage.p, rchis05)))
 ```
 
 ### Birthweight
@@ -68,8 +69,7 @@ n.bw
 mean(chis$brthwk.p.i) + qt(0.025, n.bw)
 mean(chis$brthwk.p.i) + qt(0.975, n.bw)
 
-svymean(~brthwk.p.i, rchis05)
-confint(svymean(~brthwk.p.i, rchis05))
+cbind(svymean(~brthwk.p.i, rchis05), confint(svymean(~brthwk.p.i, rchis05)))
 ```
 
 ### PEDS
@@ -82,8 +82,8 @@ sapply(pedstable, binom.confint, n = sum(pedstable), method = "asy")
 
 svytotal(~peds, rchis05, na.rm = T)
 sum(svytotal(~peds, rchis05, na.rm = T))
-svymean(~peds, rchis05, na.rm = T)
-confint(svymean(~peds, rchis05, na.rm = T))
+
+cbind(svymean(~peds, rchis05, na.rm = T), confint(svymean(~peds, rchis05, na.rm = T)))
 ```
 
 ### Hispanic Ethnicity
@@ -93,8 +93,8 @@ binom.confint(sum(chis$srh.a.i == "YES"), length(chis$srh.a.i), method = "asym")
 
 svytotal(~srh.a.i, rchis05)
 sum(svytotal(~srh.a.i, rchis05))
-svymean(~srh.a.i, rchis05)
-confint(svymean(~srh.a.i, rchis05))
+
+cbind(svymean(~srh.a.i, rchis05), confint(svymean(~srh.a.i, rchis05)))
 
 ```
 
@@ -107,8 +107,8 @@ sapply(racetable, binom.confint, n = sum(racetable), method = "asy")
 
 svytotal(~racehp2p, rchis05)
 sum(svytotal(~racehp2p, rchis05))
-svymean(~racehp2p, rchis05)
-confint(svymean(~racehp2p, rchis05))
+
+cbind(svymean(~racehp2p, rchis05), confint(svymean(~racehp2p, rchis05)))
 ```
 
 ### Lack of Insurance
@@ -119,8 +119,8 @@ binom.confint(ins.table[2], sum(ins.table), method = "asym")
 
 svytotal(~unins.ever, rchis05, na.rm = T)
 sum(svytotal(~unins.ever, rchis05, na.rm = T))
-svymean(~unins.ever, rchis05) 
-confint(svymean(~unins.ever, rchis05))
+
+cbind(svymean(~unins.ever, rchis05), confint(svymean(~unins.ever, rchis05)))
 ```
 
 ### Below Poverty Level
@@ -131,8 +131,8 @@ binom.confint(sum(chis$belowpovl == "Below 100% FPL", na.rm = T), length(!is.na(
 
 svytotal(~belowpovl, rchis05, na.rm = T)
 sum(svytotal(~belowpovl, rchis05, na.rm = T))
-svymean(~belowpovl, rchis05) 
-confint(svymean(~belowpovl, rchis05))
+
+cbind(svymean(~belowpovl, rchis05), confint(svymean(~belowpovl, rchis05)))
 ```
 
 
@@ -146,8 +146,8 @@ binom.confint(sum(chis$cf46 == "Referred", na.rm = T), sum(table(chis$cf46)), me
 
 svytotal(~cf46, rchis05, na.rm = T)
 sum(svytotal(~cf46, rchis05, na.rm = T))
-svymean(~cf46, rchis05, na.rm = T)
-confint(svymean(~cf46, rchis05, na.rm = T))
+
+cbind(svymean(~cf46, rchis05, na.rm = T), confint(svymean(~cf46, rchis05, na.rm = T)))
 ```
 
 ### Referred to Speech, Language, Hearing Evaluation
@@ -160,8 +160,8 @@ binom.confint(sum(chis$cf47 == "Referred", na.rm = T), sum(table(chis$cf47)), me
 
 svytotal(~cf47, rchis05, na.rm = T)
 sum(svytotal(~cf47, rchis05, na.rm = T))
-svymean(~cf47, rchis05, na.rm = T)
-confint(svymean(~cf47, rchis05, na.rm = T))
+
+cbind(svymean(~cf47, rchis05, na.rm = T), confint(svymean(~cf47, rchis05, na.rm = T)))
 ```
 
 ### Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation
@@ -174,8 +174,8 @@ binom.confint(sum(chis$referred == "Yes", na.rm = T), sum(table(chis$referred)),
 
 svytotal(~referred, rchis05, na.rm = T)
 sum(svytotal(~referred, rchis05, na.rm = T))
-svymean(~referred, rchis05, na.rm = T)
-confint(svymean(~referred, rchis05, na.rm = T))
+
+cbind(svymean(~referred, rchis05, na.rm = T), confint(svymean(~referred, rchis05, na.rm = T)))
 ```
 
 Table 2: Unadjusted Bivariate Comparisons
@@ -287,10 +287,13 @@ We can also calculate the unadjusted odds ratios as below. We should probably wr
 model1 <- svyglm(cf46 ~ male, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ male, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ male, design = rchis05, family = quasibinomial)
+stargazer(model1, model2, model3, type = "text",
+          dep.var.labels = c("DS Only", "SLH Only", "Either DS or SLH"))
 
 summary(model1)
 summary(model2)
 summary(model3)
+
 
 cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
 cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
@@ -310,6 +313,8 @@ summary(model3)
 cbind(OddsRatio = exp(model1$coef), exp(confint(model1)))
 cbind(OddsRatio = exp(model2$coef), exp(confint(model2)))
 cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
+
+stargazer(model1, model2, model3, type = "text")
 ```
 
 ### Birthweight
@@ -317,6 +322,8 @@ cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
 model1 <- svyglm(cf46 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ brthwk.p.i, design = rchis05, family = quasibinomial)
+
+stargazer(model1, model2, model3, type = "text")
 
 summary(model1)
 summary(model2)
@@ -333,6 +340,8 @@ model1 <- svyglm(cf46 ~ racehp2p, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ racehp2p, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ racehp2p, design = rchis05, family = quasibinomial)
 
+stargazer(model1, model2, model3, type = "text")
+
 summary(model1)
 summary(model2)
 summary(model3)
@@ -347,6 +356,8 @@ cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
 model1 <- svyglm(cf46 ~ srh.a.i, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ srh.a.i, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ srh.a.i, design = rchis05, family = quasibinomial)
+
+stargazer(model1, model2, model3, type = "text")
 
 summary(model1)
 summary(model2)
@@ -363,6 +374,8 @@ model1 <- svyglm(cf46 ~ belowpovl, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ belowpovl, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ belowpovl, design = rchis05, family = quasibinomial)
 
+stargazer(model1, model2, model3, type = "text")
+
 summary(model1)
 summary(model2)
 summary(model3)
@@ -378,6 +391,8 @@ model1 <- svyglm(cf46 ~ unins.ever, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ unins.ever, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ unins.ever, design = rchis05, family = quasibinomial)
 
+stargazer(model1, model2, model3, type = "text")
+
 summary(model1)
 summary(model2)
 summary(model3)
@@ -392,6 +407,8 @@ cbind(OddsRatio = exp(model3$coef), exp(confint(model3)))
 model1 <- svyglm(cf46 ~ pedsHiRisk, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ pedsHiRisk, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ pedsHiRisk, design = rchis05, family = quasibinomial)
+
+stargazer(model1, model2, model3, type = "text")
 
 summary(model1)
 summary(model2)
