@@ -78,10 +78,10 @@ cbind(OddsRatio = exp(mvreg.speech.int$coef), exp(confint(mvreg.speech.int)))
 mvreg.either.int <- svyglm(referred ~ pedsHiRisk
                     + male 
                     + srage.p 
-#                    + belowpovl 
+                    + belowpovl 
                     + unins.ever 
-#                    + racehp2p 
-#                    + srh.a.i
+                    + racehp2p 
+                    + srh.a.i
                     + brthwk.p.i
                     + pedsHiRisk*srage.p
                     + pedsHiRisk*brthwk.p.i,
