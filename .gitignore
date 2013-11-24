@@ -13,3 +13,6 @@ chis09_child_stata
 *.pdf
 src/figure/
 .DS_Store
+*.docx
+*.xlsx
+*.csv
