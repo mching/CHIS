@@ -6,7 +6,6 @@ logs
 ignore
 graphs
 doc
-Figures
 IRB
 chis09_child_stata
 *.pptx
@@ -17,3 +16,5 @@ src/figure/
 *.xlsx
 *.csv
 *.tex
+*.svg
+*.png
