@@ -14,7 +14,7 @@ by.age.all
 by.age.devo
 by.age.speech
 
-# Interaction by age
+# Figure 1: Association between DS referral and PEDS by Age
 
 svg(filename = "./Figures/Figure1.svg")
 ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)) + 
@@ -23,32 +23,32 @@ ggplot(data = by.age.devo, aes(x = srage.p, y = cf46Referred, fill = pedsHiRisk)
   scale_x_continuous(breaks=0:5) +
   scale_y_continuous(labels=percent) +
   #  scale_fill_brewer(name = "PEDS High Risk") + 
-  scale_fill_grey(name = "PEDS High Risk") +
+  scale_fill_grey(name = "PEDS High Risk", start = 0.5, end = 0.9) +
   xlab("Age (years)") +
   ylab("Percentage Referred") +
-  theme_bw() +
+  theme_bw(base_family = "Times") +
   ggtitle("Percentage Referred to Developmental Specialist by PEDS and Age") + 
   geom_errorbar(aes(ymin=cf46Referred - se2, ymax = cf46Referred + se2),
                 width=.2,                    # Width of the error bars
                 position=position_dodge(.9))
 dev.off()
 
-# svg(filename = "./Figures/Figure1b.svg")
-ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
-  geom_bar(stat="identity", position=position_dodge(), colour="black") +
-  #  geom_smooth(method = "lm") + 
-  #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
-  scale_y_continuous(labels=percent) +
-  scale_fill_brewer(name = "PEDS High Risk") + 
-  #  scale_fill_grey(name = "PEDS High Risk") +
-  xlab("Age (years)") +
-  ylab("Percentage Referred") +
-  theme_bw(base_family = "Times") +
-  ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
-  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
-                width=.2,                    # Width of the error bars
-                position=position_dodge(.9))
-dev.off()
+# # svg(filename = "./Figures/Figure1b.svg")
+# ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+#   geom_bar(stat="identity", position=position_dodge(), colour="black") +
+#   #  geom_smooth(method = "lm") + 
+#   #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+#   scale_y_continuous(labels=percent) +
+#   scale_fill_brewer(name = "PEDS High Risk") + 
+#   #  scale_fill_grey(name = "PEDS High Risk") +
+#   xlab("Age (years)") +
+#   ylab("Percentage Referred") +
+#   theme_bw(base_family = "Times") +
+#   ggtitle("Percentage Referred to Developmental Specialist or Speech-Language-Hearing by PEDS and Age")+ 
+#   geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+#                 width=.2,                    # Width of the error bars
+#                 position=position_dodge(.9))
+# dev.off()
 
 # Interaction by BW
 
@@ -63,14 +63,17 @@ by.lbw.all <- svyby(~referred, ~pedsHiRisk + bw.cut, FUN = svymean, design = rch
 by.lbw.devo <- svyby(~cf46, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
 by.lbw.speech <- svyby(~cf47, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
 
-# svg(filename = "./Figures/Figure2a.svg")
+# Figure 2: Association between SLH and PEDS by Birthweight
+
+svg(filename = "./Figures/Figure2.svg")
 ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk)) + 
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   #  geom_smooth(method = "lm") + 
   #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
   scale_y_continuous(labels=percent) +
   # scale_fill_brewer(name = "PEDS High Risk") + 
-  scale_fill_grey(name = "PEDS High Risk") +
+  scale_fill_grey(name = "PEDS High Risk", start = 0.5, end = 0.9) +
+  # scale_fill_discrete(name = "PEDS High Risk") +
   xlab("Birthweight") +
   ylab("Percentage Referred") +
   theme_bw(base_family = "Times") +
@@ -78,4 +81,43 @@ ggplot(data = by.lbw.speech, aes(x = bw.cut, y = cf47Referred, fill = pedsHiRisk
   geom_errorbar(aes(ymin=cf47Referred - se2, ymax = cf47Referred + se2),
                 width=.2,                    # Width of the error bars
                 position=position_dodge(.9))
-# dev.off()
+dev.off()
+
+# Figure 3: Association between DS/SLH and  PEDS by age
+
+svg(filename = "./Figures/Figure3.svg")
+ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+  #  geom_smooth(method = "lm") + 
+  scale_x_continuous(breaks=0:5) +
+  scale_y_continuous(labels=percent) +
+  #  scale_fill_brewer(name = "PEDS High Risk") + 
+  scale_fill_grey(name = "PEDS High Risk", start = 0.5, end = 0.9) +
+  xlab("Age (years)") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to Developmental Specialist by PEDS and Age") + 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(.9))
+dev.off()
+
+# Figure 4: Association between either DS or SLH referral and PEDS by Birthweight
+
+svg(filename = "./Figures/Figure4.svg")
+ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRisk)) + 
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+  #  geom_smooth(method = "lm") + 
+  #  scale_x_discrete(breaks=seq(0, 10, 2), labels=0:5) +
+  scale_y_continuous(labels=percent) +
+  # scale_fill_brewer(name = "PEDS High Risk") + 
+  scale_fill_grey(name = "PEDS High Risk", start = 0.5, end = 0.9) +
+  # scale_fill_discrete(name = "PEDS High Risk") +
+  xlab("Birthweight") +
+  ylab("Percentage Referred") +
+  theme_bw(base_family = "Times") +
+  ggtitle("Percentage Referred to DS or SLH by PEDS and Birthweight")+ 
+  geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(.9))
+dev.off()
