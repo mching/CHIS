@@ -2,42 +2,48 @@
 library(survey)
 library(ggplot2)
 # Logistic regression of developmental specialist referral only
-mvreg.dev <- svyglm(cf46 ~ pedsHiRisk 
-                 + male 
-                 + srage.p 
-                 + belowpovl 
-                 + unins.ever 
-                 + racehp2p 
-                 + srh.a.i
-                 + brthwk.p.i,
+mvreg.dev <- svyglm(cf46 ~ 
+                      male +
+                      srage.p +
+                      brthwk.p.i +
+                      racehp2p +
+                      srh.a.i +
+                      belowpovl +
+                      unins.ever +
+                      pedsHiRisk
+                    ,
                  design = rchis05, family = quasibinomial)
 summary(mvreg.dev)
 cbind(OddsRatio = exp(mvreg.dev$coef), exp(confint(mvreg.dev)))
 
 
 # Logistic regression of speech-language-hearing referral only
-mvreg.speech <- svyglm(cf47 ~ pedsHiRisk 
-                 + male 
-                 + srage.p 
-                 + belowpovl 
-                 + unins.ever 
-                 + racehp2p 
-                 + srh.a.i
-                 + brthwk.p.i,
+mvreg.speech <- svyglm(cf47 ~ 
+                         male +
+                         srage.p +
+                         brthwk.p.i +
+                         racehp2p +
+                         srh.a.i +
+                         belowpovl +
+                         unins.ever +
+                         pedsHiRisk
+                       ,
                  design = rchis05, family = quasibinomial)
 summary(mvreg.speech)
 cbind(OddsRatio = exp(mvreg.speech$coef), exp(confint(mvreg.speech)))
 
 
 # Logistic regression of referral either to developmental specialist or speech-language-hearing
-mvreg.either <- svyglm(referred ~ pedsHiRisk
-                 + male 
-                 + srage.p 
-                 + belowpovl 
-                 + unins.ever 
-                 + racehp2p 
-                 + srh.a.i
-                 + brthwk.p.i,
+mvreg.either <- svyglm(referred ~ 
+                         male +
+                         srage.p +
+                         brthwk.p.i +
+                         racehp2p +
+                         srh.a.i +
+                         belowpovl +
+                         unins.ever +
+                         pedsHiRisk
+                       ,
                  design = rchis05, family = quasibinomial)
 summary(mvreg.either)
 cbind(OddsRatio = exp(mvreg.either$coef), exp(confint(mvreg.either)))
@@ -45,46 +51,52 @@ cbind(OddsRatio = exp(mvreg.either$coef), exp(confint(mvreg.either)))
 #### Interactions
 
 # Developmental Specialist Only
-mvreg.dev.int <- svyglm(cf46 ~ pedsHiRisk 
-                    + male 
-                    + srage.p 
-                    + belowpovl 
-                    + unins.ever 
-                    + racehp2p 
-                    + srh.a.i
-                    + brthwk.p.i
-                    + pedsHiRisk*srage.p
-                    + pedsHiRisk*brthwk.p.i,
+mvreg.dev.int <- svyglm(cf46 ~ 
+                          male +
+                          srage.p +
+                          brthwk.p.i +
+                          racehp2p +
+                          srh.a.i +
+                          belowpovl +
+                          unins.ever +
+                          pedsHiRisk +
+                          pedsHiRisk*srage.p +
+                          pedsHiRisk*brthwk.p.i
+                        ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.dev.int)
 cbind(OddsRatio = exp(mvreg.dev.int$coef), exp(confint(mvreg.dev.int)))
 
 # Speech-language-hearing only
-mvreg.speech.int <- svyglm(cf47 ~ pedsHiRisk 
-                    + male 
-                    + srage.p 
-                    + belowpovl 
-                    + unins.ever 
-                    + racehp2p 
-                    + srh.a.i
-                    + brthwk.p.i
-                    + pedsHiRisk*srage.p
-                    + pedsHiRisk*brthwk.p.i,
+mvreg.speech.int <- svyglm(cf47 ~  
+                             male +
+                             srage.p +
+                             brthwk.p.i +
+                             racehp2p +
+                             srh.a.i +
+                             belowpovl +
+                             unins.ever +
+                             pedsHiRisk +
+                             pedsHiRisk*srage.p +
+                             pedsHiRisk*brthwk.p.i
+                           ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.speech.int)
 cbind(OddsRatio = exp(mvreg.speech.int$coef), exp(confint(mvreg.speech.int)))
 
 # Either referral
-mvreg.either.int <- svyglm(referred ~ pedsHiRisk
-                    + male 
-                    + srage.p 
-                    + belowpovl 
-                    + unins.ever 
-                    + racehp2p 
-                    + srh.a.i
-                    + brthwk.p.i
-                    + pedsHiRisk*srage.p
-                    + pedsHiRisk*brthwk.p.i,
+mvreg.either.int <- svyglm(referred ~ 
+                             male +
+                             srage.p +
+                             brthwk.p.i +
+                             racehp2p +
+                             srh.a.i +
+                             belowpovl +
+                             unins.ever +
+                             pedsHiRisk +
+                             pedsHiRisk*srage.p +
+                             pedsHiRisk*brthwk.p.i
+                           ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.either.int)
 
