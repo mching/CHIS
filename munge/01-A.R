@@ -2,6 +2,9 @@
 
 library(Hmisc)
 library(survey)
+library(binom)
+library(ggplot2)
+library(scales)
 
 samplesize <- length(chis[,1])
 
