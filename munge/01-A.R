@@ -5,6 +5,7 @@ library(survey)
 library(binom)
 library(ggplot2)
 library(scales)
+library(stargazer)
 
 samplesize <- length(chis[,1])
 
