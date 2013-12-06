@@ -1,24 +1,43 @@
-# Practice calculating OR for play with interactions by recentering continuous variable Age
+# recentering of variables to get ORs
 
-model <- svyglm(referred ~ 
-                             srage.p +
-                             pedsHiRisk +
-                             pedsHiRisk*srage.p 
-                           ,
-                           design = rchis05, family = quasibinomial)
-summary(model)
-cbind(OR = exp(model$coefficients), exp(confint(model)))
+# recenter brthwk.p.i to median
+svyquantile(~brthwk.p.i, design = rchis05, quant = 0.5)
+chis$brthwk.p.i.recenter <- chis$brthwk.p.i - 3.35
 
-vcov.table<- vcov(model)
-var.pedsHiRisk <-vcov.table[3,3]
-var.pHR.age <-vcov.table[2,2]
-cov.pHR.age <-vcov.table[3,2]
+# attach to survey design object
+rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+
+# Create subset design object
+rchis05 <- subset(rchis, srage.p < 6)
+
+####
+# Calculate OR table with median birthweight and method of Hosmer & Lemeshow
+####
+
+mvreg.dev.int <- svyglm(cf46 ~ 
+                          male +
+                          srage.p +
+                          brthwk.p.i.recenter +
+                          racehp2p +
+                          srh.a.i +
+                          belowpovl +
+                          unins.ever +
+                          pedsHiRisk +
+                          pedsHiRisk*srage.p +
+                          pedsHiRisk*brthwk.p.i.recenter
+                        ,
+                        design = rchis05, family = quasibinomial)
+
+vcov.table <- vcov(mvreg.dev.int)
+var.pedsHiRisk <-vcov.table[12,12]
+var.pHR.age <-vcov.table[13,13]
+cov.pHR.age <-vcov.table[13,12]
 
 a <- 0:5
 se.int.coef <- (var.pedsHiRisk + a^2 * var.pHR.age + 2 * a * cov.pHR.age)^0.5
 
-beta.peds <- summary(model)$coefficients[3, 1]
-beta.pHR.age <- summary(model)$coefficients[4, 1]
+beta.peds <- summary(mvreg.dev.int)$coefficients[12, 1]
+beta.pHR.age <- summary(mvreg.dev.int)$coefficients[13, 1]
 
 log.odds.ratio <- beta.peds + beta.pHR.age * a 
 log.odds.ratio.lower <- log.odds.ratio + qnorm(0.025) * se.int.coef
@@ -29,29 +48,62 @@ dimnames(odds.ratio.table)[[1]] <- 0:5
 dimnames(odds.ratio.table)[[2]] <- c("OR", "lower", "upper")
 odds.ratio.table
 
-model <- svyglm(referred ~ 
-                  I(srage.p - 1) +
-                  pedsHiRisk +
-                  pedsHiRisk*I(srage.p - 1) 
-                ,
-                design = rchis05, family = quasibinomial)
-summary(model)
-cbind(OR = exp(model$coefficients), exp(confint(model)))
+####
+# Recenter method from Jaccard
+####
 
-# This result is not quite the same because of the confidence intervals. Try again with brand new recentered age variable.
+modelRecenterAge <- function(age = 0) {
+  # Recenter age
+  chis$srage.p.recenter <- chis$srage.p - age
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(cf46 ~ 
+                            male +
+                            srage.p.recenter +
+                            brthwk.p.i.recenter +
+                            racehp2p +
+                            srh.a.i +
+                            belowpovl +
+                            unins.ever +
+                            pedsHiRisk +
+                            pedsHiRisk*srage.p.recenter +
+                            pedsHiRisk*brthwk.p.i.recenter
+                          ,
+                          design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
 
-chis$age1 <- chis$srage.p - 1
-rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
-summary(rchis)
+a <- modelRecenterAge(age = 5)
+summary(a)
 
-# Create subset design object
-rchis05 <- subset(rchis, srage.p < 6)
+c(exp(a$coef[12]), exp(confint(a)[12,]))
 
-model <- svyglm(referred ~ 
-                  age1 +
-                  pedsHiRisk +
-                  pedsHiRisk*age1
-                ,
-                design = rchis05, family = quasibinomial)
-summary(model)
-cbind(OR = exp(model$coefficients), exp(confint(model)))
+modelList <- lapply(as.list(0:5), modelRecenterAge)
+
+OR_CI <- data.frame(age = 0:5, OR = NA, lower = NA, upper = NA)
+OR_CI[2] <- sapply(modelList, function(x) exp(x$coef[12]))
+OR_CI[3] <- sapply(modelList, function(x) exp(confint(x)[12,1]))
+OR_CI[4] <- sapply(modelList, function(x) exp(confint(x)[12,2]))
+
+OR_CI
+
+sePEDS <- rep(NA, 6)
+
+for(i in 1:6) {
+  sePEDS[i] <- summary(modelList[[i]])$coef[12,2]
+}
+
+sePEDS
+
+# There is something about how confint.svyglm calculates the confidence 
+# intervals that is different from the Hosmer & Lemeshow model. I would use the 
+# confint.svyglm method for now but it is risky since I don't really know what
+# the computer is doing to get the CI while I know exactly how I am getting the
+# Hosmer/Lemeshow CIs.
