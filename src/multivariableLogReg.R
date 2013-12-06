@@ -100,6 +100,25 @@ mvreg.either.int <- svyglm(referred ~
                     design = rchis05, family = quasibinomial)
 summary(mvreg.either.int)
 
+# Using AIC to compare models does not work because svrepglm is not fitted by
+# maximum likelihood. See:
+# https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
+
+regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            #            + pedsHiRisk * unins.ever
+)
+
+regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            #            + pedsHiRisk * unins.ever
+)
+
+regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
+            + pedsHiRisk * brthwk.p.i 
+            #            + pedsHiRisk * unins.ever
+)
+
 # Odds ratios at different ages
 
 regTermTest(mvreg.either.int, test.terms = ~ racehp2p + srh.a.i)
