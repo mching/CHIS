@@ -34,14 +34,12 @@ model3 <- svyglm(referred ~ srage.p, design = rchis05, family = quasibinomial)
 outputTable()
 
 ### Birthweight
-```{r}
 model1 <- svyglm(cf46 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ brthwk.p.i, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ brthwk.p.i, design = rchis05, family = quasibinomial)
 outputTable()
 
 ### Race
-```{r}
 model1 <- svyglm(cf46 ~ racehp2p, design = rchis05, family = quasibinomial)
 model2 <- svyglm(cf47 ~ racehp2p, design = rchis05, family = quasibinomial)
 model3 <- svyglm(referred ~ racehp2p, design = rchis05, family = quasibinomial)
