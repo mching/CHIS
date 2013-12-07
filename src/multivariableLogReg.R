@@ -65,7 +65,6 @@ mvreg.dev.int <- svyglm(cf46 ~
                         ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.dev.int)
-cbind(OddsRatio = exp(mvreg.dev.int$coef), exp(confint(mvreg.dev.int)))
 
 # Speech-language-hearing only
 mvreg.speech.int <- svyglm(cf47 ~  
