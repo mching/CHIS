@@ -1,4 +1,7 @@
 # recentering of variables to get ORs
+library(survey)
+library(stargazer)
+library(ggplot2)
 
 # recenter brthwk.p.i to median
 svyquantile(~brthwk.p.i, design = rchis05, quant = 0.5)
@@ -107,3 +110,148 @@ sePEDS
 # confint.svyglm method for now but it is risky since I don't really know what
 # the computer is doing to get the CI while I know exactly how I am getting the
 # Hosmer/Lemeshow CIs.
+
+#######################
+# referred interaction
+#######################
+
+modelRecenterAge.ref <- function(age = 0) {
+  # Recenter age
+  chis$srage.p.recenter <- chis$srage.p - age
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(referred ~ 
+                    male +
+                    srage.p.recenter +
+                    brthwk.p.i.recenter +
+                    racehp2p +
+                    srh.a.i +
+                    belowpovl +
+                    unins.ever +
+                    pedsHiRisk +
+                    pedsHiRisk*srage.p.recenter +
+                    pedsHiRisk*brthwk.p.i.recenter
+                  ,
+                  design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
+
+modelList.referred <- lapply(as.list(0:5), modelRecenterAge.ref)
+
+OR_CI.ref <- data.frame(age = 0:5, OR = NA, lower = NA, upper = NA)
+OR_CI.ref[2] <- sapply(modelList.referred, function(x) exp(x$coef[12]))
+OR_CI.ref[3] <- sapply(modelList.referred, function(x) exp(confint(x)[12,1]))
+OR_CI.ref[4] <- sapply(modelList.referred, function(x) exp(confint(x)[12,2]))
+
+OR_CI.ref
+
+######################
+# Birthweight*PEDS interaction for speech (cf47)
+######################
+
+# recenter srage.p to median 2 years old
+svyquantile(~srage.p, design = rchis05, quant = 0.5)
+chis$srage.p.recenter <- chis$srage.p - 2
+
+# attach to survey design object
+rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+
+# Create subset design object
+rchis05 <- subset(rchis, srage.p < 6)
+
+modelRecenterBW.speech <- function(bw = 0) {
+  # Recenter age
+  chis$brthwk.p.i.recenter <- chis$brthwk.p.i - bw
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(cf47 ~ 
+                    male +
+                    srage.p.recenter +
+                    brthwk.p.i.recenter +
+                    racehp2p +
+                    srh.a.i +
+                    belowpovl +
+                    unins.ever +
+                    pedsHiRisk +
+                    pedsHiRisk*srage.p.recenter +
+                    pedsHiRisk*brthwk.p.i.recenter
+                  ,
+                  design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
+
+modelList.speech <- lapply(as.list(1:5), modelRecenterBW.speech)
+summary(modelList.speech[[1]])
+
+OR_CI.speech.bw <- data.frame(BW = 1:5, OR = NA, lower = NA, upper = NA)
+OR_CI.speech.bw[2] <- sapply(modelList.speech, function(x) exp(x$coef[12]))
+OR_CI.speech.bw[3] <- sapply(modelList.speech, function(x) exp(confint(x)[12,1]))
+OR_CI.speech.bw[4] <- sapply(modelList.speech, function(x) exp(confint(x)[12,2]))
+
+OR_CI.speech.bw
+
+######################
+# Birthweight*PEDS interaction for DS/SLH (referred)
+######################
+
+# recenter srage.p to median 2 years old
+svyquantile(~srage.p, design = rchis05, quant = 0.5)
+chis$srage.p.recenter <- chis$srage.p - 2
+
+# attach to survey design object
+rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+
+# Create subset design object
+rchis05 <- subset(rchis, srage.p < 6)
+
+modelRecenterBW.ref <- function(bw = 0) {
+  # Recenter age
+  chis$brthwk.p.i.recenter <- chis$brthwk.p.i - bw
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(referred ~ 
+                    male +
+                    srage.p.recenter +
+                    brthwk.p.i.recenter +
+                    racehp2p +
+                    srh.a.i +
+                    belowpovl +
+                    unins.ever +
+                    pedsHiRisk +
+                    pedsHiRisk*srage.p.recenter +
+                    pedsHiRisk*brthwk.p.i.recenter
+                  ,
+                  design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
+
+modelList.ref.bw <- lapply(as.list(1:5), modelRecenterBW.ref)
+summary(modelList.ref.bw[[3]])
+
+OR_CI.ref.bw <- data.frame(BW = 1:5, OR = NA, lower = NA, upper = NA)
+OR_CI.ref.bw[2] <- sapply(modelList.ref.bw, function(x) exp(x$coef[12]))
+OR_CI.ref.bw[3] <- sapply(modelList.ref.bw, function(x) exp(confint(x)[12,1]))
+OR_CI.ref.bw[4] <- sapply(modelList.ref.bw, function(x) exp(confint(x)[12,2]))
+
+OR_CI.ref.bw
