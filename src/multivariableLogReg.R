@@ -81,7 +81,7 @@ mvreg.speech.int <- svyglm(cf47 ~
                            ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.speech.int)
-cbind(OddsRatio = exp(mvreg.speech.int$coef), exp(confint(mvreg.speech.int)))
+
 
 # Either referral
 mvreg.either.int <- svyglm(referred ~ 
@@ -103,17 +103,17 @@ summary(mvreg.either.int)
 # maximum likelihood. See:
 # https://stat.ethz.ch/pipermail/r-help/2012-July/319508.html
 
-regTermTest(model2int, test.terms = ~ pedsHiRisk * srage.p 
+regTermTest(mvreg.dev.int, test.terms = ~ pedsHiRisk * srage.p + pedsHiRisk
+             + pedsHiRisk * brthwk.p.i 
+            # + pedsHiRisk * unins.ever
+)
+
+regTermTest(mvreg.speech.int, test.terms = ~ pedsHiRisk * srage.p 
             + pedsHiRisk * brthwk.p.i 
             #            + pedsHiRisk * unins.ever
 )
 
-regTermTest(model3int, test.terms = ~ pedsHiRisk * srage.p 
-            + pedsHiRisk * brthwk.p.i 
-            #            + pedsHiRisk * unins.ever
-)
-
-regTermTest(model1int, test.terms = ~ pedsHiRisk * srage.p 
+regTermTest(mvreg.either.int, test.terms = ~ # pedsHiRisk * srage.p 
             + pedsHiRisk * brthwk.p.i 
             #            + pedsHiRisk * unins.ever
 )
