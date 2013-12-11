@@ -51,11 +51,17 @@ dimnames(odds.ratio.table)[[1]] <- 0:5
 dimnames(odds.ratio.table)[[2]] <- c("OR", "lower", "upper")
 odds.ratio.table
 
-####
+###############################
+###############################
 # Recenter method from Jaccard
-####
+###############################
+###############################
 
-modelRecenterAge <- function(age = 0) {
+###################
+# DS referred, Age
+###################
+
+modelRecenterAge.DS <- function(age = 0) {
   # Recenter age
   chis$srage.p.recenter <- chis$srage.p - age
   
@@ -83,19 +89,19 @@ modelRecenterAge <- function(age = 0) {
   model
 }
 
-a <- modelRecenterAge(age = 5)
+a <- modelRecenterAge.DS(age = 5)
 summary(a)
 
 c(exp(a$coef[12]), exp(confint(a)[12,]))
 
-modelList <- lapply(as.list(0:5), modelRecenterAge)
+modelList <- lapply(as.list(0:5), modelRecenterAge.DS)
 
-OR_CI <- data.frame(age = 0:5, OR = NA, lower = NA, upper = NA)
-OR_CI[2] <- sapply(modelList, function(x) exp(x$coef[12]))
-OR_CI[3] <- sapply(modelList, function(x) exp(confint(x)[12,1]))
-OR_CI[4] <- sapply(modelList, function(x) exp(confint(x)[12,2]))
+OR_CI_DS <- data.frame(age = 0:5, OR = NA, lower = NA, upper = NA)
+OR_CI_DS[2] <- sapply(modelList, function(x) exp(x$coef[12]))
+OR_CI_DS[3] <- sapply(modelList, function(x) exp(confint(x)[12,1]))
+OR_CI_DS[4] <- sapply(modelList, function(x) exp(confint(x)[12,2]))
 
-OR_CI
+OR_CI_DS
 
 sePEDS <- rep(NA, 6)
 
@@ -111,8 +117,48 @@ sePEDS
 # the computer is doing to get the CI while I know exactly how I am getting the
 # Hosmer/Lemeshow CIs.
 
+###################
+# SLH referred, Age
+###################
+
+modelRecenterAge.SLH <- function(age = 0) {
+  # Recenter age
+  chis$srage.p.recenter <- chis$srage.p - age
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(cf47 ~ 
+                    male +
+                    srage.p.recenter +
+                    brthwk.p.i.recenter +
+                    racehp2p +
+                    srh.a.i +
+                    belowpovl +
+                    unins.ever +
+                    pedsHiRisk +
+                    pedsHiRisk*srage.p.recenter +
+                    pedsHiRisk*brthwk.p.i.recenter
+                  ,
+                  design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
+
+modelList <- lapply(as.list(0:5), modelRecenterAge.SLH)
+
+OR_CI_SLH <- data.frame(age = 0:5, OR = NA, lower = NA, upper = NA)
+OR_CI_SLH[2] <- sapply(modelList, function(x) exp(x$coef[12]))
+OR_CI_SLH[3] <- sapply(modelList, function(x) exp(confint(x)[12,1]))
+OR_CI_SLH[4] <- sapply(modelList, function(x) exp(confint(x)[12,2]))
+
+OR_CI_SLH
 #######################
-# referred interaction
+# referred interaction, age
 #######################
 
 modelRecenterAge.ref <- function(age = 0) {
