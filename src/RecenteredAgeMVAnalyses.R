@@ -199,6 +199,58 @@ OR_CI.ref[4] <- sapply(modelList.referred, function(x) exp(confint(x)[12,2]))
 OR_CI.ref
 
 ######################
+# Birthweight*PEDS interaction for dev (cf46)
+######################
+
+# recenter srage.p to median 2 years old
+svyquantile(~srage.p, design = rchis05, quant = 0.5)
+chis$srage.p.recenter <- chis$srage.p - 2
+
+# attach to survey design object
+rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+
+# Create subset design object
+rchis05 <- subset(rchis, srage.p < 6)
+
+modelRecenterBW.DS <- function(bw = 0) {
+  # Recenter birthweight
+  chis$brthwk.p.i.recenter <- chis$brthwk.p.i - bw
+  
+  # Attach to survey design object
+  rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
+  
+  # Create subset design object
+  rchis05.recenter <- subset(rchis, srage.p < 6)
+  
+  # Create survey logistic regression model
+  model <- svyglm(cf46 ~ 
+                    male +
+                    srage.p.recenter +
+                    brthwk.p.i.recenter +
+                    racehp2p +
+                    srh.a.i +
+                    belowpovl +
+                    unins.ever +
+                    pedsHiRisk +
+                    pedsHiRisk*srage.p.recenter +
+                    pedsHiRisk*brthwk.p.i.recenter
+                  ,
+                  design = rchis05.recenter, family = quasibinomial)
+  # Return model
+  model
+}
+
+modelList.DS <- lapply(as.list(1:5), modelRecenterBW.DS)
+summary(modelList.speech[[1]])
+
+OR_CI.DS.bw <- data.frame(BW = 1:5, OR = NA, lower = NA, upper = NA)
+OR_CI.DS.bw[2] <- sapply(modelList.DS, function(x) exp(x$coef[12]))
+OR_CI.DS.bw[3] <- sapply(modelList.DS, function(x) exp(confint(x)[12,1]))
+OR_CI.DS.bw[4] <- sapply(modelList.DS, function(x) exp(confint(x)[12,2]))
+
+OR_CI.DS.bw
+
+######################
 # Birthweight*PEDS interaction for speech (cf47)
 ######################
 
@@ -213,7 +265,7 @@ rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 +
 rchis05 <- subset(rchis, srage.p < 6)
 
 modelRecenterBW.speech <- function(bw = 0) {
-  # Recenter age
+  # Recenter birthweight
   chis$brthwk.p.i.recenter <- chis$brthwk.p.i - bw
   
   # Attach to survey design object
@@ -265,7 +317,7 @@ rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 +
 rchis05 <- subset(rchis, srage.p < 6)
 
 modelRecenterBW.ref <- function(bw = 0) {
-  # Recenter age
+  # Recenter birthweight
   chis$brthwk.p.i.recenter <- chis$brthwk.p.i - bw
   
   # Attach to survey design object
