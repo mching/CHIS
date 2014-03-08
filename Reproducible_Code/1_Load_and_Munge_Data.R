@@ -116,10 +116,7 @@ rm(referred)
 # Generate race variable
 ###############
 
-# Lots of choices
-
-# Census 2000 definition
-# table(chis$racecn.p)
+# Lots of choices are available in CHIS. We used the UCLA CHPR definition.
 
 # UCLA CHPR definition
 chis$racehp2p <- factor(chis$racehp2p)
@@ -179,17 +176,10 @@ chis$brthwk.p.i <- brthwk.p.impute
 rm(brthwk.p.impute)
 
 ###############
-# Clean insured variable
-# ins64 is type of current insurance coverage for <65 yos
-###############
-# table(chis$ins64)
-chis$ins64 <- factor(chis$ins64) # get rid of empty categories
-# table(chis$ins64)
-
-###############
 # Clean uninsured variable
 # uninsany
 ###############
+
 # table(chis$uninsany)
 chis$uninsany <- factor(chis$uninsany) # get rid of empty categories
 # table(chis$uninsany)
@@ -197,11 +187,8 @@ chis$uninsany <- factor(chis$uninsany) # get rid of empty categories
 unins.ever <- rep(NA, samplesize)
 unins.ever[chis$uninsany == levels(chis$uninsany)[1] | chis$uninsany == levels(chis$uninsany)[2]] <- 1
 unins.ever[chis$uninsany == levels(chis$uninsany)[3]] <- 0
-# table(unins.ever)
 unins.ever <- factor(unins.ever, levels = c(0,1), labels = c("Never uninsured", "Some or All Year uninsured"))
-# table(unins.ever)
 chis$unins.ever <- unins.ever
-table(chis$unins.ever, useNA = "if")
 rm(unins.ever)
 
 
@@ -211,6 +198,5 @@ rm(unins.ever)
 rchis <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
 summary(rchis)
 
-# Create subset design object
+# Create subset design object to ensure proper standard errors
 rchis05 <- subset(rchis, srage.p < 6)
-# of those high risk, how many were referred?
