@@ -46,8 +46,8 @@ p <- ggplot(data = by.age.all, aes(x = srage.p, y = referredYes, fill = pedsHiRi
       geom_errorbar(aes(ymin=referredYes - se2, ymax = referredYes + se2),
                     width=.2,                    # Width of the error bars
                     position=position_dodge(.9))
-p <- p + theme(text = element_text(colour = pptcolor), axis.text = element_text(colour = pptcolor),
-          rect = element_rect(colour = pptcolor))
+# p <- p + theme(text = element_text(colour = pptcolor), axis.text = element_text(colour = pptcolor),
+#          rect = element_rect(colour = pptcolor))
 ggsave("./Figures/PASFigure1.pdf", plot = p, scale = 0.5)
 
 # Figure 2: Association between either DS or SLH referral and PEDS by Birthweight
