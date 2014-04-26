@@ -1,5 +1,5 @@
 # Figures
-# Do not run in Mac OSX unless you have X11. You will crash RStudio.
+# Do not run in RStudio in Mac OSX unless you have X11. You will crash RStudio.
 
 library(ggplot2)
 library(survey)
