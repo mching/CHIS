@@ -55,14 +55,17 @@ cbind(svymean(~belowpovl, rchis05), confint(svymean(~belowpovl, rchis05)))
 
 ### Referred to Developmental Specialist
 svytotal(~cf46, rchis05, na.rm = T)
+svyvar(~as.numeric(cf46), rchis05, na.rm = T)
 cbind(svymean(~cf46, rchis05, na.rm = T), confint(svymean(~cf46, rchis05, na.rm = T)))
 
 ### Referred to Speech, Language, Hearing Evaluation
 svytotal(~cf47, rchis05, na.rm = T)
+svyvar(~as.numeric(cf47), rchis05, na.rm = T)
 cbind(svymean(~cf47, rchis05, na.rm = T), confint(svymean(~cf47, rchis05, na.rm = T)))
 
 ### Referred to either Developmental Specialist or Speech, Language, Hearing Evaluation
 svytotal(~referred, rchis05, na.rm = T)
+svyvar(~as.numeric(referred), rchis05, na.rm = T)
 cbind(svytotal(~referred, rchis05, na.rm = T), svymean(~referred, rchis05, na.rm = T), confint(svymean(~referred, rchis05, na.rm = T)))
 
 ### Generate 2x2 table of referrals to DS vs referrals to SLH
