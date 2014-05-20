@@ -112,6 +112,8 @@ referred <- factor(referred, levels = c(0, 1), labels = c("No", "Yes"))
 chis$referred <- referred 
 rm(referred)
 
+study.sample.size <- sum(table(chis$referred, chis$pedsHiRisk))
+
 ###############
 # Generate race variable
 ###############
