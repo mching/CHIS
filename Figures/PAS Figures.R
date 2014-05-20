@@ -53,17 +53,6 @@ ggsave("./Figures/PASFigure1.pdf", plot = p, scale = 0.5)
 # Figure 2: Association between either DS or SLH referral and PEDS by Birthweight
 # Interaction by BW
 
-# Low birth weight cuts
-
-chis$bw.cut <- cut(chis$brthwk.p.i, breaks = c(0, 2.5, 1000), labels = c("LBW", "normal BW"))
-
-# Attach bw.cut variable to survey definition
-rchis05 <- svrepdesign(chis[ , -( 212 + ( 1 : 80 ))], repweights = chis[ , ( 212 + ( 1 : 80 ))], weights = chis$rakedw0, combined.weights = TRUE, scale = 1, rscales = rep(1,80), type="other")
-
-by.lbw.all <- svyby(~referred, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
-by.lbw.devo <- svyby(~cf46, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
-by.lbw.speech <- svyby(~cf47, ~pedsHiRisk + bw.cut, FUN = svymean, design = rchis05, na.rm = T)
-
 p2 <- ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRisk)) + 
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   #  geom_smooth(method = "lm") + 
@@ -80,3 +69,4 @@ p2 <- ggplot(data = by.lbw.all, aes(x = bw.cut, y = referredYes, fill = pedsHiRi
                 width=.2,                    # Width of the error bars
                 position=position_dodge(.9))
 ggsave("./Figures/PASFigure2.pdf", plot = p2, scale = 0.5)
+ggsave("./Figures/PASFigure2.png", plot = p2)
