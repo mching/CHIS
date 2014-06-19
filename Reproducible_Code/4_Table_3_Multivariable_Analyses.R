@@ -11,6 +11,7 @@
 # referred is the combined DS or SLH referral
 ####################################################################################
 
+# TODO: Fix the Dependent variable names in the stargazer output below and see if you can combine them into one table.
 
 ############
 # Section 1: Multivariable Logistic Regression without interaction terms
@@ -18,14 +19,14 @@
 
 # Logistic regression of developmental specialist referral only
 mvreg.dev <- svyglm(cf46 ~ 
+                      pedsHiRisk +
                       male +
                       srage.p +
                       brthwk.p.i +
                       racehp2p +
                       srh.a.i +
                       belowpovl +
-                      unins.ever +
-                      pedsHiRisk
+                      unins.ever
                     ,
                     design = rchis05, family = quasibinomial)
 summary(mvreg.dev)
@@ -34,14 +35,14 @@ cbind(OddsRatio = exp(mvreg.dev$coef), exp(confint(mvreg.dev)))
 
 # Logistic regression of speech-language-hearing referral only
 mvreg.speech <- svyglm(cf47 ~ 
+                         pedsHiRisk +
                          male +
                          srage.p +
                          brthwk.p.i +
                          racehp2p +
                          srh.a.i +
                          belowpovl +
-                         unins.ever +
-                         pedsHiRisk
+                         unins.ever
                        ,
                        design = rchis05, family = quasibinomial)
 summary(mvreg.speech)
@@ -50,14 +51,14 @@ cbind(OddsRatio = exp(mvreg.speech$coef), exp(confint(mvreg.speech)))
 
 # Logistic regression of referral either to developmental specialist or speech-language-hearing
 mvreg.either <- svyglm(referred ~ 
+                         pedsHiRisk +
                          male +
                          srage.p +
                          brthwk.p.i +
                          racehp2p +
                          srh.a.i +
                          belowpovl +
-                         unins.ever +
-                         pedsHiRisk
+                         unins.ever 
                        ,
                        design = rchis05, family = quasibinomial)
 summary(mvreg.either)
@@ -157,24 +158,26 @@ stargazer(mvreg.dev.int, mvreg.speech.int, mvreg.either.int, type = "text")
 # All models
 stargazer(mvreg.dev, mvreg.dev.int, mvreg.speech, mvreg.speech.int, mvreg.either, mvreg.either.int, 
           type = "text",
-          title = "Table: Multivariable Logistic Regression Models",
-          # out = "./Tables/Table3.txt",
+          title = "Supplemental Table: Multivariable Logistic Regression Models",
+          out = "./Tables/SupplementalTable.txt",
           ci = F,
           digits = 2,
           single.row = F, 
           star.cutoffs = c(0.05, 0.01, 0.001),
-          dep.var.labels = c("DS", "SLH", "Either DS or SLH"), 
-          covariate.labels = c("Male",
-                               "Age",
-                               "Birthweight (kg)",
-                               "Latino",
-                               "Asian",
-                               "African American",
-                               "Pacific Islander/Other",
-                               "Non-Hispanic",
-                               "Below 100% Federal Poverty Level",
-                               "Uninsured in Past Year", 
-                               "PEDS High Risk",
-                               "PEDS High Risk * Age",
-                               "PEDS High Risk * Birthweight")
+          dep.var.labels = c("DS", "SLH", "Either DS or SLH"),
+          covariate.labels = c(
+            "PEDS High Risk",
+            "PEDS High Risk * Age",
+            "PEDS High Risk * Birthweight",
+            "Male",
+            "Age",
+            "Birthweight (kg)",
+            "Latino",
+            "Asian",
+            "African American",
+            "Pacific Islander/Other",
+            "Non-Hispanic",
+            "Below 100% Federal Poverty Level",
+            "Uninsured in Past Year"            
+            )
 )
